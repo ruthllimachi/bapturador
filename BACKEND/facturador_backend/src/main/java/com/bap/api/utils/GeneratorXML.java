@@ -296,16 +296,17 @@ public class GeneratorXML {
             //String master = sw.toString();
 
             String master = sw.toString();
-            String target = "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";
+//            String target = "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";
+            String target = "xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"";
             String replacement = "";
             String xml = master.replace(target, replacement);
 
             target = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
             replacement = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
             xml = xml.replace(target, replacement);
-
-            target = "<facturaElectronicaComercialExportacion>";
-            replacement = "<facturaElectronicaComercialExportacion xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";
+                       
+            target = "<facturaElectronicaComercialExportacion >";
+            replacement = "<facturaElectronicaComercialExportacion xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";                                   
             xml = xml.replace(target, replacement);
             guardarXML(xml, nombreFileXml);
             return xml;
