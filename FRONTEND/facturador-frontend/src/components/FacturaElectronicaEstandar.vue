@@ -249,7 +249,7 @@
         .catch(e => { console.error(e)});                    
       },
       getColor (anulado) {
-        console.log("anulado es ", anulado);
+        //console.log("anulado es ", anulado);
         if (anulado == "SI") return 'red'
         else return 'green'        
       },

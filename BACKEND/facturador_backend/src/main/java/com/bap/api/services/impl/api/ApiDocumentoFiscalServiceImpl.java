@@ -92,6 +92,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import com.bap.api.services.api.ApiFacturaComercialExportacionService;
+import com.bap.api.services.api.ApiHistoricoService;
 import com.bap.api.services.api.ApiNotaFiscalCreditoDebitoService;
 import com.bap.api.services.par.ParCondicionService;
 import com.bap.api.services.par.ParTipoTransaccionService;
@@ -192,6 +193,9 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
 
     @Autowired
     ParCondicionService parCondicionService;
+
+    @Autowired
+    ApiHistoricoService apiHistoricoService;
 
     @Override
     public Respuesta registroFacturaEstandarIndividual(DocumentoFiscalDTO documentoFiscalDTO) {
@@ -358,7 +362,6 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                                                             RespuestaSincronizacion respuestaValida = validaFacturaEstandarIndividual(apiFactura, solicitud);
                                                                                                                             if (respuestaValida != null) {
                                                                                                                                 if (respuestaValida.isTransaccion()) {
-
                                                                                                                                     apiFacturaService.registrar(apiFactura);
                                                                                                                                     parMensajeFacturador = parMensajeFacturadorService.leerPorCodigo("37");
                                                                                                                                     respuesta = new Respuesta();
@@ -369,6 +372,7 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                                                                     respuesta = new Respuesta();
                                                                                                                                     respuesta.setTransaccion(false);
                                                                                                                                     respuesta.setListaParMensajeServicio(respuestaValida.getListaParMensajeServicio());
+                                                                                                                                    apiHistoricoService.registraHistorico(apiFactura, respuestaValida.getListaParMensajeServicio());
                                                                                                                                     return respuesta;
                                                                                                                                 }
                                                                                                                             } else {
