@@ -213,7 +213,7 @@
                             <generatePackage>com.api.fesc_39118</generatePackage>
                             <schemas>
                                 <schema>
-                                    <url>https://presiatservicios.impuestos.gob.bo:39118/FacturacionSincronizacion?wsdl=IServicioFacturacionSincronizacion.wsdl</url>
+                                    <url>https://presiatservicios.impuestos.gob.bo:39118/FacturacionSincronizacion?wsdl=IServicioFacturacionSincronizacion.wsdl</url>                                         
                                 </schema>
                             </schemas>
                         </configuration>

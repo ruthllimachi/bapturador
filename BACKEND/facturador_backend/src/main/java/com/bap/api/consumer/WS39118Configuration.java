@@ -46,7 +46,8 @@ public class WS39118Configuration {
         webServiceTemplate.setMarshaller(jaxb2Marshaller());
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
                                                   
-        webServiceTemplate.setDefaultUri("https://presiatservicios.impuestos.gob.bo:39118/FacturacionSincronizacion?wsdl");
+        webServiceTemplate.setDefaultUri("https://presiatservicios.impuestos.gob.bo:39118/FacturacionSincronizacion?wsdl=IServicioFacturacionSincronizacion.wsdl");
+//        webServiceTemplate.setDefaultUri("https://presiatservicios.impuestos.gob.bo:39118/FacturacionSincronizacion?wsdl");
         webServiceTemplate.setMessageSender(httpComponentsMessageSender());
 
         return webServiceTemplate;

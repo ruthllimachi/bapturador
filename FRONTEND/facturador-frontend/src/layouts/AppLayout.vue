@@ -64,17 +64,7 @@
                 <v-list-item-icon>
                   <v-icon>info</v-icon>
                 </v-list-item-icon>
-              </v-list-item>
-              <v-list-item link>
-                <v-list-item-content>
-                  <v-list-item-title>Validaci&oacute;n </v-list-item-title>
-                  <v-list-item-subtitle>Solicitud</v-list-item-subtitle>
-                  <v-list-item-subtitle>Nuevo Producto</v-list-item-subtitle>
-                 </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>info</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+              </v-list-item>             
             </v-list-group>
             <v-list-item link :to="{path: '/fechora'}">
               <v-list-item-icon>

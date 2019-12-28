@@ -142,7 +142,7 @@ export default {
   methods: {
     sincronizar() {
       this.progress = true;
-      let login = "admin";
+      let login = sessionStorage.getItem("usuario");
       ApiConfiguracionService.sincronizarFechaHora(login)
         .then(response => {
           this.progress = false;

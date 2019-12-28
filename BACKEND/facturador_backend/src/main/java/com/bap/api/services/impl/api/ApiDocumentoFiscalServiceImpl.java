@@ -359,6 +359,7 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                                                             apiFactura.setNombreArchivoXmlFirmado(respuestaRecepcion.getFileXMLFirmado());
                                                                                                                             apiFactura.setFechaEnvio(respuestaRecepcion.getFechaEnvio());
                                                                                                                             apiFactura.setUtcFechaEnvio(respuestaRecepcion.getUtcFechaEnvio());
+                                                                                                                            Thread.sleep(1000);
                                                                                                                             RespuestaSincronizacion respuestaValida = validaFacturaEstandarIndividual(apiFactura, solicitud);
                                                                                                                             if (respuestaValida != null) {
                                                                                                                                 if (respuestaValida.isTransaccion()) {
@@ -847,6 +848,8 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                                                                     apiFacturaComercialExportacion.setNombreArchivoXmlFirmado(respuestaRecepcion.getFileXMLFirmado());
                                                                                                                                     /////apiFacturaComercialExportacion.setFechaEnvio(respuestaRecepcion.getFechaEnvio());
                                                                                                                                     //apiFacturaComercialExportacion.setUtcFechaEnvio(respuestaRecepcion.getUtcFechaEnvio());
+                                                                                                                                    
+                                                                                                                                    Thread.sleep(1000);
                                                                                                                                     RespuestaSincronizacion respuestaValida = validaFacturaComercialExportacion(apiFacturaComercialExportacion, solicitud);
                                                                                                                                     if (respuestaValida != null) {
                                                                                                                                         if (respuestaValida.isTransaccion()) {
@@ -1293,6 +1296,8 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                             apiNotaFiscalCreditoDebito.setNombreArchivoXmlFirmado(respuestaRecepcion.getFileXMLFirmado());
                                                                                             apiNotaFiscalCreditoDebito.setFechaEnvio(respuestaRecepcion.getFechaEnvio());
                                                                                             apiNotaFiscalCreditoDebito.setUtcFechaEnvio(respuestaRecepcion.getUtcFechaEnvio());
+                                                                                            
+                                                                                            Thread.sleep(1000);
                                                                                             RespuestaSincronizacion respuestaValida = validaNotaFiscalCreditoDebito(apiNotaFiscalCreditoDebito, solicitud);
                                                                                             if (respuestaValida != null) {
                                                                                                 if (respuestaValida.isTransaccion()) {

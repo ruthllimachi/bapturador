@@ -143,12 +143,12 @@ export default {
     },       
     methods: {
        sincronizar(){  
-          console.log("iingreso a sincronizacion");
+          //console.log("iingreso a sincronizacion");
            this.progress = true;
-           let login = 'admin';
+            let login = sessionStorage.getItem("usuario");
             ApiSincronizacionService.sincronizacionDiaria(login)
             .then((response) => {   
-              console.log("dato es", response.data);
+              //console.log("dato es", response.data);
                 this.progress = false;
                 this.lista = response.data;
                 this.dialog = true;                    
