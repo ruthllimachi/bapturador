@@ -9,50 +9,52 @@
         <v-card-title class="text-center justify-center py-6">
           <h1 class="display-1 basil--text">Registro Punto de Venta</h1>
         </v-card-title>
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <v-combobox
-            v-model="apiSucursal"
-            :items="listaSucursal"
-            item-text="nombreSucursal"
-            item-value="codigoSucursal"
-            label="Sucursales"           
-            :rules="rules"
-            required
-          ></v-combobox>
+        <v-card-text>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-combobox
+              v-model="apiSucursal"
+              :items="listaSucursal"
+              item-text="nombreSucursal"
+              item-value="codigoSucursal"
+              label="Sucursales"
+              :rules="rules"
+              required
+            ></v-combobox>
 
-          <v-text-field
-            v-model="nombrePuntoVenta"
-            label="Nombre Punto Venta"
-            :rules="rules"
-            required
-          ></v-text-field>
+            <v-text-field
+              v-model="nombrePuntoVenta"
+              label="Nombre Punto Venta"
+              :rules="rules"
+              required
+            ></v-text-field>
 
-          <v-text-field v-model="descripcion" label="Descripcion" :rules="rules" required></v-text-field>
+            <v-text-field v-model="descripcion" label="Descripcion" :rules="rules" required></v-text-field>
 
-          <v-combobox
-            v-model="parTipoPuntoVenta"
-            :items="listaTipoPuntoVenta"
-            item-text="descripcion"
-            item-value="codigo"
-            label="Tipo Punto Venta"
-            :rules="rules"
-            required
-          ></v-combobox>
+            <v-combobox
+              v-model="parTipoPuntoVenta"
+              :items="listaTipoPuntoVenta"
+              item-text="descripcion"
+              item-value="codigo"
+              label="Tipo Punto Venta"
+              :rules="rules"
+              required
+            ></v-combobox>
 
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="registrar"
-          >Registrar Punto de Venta</v-btn>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4"
+              @click="registrar"
+            >Registrar Punto de Venta</v-btn>
 
-          <br />
-          <br />
-          <br />
-          <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
-          <br />
-          <br />
-        </v-form>
+            <br />
+            <br />
+            <br />
+            <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
+            <br />
+            <br />
+          </v-form>
+        </v-card-text>
       </v-card>
     </v-flex>
     <v-dialog v-model="dialog" width="500">
@@ -115,20 +117,20 @@ export default {
     //let idEmpresa = 1;
     let login = sessionStorage.getItem("usuario");
     AdministradorService.getParametros(login)
-      .then(response => {        
+      .then(response => {
         AdministradorService.getAdmEmpresa(response.data.idEmpresa)
           .then(response => {
-            this.admEmpresa = response.data[0];            
+            this.admEmpresa = response.data[0];
             ApiSucursalService.listaByEmpresaTieneCuisVigente(
-            this.admEmpresa.idEmpresa
+              this.admEmpresa.idEmpresa
             )
-            .then(response => {              
-              this.listaSucursal = response.data;
-              console.log("lista sucursales ", this.listaSucursal);
-            })
-            .catch(e => {
-              console.error(e);
-            });
+              .then(response => {
+                this.listaSucursal = response.data;
+                console.log("lista sucursales ", this.listaSucursal);
+              })
+              .catch(e => {
+                console.error(e);
+              });
           })
           .catch(e => {
             console.error(e);

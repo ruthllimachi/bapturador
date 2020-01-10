@@ -46,6 +46,7 @@ import com.bap.api.model.par.ParCondicion;
 import com.bap.api.model.par.ParLeyendaFactura;
 import com.bap.api.model.par.ParMensajeFacturador;
 import com.bap.api.model.par.ParMensajeServicio;
+import com.bap.api.model.par.ParMotivoAnulacion;
 import com.bap.api.model.par.ParPaisOrigen;
 import com.bap.api.model.par.ParTipoDocumentoFiscal;
 import com.bap.api.model.par.ParTipoDocumentoSector;
@@ -95,6 +96,7 @@ import com.bap.api.services.api.ApiFacturaComercialExportacionService;
 import com.bap.api.services.api.ApiHistoricoService;
 import com.bap.api.services.api.ApiNotaFiscalCreditoDebitoService;
 import com.bap.api.services.par.ParCondicionService;
+import com.bap.api.services.par.ParMotivoAnulacionService;
 import com.bap.api.services.par.ParTipoTransaccionService;
 
 /**
@@ -196,6 +198,9 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
 
     @Autowired
     ApiHistoricoService apiHistoricoService;
+
+    @Autowired
+    ParMotivoAnulacionService parMotivoAnulacionService;
 
     @Override
     public Respuesta registroFacturaEstandarIndividual(DocumentoFiscalDTO documentoFiscalDTO) {
@@ -848,7 +853,7 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                                                                     apiFacturaComercialExportacion.setNombreArchivoXmlFirmado(respuestaRecepcion.getFileXMLFirmado());
                                                                                                                                     /////apiFacturaComercialExportacion.setFechaEnvio(respuestaRecepcion.getFechaEnvio());
                                                                                                                                     //apiFacturaComercialExportacion.setUtcFechaEnvio(respuestaRecepcion.getUtcFechaEnvio());
-                                                                                                                                    
+
                                                                                                                                     Thread.sleep(1000);
                                                                                                                                     RespuestaSincronizacion respuestaValida = validaFacturaComercialExportacion(apiFacturaComercialExportacion, solicitud);
                                                                                                                                     if (respuestaValida != null) {
@@ -1296,7 +1301,7 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                                                             apiNotaFiscalCreditoDebito.setNombreArchivoXmlFirmado(respuestaRecepcion.getFileXMLFirmado());
                                                                                             apiNotaFiscalCreditoDebito.setFechaEnvio(respuestaRecepcion.getFechaEnvio());
                                                                                             apiNotaFiscalCreditoDebito.setUtcFechaEnvio(respuestaRecepcion.getUtcFechaEnvio());
-                                                                                            
+
                                                                                             Thread.sleep(1000);
                                                                                             RespuestaSincronizacion respuestaValida = validaNotaFiscalCreditoDebito(apiNotaFiscalCreditoDebito, solicitud);
                                                                                             if (respuestaValida != null) {
@@ -1633,7 +1638,9 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                     RespuestaSincronizacion repuestaAnulacionFactura = solicitudAnulaFacturaEstandar(solicitud);
                                                     if (repuestaAnulacionFactura != null) {
                                                         if (repuestaAnulacionFactura.isTransaccion()) {
+                                                            ParMotivoAnulacion parMotivoAnulacion = parMotivoAnulacionService.leerPorCodigo(Long.valueOf(solicitud.getCodigoMotivo()));
                                                             apiFactura.setCodigoRecepcionAnulado(repuestaAnulacionFactura.getCodigoRecepcion());
+                                                            apiFactura.setParMotivoAnulacion(parMotivoAnulacion);
                                                             solicitud.setCodigoRecepcion(repuestaAnulacionFactura.getCodigoRecepcion());
                                                             RespuestaSincronizacion respuestaValida = verificaAnulacionFacturaEstandar(solicitud);
                                                             if (respuestaValida != null) {
@@ -1868,6 +1875,8 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                             RespuestaSincronizacion respuestaValida = verificaAnulacionFacturaComercialExportacion(solicitud);
                                                             if (respuestaValida != null) {
                                                                 if (respuestaValida.isTransaccion()) {
+                                                                    ParMotivoAnulacion parMotivoAnulacion = parMotivoAnulacionService.leerPorCodigo(Long.valueOf(solicitud.getCodigoMotivo()));
+                                                                    apiFacturaComercialExportacion.setParMotivoAnulacion(parMotivoAnulacion);
                                                                     apiFacturaComercialExportacion.setUsuarioModificacion(cabeceraDTO.getUsuario());
                                                                     ParCondicion parCondicion = parCondicionService.leerPorCodigo(EnumParCondicion.CONDICION_SI.getCodigo());
                                                                     apiFacturaComercialExportacion.setParCondicion(parCondicion);
@@ -2095,6 +2104,8 @@ public class ApiDocumentoFiscalServiceImpl implements ApiDocumentoFiscalService 
                                                     RespuestaSincronizacion repuestaAnulacionNotaFiscalCreditoDebito = solicitudAnulaNotaFiscalCreditoDebito(solicitud);
                                                     if (repuestaAnulacionNotaFiscalCreditoDebito != null) {
                                                         if (repuestaAnulacionNotaFiscalCreditoDebito.isTransaccion()) {
+                                                            ParMotivoAnulacion parMotivoAnulacion = parMotivoAnulacionService.leerPorCodigo(Long.valueOf(solicitud.getCodigoMotivo()));
+                                                            apiNotaFiscalCreditoDebito.setParMotivoAnulacion(parMotivoAnulacion);
                                                             apiNotaFiscalCreditoDebito.setCodigoRecepcionAnulado(repuestaAnulacionNotaFiscalCreditoDebito.getCodigoRecepcion());
                                                             solicitud.setCodigoRecepcion(repuestaAnulacionNotaFiscalCreditoDebito.getCodigoRecepcion());
                                                             RespuestaSincronizacion respuestaValida = verificaAnulacionNotaFiscalCreditoDebito(solicitud);

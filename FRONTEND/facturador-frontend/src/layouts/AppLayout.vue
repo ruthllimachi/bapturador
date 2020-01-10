@@ -56,7 +56,7 @@
                   <v-icon>info</v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <v-list-item link>
+              <v-list-item  link :to="{path: '/newproducto'}">
                 <v-list-item-content>
                   <v-list-item-title>Solicitud Nuevo</v-list-item-title>
                   <v-list-item-subtitle>Producto</v-list-item-subtitle>
@@ -97,17 +97,7 @@
                 <v-list-item-icon>
                   <v-icon>info</v-icon>
                 </v-list-item-icon>
-              </v-list-item>
-              <v-list-item link>
-                <v-list-item-content>
-                  <v-list-item-title>Cierre de </v-list-item-title>
-                  <v-list-item-subtitle>Operaciones</v-list-item-subtitle>
-                  <v-list-item-subtitle>Sistema</v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>info</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+              </v-list-item>            
               <v-list-item link :to="{path: '/rptovta'}">
                 <v-list-item-content>
                   <v-list-item-title>Registro de</v-list-item-title>

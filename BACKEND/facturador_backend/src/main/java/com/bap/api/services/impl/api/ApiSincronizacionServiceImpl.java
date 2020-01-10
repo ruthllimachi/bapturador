@@ -1361,72 +1361,91 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
     }
 
     @Override
-    public Respuesta39118 solicitudNuevoProducto(String login) {
-        SolicitudCliente solicitudCliente = admConsultasService.wsSin(login, null);
-        Respuesta39118 respuesta = null;
-        if (solicitudCliente != null) {
+    public RespuestaSincronizacion solicitudNuevoProducto(String login, String descripcion) {
+        SolicitudCliente solicitud = admConsultasService.wsSin(login, null);
+        RespuestaSincronizacion respuesta = null;
+        if (solicitud != null) {
             long codigo = consumerWS39118.verificarComunicacion();
-            respuesta = new Respuesta39118();
-            List<ParMensajeServicio> lista = new ArrayList<>();
             if (codigo == 66) {
-                respuesta = consumerWS39118.recepcionSolicitudNuevoValorProducto(solicitudCliente);
-                if (!respuesta.isTransaccion()) {
-                    respuesta.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
-                        long r = res.getCodigoMensaje();
-                        ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
-                        lista.add(parMensajeServicio);
-                    });
-                }
+                solicitud.setDescripcion(descripcion);
+                respuesta = recepcionSolicitudNuevoValorProducto(solicitud);
             } else {
+                List<ParMensajeServicio> lista = new ArrayList<>();
                 ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(codigo);
                 lista.add(parMensajeServicio);
+                respuesta = new RespuestaSincronizacion();
+                respuesta.setListaParMensajeServicio(lista);
             }
         }
         return respuesta;
     }
 
-    @Override
-    public Respuesta39118 validacionSolicitudNuevoProducto(String login, int codigoSolicitud) {
-        SolicitudCliente solicitud = admConsultasService.wsSin(login, null);
-        solicitud.setCodigoSolicitud(codigoSolicitud);
-        Respuesta39118 respuesta = null;
-        if (solicitud != null) {
-            long codigo = consumerWS39118.verificarComunicacion();
-            respuesta = new Respuesta39118();
-            List<ParMensajeServicio> lista = new ArrayList<>();
-            if (codigo == 66) {
-                respuesta = consumerWS39118.validacionSolicitudNuevoValorProducto(solicitud);
-                if (respuesta.isTransaccion()) {
-                    List<ApiItem> listaDB = apiItemService.listarPorIdEmpresa(solicitud.getIdEmpresa());
-                    boolean swExiste = true;
-                    for (ApiItem item : listaDB) {
-                        if (respuesta.getCodigoProducto().longValue() == item.getCodigoProductoSin().longValue()) {
-                            swExiste = false;
-                            break;
-                        }
-                    }
-                    if (swExiste) {
-                        ApiItem item = new ApiItem();
-                        item.setCodigoProductoSin(respuesta.getCodigoProducto());
-                        item.setDescripcion(respuesta.getDescripcionProducto());
-                        item.setParActividad(parActividadService.leerPorCodigo(Long.valueOf(respuesta.getCodigoActividad())));
-                        item.setUsuarioAlta(login);
-                        item.setIdEmpresa(solicitud.getIdEmpresa());
-                        item.setFechaAlta(new Date());
-                        apiItemService.registrar(item);
-                    }
-
-                } else {
-                    respuesta.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
-                        long r = res.getCodigoMensaje();
-                        ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
-                        lista.add(parMensajeServicio);
-                    });
-                }
+    private RespuestaSincronizacion recepcionSolicitudNuevoValorProducto(SolicitudCliente solicitud) {
+        RespuestaSincronizacion respuesta = null;
+        try {
+            Respuesta39118 respuesta39118 = consumerWS39118.recepcionSolicitudNuevoValorProducto(solicitud);
+            if (respuesta39118.isTransaccion()) {
+                solicitud.setCodigoSolicitud(respuesta39118.getCodigoSolicitud().intValue());
+                Thread.sleep(1000000);
+                respuesta = validacionSolicitudNuevoValorProducto(solicitud);
             } else {
-                ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(codigo);
-                lista.add(parMensajeServicio);
+                List<ParMensajeServicio> lista = new ArrayList<>();
+                System.out.println("Tamaño es " + respuesta39118.getListaRespuestaCodigosMensajesSoapDto().size());
+                respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                    long r = res.getCodigoMensaje();
+                    ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                    lista.add(parMensajeServicio);
+                });
             }
+        } catch (Exception e) {
+            System.out.println("###### Error " + e.getMessage());
+        }
+        return respuesta;
+    }
+
+    private RespuestaSincronizacion validacionSolicitudNuevoValorProducto(SolicitudCliente solicitud) {
+        RespuestaSincronizacion respuesta = null;
+        Respuesta39118 respuesta39118 = consumerWS39118.validacionSolicitudNuevoValorProducto(solicitud);
+        if (respuesta39118.isTransaccion()) {
+            if (respuesta39118.getCodigoProducto() != null) {
+                List<ApiItem> listaDB = apiItemService.listarPorIdEmpresa(solicitud.getIdEmpresa());
+                boolean swExiste = true;
+                for (ApiItem item : listaDB) {
+                    if (respuesta39118.getCodigoProducto().longValue() == item.getCodigoProductoSin().longValue()) {
+                        swExiste = false;
+                        break;
+                    }
+                }
+                if (swExiste) {
+                    ApiItem item = new ApiItem();
+                    item.setCodigoProductoSin(respuesta39118.getCodigoProducto());
+                    item.setDescripcion(respuesta39118.getDescripcionProducto());
+                    item.setParActividad(parActividadService.leerPorCodigo(Long.valueOf(respuesta39118.getCodigoActividad())));
+                    item.setUsuarioAlta(solicitud.getUsuario());
+                    item.setIdEmpresa(solicitud.getIdEmpresa());
+                    item.setFechaAlta(new Date());
+                    apiItemService.registrar(item);
+                }
+                respuesta.setTransaccion(true);
+            } else {
+                List<ParMensajeServicio> lista = new ArrayList<>();
+                respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                    long r = res.getCodigoMensaje();
+                    ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                    lista.add(parMensajeServicio);
+                });
+                respuesta = new RespuestaSincronizacion();
+                respuesta.setListaParMensajeServicio(lista);
+            }
+        } else {
+            List<ParMensajeServicio> lista = new ArrayList<>();
+            respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                long r = res.getCodigoMensaje();
+                ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                lista.add(parMensajeServicio);
+            });
+            respuesta = new RespuestaSincronizacion();
+            respuesta.setListaParMensajeServicio(lista);
         }
         return respuesta;
     }

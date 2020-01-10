@@ -111,6 +111,14 @@ const router = new Router({
       }
     },
     {
+      path: '/newproducto',
+      name: 'sycrsolicitud',
+      component: () => import(/* webpackChunkName: "newproducto" */ './views/SolicitudNuevoProducto.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
       path: '/dosificacion',
       name: 'dosificacion',
       component: () => import(/* webpackChunkName: "dosificacion" */ './views/Dosificacion.vue'),

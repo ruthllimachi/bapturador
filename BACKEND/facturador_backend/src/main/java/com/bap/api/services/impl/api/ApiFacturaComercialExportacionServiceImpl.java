@@ -50,6 +50,7 @@ public class ApiFacturaComercialExportacionServiceImpl implements ApiFacturaCome
         if (obj != null) {
             obj.setParCondicion(t.getParCondicion());
             obj.setCodigoRecepcionAnulado(t.getCodigoRecepcionAnulado());
+            obj.setParMotivoAnulacion(t.getParMotivoAnulacion());
             obj.setUsuarioModificacion("admin");
             obj.setFechaModificacion(new Date());
             return repo.save(t);

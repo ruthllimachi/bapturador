@@ -1,9 +1,5 @@
 package com.bap.api.model.par;
 
-
-import com.bap.api.configurate.OUI;
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

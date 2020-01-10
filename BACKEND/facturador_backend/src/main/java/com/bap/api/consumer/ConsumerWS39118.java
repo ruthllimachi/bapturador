@@ -739,6 +739,7 @@ public class ConsumerWS39118 {
         solicitudValorNuevo.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
         solicitudValorNuevo.setCuis(solicitudCliente.getCuis());
         solicitudValorNuevo.setNit(solicitudCliente.getNitEmpresa());
+        solicitudValorNuevo.setDescripcion(solicitudCliente.getDescripcion());
 
         RecepcionSolicitudNuevoValorProducto request = objectFactory.createRecepcionSolicitudNuevoValorProducto();
         request.setSolicitudValorNuevo(solicitudValorNuevo);

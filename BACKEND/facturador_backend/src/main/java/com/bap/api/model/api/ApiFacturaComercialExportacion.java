@@ -8,6 +8,7 @@ package com.bap.api.model.api;
 import com.bap.api.configurate.AbstractAudit;
 import com.bap.api.model.par.ParCondicion;
 import com.bap.api.model.par.ParLeyendaFactura;
+import com.bap.api.model.par.ParMotivoAnulacion;
 import com.bap.api.model.par.ParPaisOrigen;
 import com.bap.api.model.par.ParTipoEmision;
 import com.bap.api.model.par.ParTipoMetodoPago;
@@ -187,6 +188,10 @@ public class ApiFacturaComercialExportacion extends AbstractAudit {
 
     @Column(name = "codigo_recepcion_anulado")
     private Long codigoRecepcionAnulado;
+
+    @ManyToOne()
+    @JoinColumn(name = "codigo_motivo_anulacion", referencedColumnName = "codigo", nullable = true, foreignKey = @ForeignKey(name = "none"))
+    private ParMotivoAnulacion parMotivoAnulacion;
 
     @OneToMany(mappedBy = "apiFacturaComercialExportacion", cascade = {CascadeType.ALL, CascadeType.MERGE,
         CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -807,5 +812,19 @@ public class ApiFacturaComercialExportacion extends AbstractAudit {
      */
     public void setCodigoRecepcionAnulado(Long codigoRecepcionAnulado) {
         this.codigoRecepcionAnulado = codigoRecepcionAnulado;
+    }
+
+    /**
+     * @return the parMotivoAnulacion
+     */
+    public ParMotivoAnulacion getParMotivoAnulacion() {
+        return parMotivoAnulacion;
+    }
+
+    /**
+     * @param parMotivoAnulacion the parMotivoAnulacion to set
+     */
+    public void setParMotivoAnulacion(ParMotivoAnulacion parMotivoAnulacion) {
+        this.parMotivoAnulacion = parMotivoAnulacion;
     }
 }

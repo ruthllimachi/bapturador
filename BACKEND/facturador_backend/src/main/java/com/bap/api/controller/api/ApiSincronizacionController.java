@@ -40,7 +40,7 @@ public class ApiSincronizacionController {
     private ApiSincronizacionService servicio;
 
     @GetMapping
-    public List<ApiSincronizacion> listar() {        
+    public List<ApiSincronizacion> listar() {
         return servicio.listar();
     }
 
@@ -69,9 +69,9 @@ public class ApiSincronizacionController {
     @GetMapping("/sincronizacionDiaria/{login}")
     public ResponseEntity<List<RespuestaSincronizacion>> sincronizacionDiaria(@PathVariable("login") String login) {
         List<RespuestaSincronizacion> lista = servicio.sincronizacionDiaria(login);
-        if (lista.isEmpty()){
-             throw new ModelNotFoundException("Error en la red u otro");
-        } 
+        if (lista.isEmpty()) {
+            throw new ModelNotFoundException("Error en la red u otro");
+        }
         return new ResponseEntity<List<RespuestaSincronizacion>>(lista, HttpStatus.OK);
     }
 
@@ -81,6 +81,15 @@ public class ApiSincronizacionController {
         if (obj == null) {
             throw new ModelNotFoundException("Error en la red u otro");
         }
-        return new ResponseEntity<RespuestaSincronizacion>(obj, HttpStatus.OK);        
+        return new ResponseEntity<RespuestaSincronizacion>(obj, HttpStatus.OK);
+    }
+
+    @GetMapping("/solicitaNuevoProducto/{login}/{descripcion}")
+    public ResponseEntity<RespuestaSincronizacion> solicitaNuevoProducto(@PathVariable("login") String login, @PathVariable("descripcion") String descripcion) {
+        RespuestaSincronizacion obj = servicio.solicitudNuevoProducto(login, descripcion);
+        if (obj == null) {
+            throw new ModelNotFoundException("Error en la red u otro");
+        }
+        return new ResponseEntity<RespuestaSincronizacion>(obj, HttpStatus.OK);
     }
 }
