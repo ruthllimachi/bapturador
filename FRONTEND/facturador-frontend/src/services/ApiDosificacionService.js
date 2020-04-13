@@ -2,8 +2,11 @@ import Api from '@/services/Api'
 
 export default {
     ///ApiDosificacion
-    solicitudCuisSucursal(dato){
+    solicitudCuis(dato){
         return Api().post("/api/apiDosificacion/solicitudCuis", dato);
+    },
+    cierreOperacion(dato){
+        return Api().post("/api/apiDosificacion/cierreOperacion", dato);
     },
     dosificacionVigente(login){
         return Api().get(`/api/apiDosificacion/getDosificacionVigente/${login}`);

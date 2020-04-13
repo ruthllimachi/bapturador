@@ -1,6 +1,6 @@
 <template>
   <div align="center">
-    <v-flex xs7>
+    <v-flex xs12>
       <v-data-table
         :headers="headers"
         :items="items"
@@ -9,7 +9,7 @@
       >
           <template v-slot:top>
               <v-toolbar flat color="white">
-                 <v-toolbar-title>Producto Homologado</v-toolbar-title>
+                 <v-toolbar-title>Producto/Servicios</v-toolbar-title>
                  <v-spacer></v-spacer>
                  <v-dialog v-model="dialog" max-width="1000px">
                    <template v-slot:activator="{ on }">
@@ -176,25 +176,25 @@ export default {
             AdministradorService.getParametros(login)
             .then(response => {
               ApiClienteService.getApiProductsByCompany(response.data.idEmpresa)
-                  .then(response => {
-                      this.listaApiItems = response.data;
-                  })
-                  .catch(e => { console.error(e)});
+              .then(response => {
+                  this.listaApiItems = response.data;
+              })
+              .catch(e => { console.error(e)});
 
-               ApiClienteService.getApiHomologado()
-                    .then(response => {
-                      this.items = response.data;
-                    })
-                    .catch(e => {
-                      console.error(e);
-                    });
-                    ParametrosService.getParUnidadMedida()
-                      .then(response => {
-                        this.listaParUnidadMedida = response.data;
-                      })
-                      .catch(e => {
-                        console.error(e);
-                      });
+              ApiClienteService.getApiHomologado()
+              .then(response => {
+                this.items = response.data;
+              })
+              .catch(e => {
+                console.error(e);
+              });
+              ParametrosService.getParUnidadMedida()
+                .then(response => {
+                  this.listaParUnidadMedida = response.data;
+                })
+                .catch(e => {
+                  console.error(e);
+                });
             })
             .catch(e => { console.error(e)});
 

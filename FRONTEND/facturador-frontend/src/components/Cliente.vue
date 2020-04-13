@@ -1,6 +1,6 @@
 <template>
 <div align="center">
-<v-flex xs7>
+<v-flex xs11>
   <v-data-table
     :headers="headers"
     :items="items"

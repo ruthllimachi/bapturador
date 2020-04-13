@@ -1,5 +1,5 @@
 <template>
-  <SincronizacionDiaria />
+  <SincronizacionDiaria/>
 </template>
 
 <script>

@@ -33,12 +33,9 @@
           <v-btn color="deep-purple accent-4" text @click="sincronizar">Sincronizar</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
-        <br />
-        <br />
-        <br />
-        <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
-        <br />
-        <br />
+        <v-container style="height: 200px;">
+          <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
+        </v-container>
       </v-card>
     </v-flex>
     <v-dialog v-model="dialog" width="500">

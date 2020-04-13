@@ -10,8 +10,7 @@ export default {
     getAdmEmpresa(idEmpresa){
         return Api().get("/admin/admEmpresa", { params: { idEmpresa: idEmpresa }});
     },
-    getParametros(login){
-        // return Api().get("/admin/admUsuario/getParametros", { params: { login: login }});
+    getParametros(login){    
         return Api().get(`/admin/admUsuario/getParametros/${login}`);
     },
     getEmpresaAll(){

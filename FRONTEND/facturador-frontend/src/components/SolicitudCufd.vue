@@ -33,12 +33,9 @@
           <v-btn color="deep-purple accent-4" text @click="solicitar">Solicitud CUFD</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
-        <br />
-        <br />
-        <br />
-        <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
-        <br />
-        <br />
+        <v-container style="height: 200px;">
+          <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
+        </v-container>
       </v-card>
     </v-flex>
     <v-dialog v-model="dialog" width="500">
@@ -60,8 +57,13 @@
               </tr>
             </tbody>
           </v-simple-table>
+
+            <v-text-field
+              v-model="parMensajeFacturador.descripcion"
+              label="Respuesta"
+              disabled
+            ></v-text-field>
         </v-card-text>
-        <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="dialog = false; error = ''">Continuar</v-btn>
@@ -77,6 +79,7 @@ import AdministradorService from "../services/AdministradorService";
 import ApiDosificacion from "../models/ApiDosificacion";
 import AdmSistema from "../models/AdmSistema";
 import AdmEmpresa from "../models/AdmEmpresa";
+import ParMensajeFacturador from "../models/ParMensajeFacturador";
 
 export default {
   data() {
@@ -85,8 +88,9 @@ export default {
       admEmpresa: AdmEmpresa,
       apiDosificacion: ApiDosificacion,
       dialog: false,
-      snackbar: false,
+      snackbar: false,      
       listaParMensajeServicio: [],
+      parMensajeFacturador: ParMensajeFacturador,
       progress: false,
       msg: "",
       error: ""
@@ -144,14 +148,14 @@ export default {
       this.progress = true;
       let login = sessionStorage.getItem("usuario");
       ApiConfiguracionService.solicitudCufd(login)
-        .then(response => {
+        .then(response => {                                 
           this.progress = false;
           if (response.data.transaccion) {
-            this.snackbar = true;
-            this.msg = response.data.codigoCufd;
-          } else {
-            this.listaParMensajeServicio =
-              response.data.listaParMensajeServicio;
+            this.snackbar = true;         
+            this.msg = "CUFD sincronizado"   
+          } else {            
+            this.listaParMensajeServicio = response.data.listaParMensajeServicio;      
+            this.parMensajeFacturador = response.data.parMensajeFacturador;
             this.dialog = true;
           }
         })

@@ -47,8 +47,8 @@ const router = new Router({
       }
     },
     {
-      path: '/ptoventa',
-      name: 'ptoventa',
+      path: '/puntoVenta',
+      name: 'puntoVenta',
       component: () => import(/* webpackChunkName: "ptoventa" */ './views/PuntoVenta.vue'),
       meta: {
         autentificado: true
@@ -63,17 +63,41 @@ const router = new Router({
       }
     },
     {
-      path: '/cuis',
-      name: 'cuis',
-      component: () => import(/* webpackChunkName: "cuis" */ './views/SolicitudCuis.vue'),
+      path: '/cuisSucursal',
+      name: 'cuisSucursal',
+      component: () => import(/* webpackChunkName: "cuisSucursal" */ './views/SolicitudCuisSucursal.vue'),
       meta: {
         autentificado: true
       }
     },
     {
-      path: '/rptovta',
-      name: 'rptovta',
-      component: () => import(/* webpackChunkName: "rptovta" */ './views/RegistroPuntoVenta.vue'),
+      path: '/cuisPuntoVenta',
+      name: 'cuisPuntoVenta',
+      component: () => import(/* webpackChunkName: "cuisPuntoVenta" */ './views/SolicitudCuisPuntoVenta.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/registroPuntoVenta',
+      name: 'registroPuntoVenta',
+      component: () => import(/* webpackChunkName: "registroPuntoVenta" */ './views/RegistroPuntoVenta.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/consultaPuntoVenta',
+      name: 'consultaPuntoVenta',
+      component: () => import(/* webpackChunkName: "consultaPuntoVenta" */ './views/ConsultaPuntoVenta.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/cierrePuntoVenta',
+      name: 'cierrePuntoVenta',
+      component: () => import(/* webpackChunkName: "cierrePuntoVenta" */ './views/CierrePuntoVenta.vue'),
       meta: {
         autentificado: true
       }
@@ -87,41 +111,73 @@ const router = new Router({
       }
     },
     {
-      path: '/fechora',
-      name: 'fechora',
-      component: () => import(/* webpackChunkName: "fechora" */ './views/SincronizarFecha.vue'),
+      path: '/sincronizacionFecha',
+      name: 'sincronizacionFecha',
+      component: () => import(/* webpackChunkName: "sincronizacionFecha" */ './views/SincronizarFecha.vue'),
       meta: {
         autentificado: true
       }
     },
     {
-      path: '/sycrdiaria',
-      name: 'sycrdiaria',
-      component: () => import(/* webpackChunkName: "sycrdiaria" */ './views/SincronizacionDiaria.vue'),
+      path: '/sincronizacionDiaria',
+      name: 'sincronizacionDiaria',
+      component: () => import(/* webpackChunkName: "sincronizacionDiaria" */ './views/SincronizacionDiaria.vue'),
       meta: {
         autentificado: true
       }
     },
     {
-      path: '/sycrsolicitud',
-      name: 'sycrsolicitud',
-      component: () => import(/* webpackChunkName: "sycrsolicitud" */ './views/SincronizacionSolicitud.vue'),
+      path: '/sincronizacionSolicitud',
+      name: 'sincronizacionSolicitud',
+      component: () => import(/* webpackChunkName: "sincronizacionSolicitud" */ './views/SincronizacionSolicitud.vue'),
       meta: {
         autentificado: true
       }
     },
     {
-      path: '/newproducto',
-      name: 'sycrsolicitud',
-      component: () => import(/* webpackChunkName: "newproducto" */ './views/SolicitudNuevoProducto.vue'),
+      path: '/nuevoProducto',
+      name: 'nuevoProducto',
+      component: () => import(/* webpackChunkName: "nuevoProducto" */ './views/SolicitudNuevoProducto.vue'),
       meta: {
         autentificado: true
       }
     },
     {
-      path: '/dosificacion',
-      name: 'dosificacion',
-      component: () => import(/* webpackChunkName: "dosificacion" */ './views/Dosificacion.vue'),
+      path: '/validaNuevoProducto',
+      name: 'validaNuevoProducto',
+      component: () => import(/* webpackChunkName: "validaNuevoProducto" */ './views/ValidaNuevoProducto.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/dosificacionSucursal',
+      name: 'dosificacionSucursal',
+      component: () => import(/* webpackChunkName: "dosificacion" */ './views/DosificacionSucursal.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/dosificacionPuntoVenta',
+      name: 'dosificacionPuntoVenta',
+      component: () => import(/* webpackChunkName: "dosificacion" */ './views/DosificacionPuntoVenta.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/cierreOperacionSucursal',
+      name: 'cierreOperacionSucursal',
+      component: () => import(/* webpackChunkName: "cierreOperacionSucursal" */ './views/CierreOperacionSucursal.vue'),
+      meta: {
+        autentificado: true
+      }
+    },
+    {
+      path: '/cierreOperacionPuntoVenta',
+      name: 'cierreOperacionPuntoVenta',
+      component: () => import(/* webpackChunkName: "cierreOperacionPuntoVenta" */ './views/CierreOperacionPuntoVenta.vue'),
       meta: {
         autentificado: true
       }
@@ -151,9 +207,36 @@ const router = new Router({
       }
     },
     {
-      path: '/apiItemHomologado',
-      name: 'apiItemHomologado',
+      path: '/producto',
+      name: 'producto',
       component: () => import(/* webpackChunkName: "apiItemHomologado" */ './views/ApiItemHomologado.vue'),
+      meta: {
+        autentificado: true
+      }
+
+    },
+    {
+      path: '/inicioEvento',
+      name: 'inicioEvento',
+      component: () => import(/* webpackChunkName: "inicioEvento" */ './views/InicioEventoSignificativo.vue'),
+      meta: {
+        autentificado: true
+      }
+
+    },
+    {
+      path: '/finEvento',
+      name: 'finEvento',
+      component: () => import(/* webpackChunkName: "finEvento" */ './views/FinEventoSignificativo.vue'),
+      meta: {
+        autentificado: true
+      }
+
+    },
+    {
+      path: '/consultaEvento',
+      name: 'consultaEvento',
+      component: () => import(/* webpackChunkName: "consultaEvento" */ './views/ConsultaEventoSignificativo.vue'),
       meta: {
         autentificado: true
       }

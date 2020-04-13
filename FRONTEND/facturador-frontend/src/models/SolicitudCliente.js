@@ -1,5 +1,6 @@
 import ParTipoModalidad from './ParTipoModalidad';
 import ParTipoPuntoVenta from './ParTipoPuntoVenta';
+import ParEventoSignificativo from './ParEventoSignificativo';
 import ApiPuntoVenta from './ApiPuntoVenta';
 import ApiSucursal from './ApiSucursal';
 
@@ -17,6 +18,10 @@ let SolicitudCliente = {
     "apiPuntoVenta":ApiPuntoVenta,
     "parTipoPuntoVenta":ParTipoPuntoVenta,
     "parTipoModalidad":ParTipoModalidad,
-    "usuario":null
+    "login":null,
+    "password":null,
+    "descripcion":null,
+    "parEventoSignificativo":ParEventoSignificativo,
+    "codigoEvento":null,
 }
 export default SolicitudCliente;

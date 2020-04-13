@@ -6,6 +6,7 @@ let ApiSucursal = {
     direccion: '',
     cuis:null,
     codigoModalidad:0,
+    usuario: '',    
 }
 export default ApiSucursal;
 

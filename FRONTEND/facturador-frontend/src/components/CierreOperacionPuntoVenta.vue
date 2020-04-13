@@ -1,65 +1,19 @@
 <template>
   <div align="center">
-    <v-card color="basil">
-      <v-card-title class="text-center justify-center py-6">
-        <h1 class="display-1 basil--text">Solicitud CUIS</h1>
-      </v-card-title>
-      <v-snackbar v-model="snackbar" top color="success">
-        Datos Registrados!!!
-        <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
-      </v-snackbar>
-
-      <v-tabs fixed-tabs background-color="indigo" dark>
-        <v-tab ripple v-on:click="inicializa">Solicitar CUIS Sucursal</v-tab>
-        <v-tab ripple v-on:click="inicializa">Solicitar CUIS Punto Venta</v-tab>
-        <v-tab-item>
-          <v-flex xs9>
-            <v-form ref="form1" v-model="valid" lazy-validation>
+    <v-snackbar v-model="snackbar" top color="success">
+       ¡¡¡ Cierre de Operaciones !!!    
+      <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
+    <v-flex xs5>
+      <v-card flat>
+        <v-card-title>
+          <span class="headline">CIERRE DE OPERACIONES - PUNTO DE VENTA </span>
+        </v-card-title>
+        <v-card-text>    
+           <v-col cols="8">    
               <v-combobox
                 v-model="apiSucursal"
                 :items="listaSucursal"
-                item-text="nombreSucursal"
-                item-value="codigoSucursal"
-                label="Sucursales"
-                :rules="[v => !!v || 'Dato requerido']"
-                required
-              ></v-combobox>
-
-              <v-text-field v-model="admSistema.codigoSistema" label="Codigo Sistema" disabled></v-text-field>
-              <v-text-field v-model="admEmpresa.nitEmpresa" label="NIT" disabled></v-text-field>
-
-              <v-combobox
-                v-model="parTipoModalidad"
-                :items="listaTipoModalidad"
-                item-text="descripcion"
-                item-value="codigo"
-                label="Tipo Modalidad"
-                :rules="[v => !!v || 'Dato requerido']"
-                required
-              ></v-combobox>
-
-              <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mr-4"
-                @click="solicitarCuis"
-              >Solicitar CUIS</v-btn>
-
-              <br />
-              <br />
-              <br />
-              <v-progress-linear indeterminate v-show="progress" color="teal"></v-progress-linear>
-              <br />
-              <br />
-            </v-form>
-          </v-flex>
-        </v-tab-item>
-        <v-tab-item>
-          <v-flex xs9>
-            <v-form ref="form2" v-model="valid" lazy-validation>
-              <v-combobox
-                v-model="apiSucursal"
-                :items="listaSucursalPuntoVenta"
                 item-text="nombreSucursal"
                 item-value="codigoSucursal"
                 v-on:change="cambioSucursal(apiSucursal)"
@@ -67,7 +21,8 @@
                 :rules="[v => !!v || 'Dato requerido']"
                 required
               ></v-combobox>
-
+           </v-col>
+           <v-col cols="8">    
               <v-combobox
                 v-model="apiPuntoVenta"
                 :items="listaPuntoVenta"
@@ -77,39 +32,31 @@
                 :rules="[v => !!v || 'Dato requerido']"
                 required
               ></v-combobox>
-
+           </v-col>
+           <v-col cols="8">    
               <v-text-field v-model="admSistema.codigoSistema" label="Codigo Sistema" disabled></v-text-field>
+           </v-col>   
+           <v-col cols="8">    
               <v-text-field v-model="admEmpresa.nitEmpresa" label="NIT" disabled></v-text-field>
-
-              <v-combobox
-                v-model="parTipoModalidad"
-                :items="listaTipoModalidad"
-                item-text="descripcion"
-                item-value="codigo"
-                label="Tipo Modalidad"
-                :rules="[v => !!v || 'Dato requerido']"
-                required
-              ></v-combobox>
-
+           </v-col>   
+          </v-card-text>    
+          <v-card-actions>  
+            <v-col cols="8">
               <v-btn
                 :disabled="!valid"
                 color="success"
                 class="mr-4"
-                @click="solicitarCuis"
-              >Solicitar CUIS</v-btn>
-
-              <br />
-              <br />
-              <br />
-              <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
-              <br />
-              <br />
-            </v-form>
-          </v-flex>
-        </v-tab-item>
-      </v-tabs>
-    </v-card>
-    <v-dialog v-model="dialog" width="500">
+                @click="cierre"
+                >Cierre de Operaciones
+            </v-btn>
+            </v-col>
+          </v-card-actions>  
+          <v-container style="height: 300px;">
+            <v-progress-linear indeterminate v-show="progress" color="teal"></v-progress-linear>
+          </v-container>  
+        </v-card>
+     </v-flex>     
+     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>Mensajes SOAP:</v-card-title>
         <v-card-text>
@@ -139,11 +86,10 @@
   </div>
 </template>
 <script>
-//Sucursales y puntos de venta sin cuis
+
 import ApiSucursalService from "../services/ApiSucursalService";
 import ApiPuntoVentaService from "../services/ApiPuntoVentaService";
 import ApiDosificacionService from "../services/ApiDosificacionService";
-import ParametrosService from "../services/ParametrosService";
 import AdministradorService from "../services/AdministradorService";
 import SolicitudCliente from "../models/SolicitudCliente";
 
@@ -154,16 +100,13 @@ export default {
       listaSucursal: [],
       listaSucursalPuntoVenta: [],
       listaPuntoVenta: [],
-      listaTipoModalidad: [],
       apiSucursal: null,
       apiPuntoVenta: null,
       admSistema: {},
-      admEmpresa: {},
-      parTipoModalidad: null,
+      admEmpresa: {},      
       listaParMensajeServicio: [],
       dialog: false,
-      snackbar: false,
-      swSucu: true,
+      snackbar: false,      
       progress: false,
       error: ""
     };
@@ -172,14 +115,6 @@ export default {
     AdministradorService.getAdmSistema()
       .then(response => {
         this.admSistema = response.data[0];
-      })
-      .catch(e => {
-        console.error(e);
-      });
-
-    ParametrosService.getParTipoModalidad()
-      .then(response => {
-        this.listaTipoModalidad = response.data;
       })
       .catch(e => {
         console.error(e);
@@ -196,17 +131,9 @@ export default {
             console.error(e);
           });
 
-        ApiSucursalService.listaBySucursalNoTieneCuis(response.data.idEmpresa)
+        ApiSucursalService.listaByEmpresaTieneCuisVigente(response.data.idEmpresa)
           .then(response => {
             this.listaSucursal = response.data;
-          })
-          .catch(e => {
-            console.error(e);
-          });
-
-        ApiSucursalService.listaByPuntoVentaNoTieneCuis(response.data.idEmpresa)
-          .then(response => {
-            this.listaSucursalPuntoVenta = response.data;
           })
           .catch(e => {
             console.error(e);
@@ -223,10 +150,7 @@ export default {
       this.apiPuntoVenta = null;
       this.parTipoModalidad = null;
       this.snackbar = false;
-      this.valid = true;
-      this.swSucu = this.swSucu ? false : true;
-      //   this.$refs.form1.resetValidation()
-      //   this.$refs.form2.resetValidation()
+      this.valid = true;      
     },
     cambioSucursal(sucursal) {
       ApiPuntoVentaService.getApiPuntoVentaPorIdSucursal(sucursal.idSucursal)
@@ -237,35 +161,24 @@ export default {
           console.error(e);
         });
     },
-    solicitarCuis() {
-      if (this.swSucu) {
-        if (this.$refs.form1.validate()) {
-          this.save();
-        }
-      } else {
-        if (this.$refs.form2.validate()) {
-          this.save();
-        }
-      }
-    },
     save() {
       this.progress = true;
+
+      let login = sessionStorage.getItem("usuario");
+
       let solicitudCliente = SolicitudCliente;
       solicitudCliente.codigoAmbiente = this.admEmpresa.codigoAmbiente;
-      solicitudCliente.codigoModalidad = this.parTipoModalidad.codigo;
-      if (this.swSucu) {
-        solicitudCliente.codigoPuntoVenta = 0;
-      } else {
-        solicitudCliente.codigoPuntoVenta = this.apiPuntoVenta.codigoPuntoVenta;
-      }
+      solicitudCliente.codigoModalidad = this.apiPuntoVenta.codigoModalidad
+      solicitudCliente.codigoPuntoVenta = this.apiPuntoVenta.codigoPuntoVenta;
       solicitudCliente.codigoSistema = this.admSistema.codigoSistema;
       solicitudCliente.codigoSucursal = this.apiSucursal.codigoSucursal;
       solicitudCliente.nit = this.admEmpresa.nit;
       solicitudCliente.apiSucursal = this.apiSucursal;
       solicitudCliente.apiPuntoVenta = this.apiPuntoVenta;
-      solicitudCliente.parTipoModalidad = this.parTipoModalidad;
+      solicitudCliente.login = login;
+     
       //console.log(solicitudCliente)
-      ApiDosificacionService.solicitudCuisSucursal(solicitudCliente)
+      ApiDosificacionService.cierreOperacion(solicitudCliente)
         .then(response => {
           this.progress = false;
           this.progress = false;

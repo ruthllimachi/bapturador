@@ -1,17 +1,21 @@
 <template>
   <div align="center">
+    <v-snackbar v-model="snackbar" top color="success">
+        Producto Registrado!!!      
+      <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>      
     <v-flex xs6>
       <v-card flat>
         <v-card-title class="text-center justify-center py-6">
           <h1
             class="display-1 basil--text"
-          >Solicitud Nuevo Producto</h1>
+          >Valida Nuevo Producto</h1>
         </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>    
             <v-text-field
-              v-model="descripcion"
-              label="Descripcion:"
+              v-model="codigoSolicitud"
+              label="Codigo de Solicitud:"
               :rules="[v => !!v || 'Dato requerido']"
               required
             ></v-text-field>
@@ -19,7 +23,7 @@
         </v-card-text>
         <v-card-actions class="text-xs-center">
           <v-spacer></v-spacer>
-          <v-btn :disabled="!valid" color="success" class="mr-4" @click="solicitar">Solicitud Nuevo Producto</v-btn>
+          <v-btn :disabled="!valid" color="success" class="mr-4" @click="valida">Valida Solicitud Nuevo Producto</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
         <v-container style="height: 200px;">
@@ -54,25 +58,11 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="dialogSolicitud" width="300">
-      <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>Mensajes SOAP:</v-card-title>
-        <v-card-text>          
-            <v-col cols="5" >
-              <v-text-field v-model="codigoSolicitud" label="Codigo Solicitud" disabled></v-text-field>
-            </v-col>    
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialogSolicitud = false; error = ''">Continuar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>  
   </div>
 </template>
 <script>
 import ApiSincronizacionService from "../services/ApiSincronizacionService";
+import AdministradorService from "../services/AdministradorService";
 import SolicitudCliente from "../models/SolicitudCliente";
 
 export default {
@@ -80,35 +70,40 @@ export default {
     return {
       valid: true,            
       listaParMensajeServicio: [],
-      dialog: false,
-      dialogSolicitud: false,
-      descripcion: "",
+      dialog: false,            
       codigoSolicitud: "",
       snackbar: false,
       progress: false,
-      idEmpresa: null,
       error: ""
     };
   },
+  created() {
+    let login = sessionStorage.getItem("usuario");
+    AdministradorService.getParametros(login)
+      .then(response => {    
+        this.idEmpresa = response.data.idEmpresa;        
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  },  
   methods: {
-    solicitar() {
+    valida() {
       if (this.$refs.form.validate()) {
         this.progress = true;
         
         let login = sessionStorage.getItem("usuario");
         
         let solicitudCliente = SolicitudCliente;
-        solicitudCliente.descripcion = this.descripcion;
+        solicitudCliente.codigoSolicitud = this.codigoSolicitud;
+        solicitudCliente.idEmpresa = this.idEmpresa;
         solicitudCliente.login = login;
 
-        ApiSincronizacionService.solicitudNuevoProducto(solicitudCliente)
+        ApiSincronizacionService.validaSolicitudNuevoProducto(solicitudCliente)
         .then(response => {
             this.progress = false;
             if (response.data.transaccion) {
               this.snackbar = true;
-              this.codigoSolicitud = response.data.codigoSolicitud;
-               this.dialog = false;
-              this.dialogSolicitud = true;
             } else {
                this.listaParMensajeServicio =
                response.data.listaParMensajeServicio;

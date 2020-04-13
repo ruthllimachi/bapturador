@@ -1,13 +1,13 @@
 <template>
   <div align="center">
-    <v-snackbar v-model="snackbar" top>
-      ¡¡¡ Punto de Venta Registrado !!!
+      <v-snackbar v-model="snackbar" top>
+      ¡¡¡ No existe Datos !!!
       <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
     </v-snackbar>
     <v-flex xs6>
       <v-card flat>
         <v-card-title class="text-center justify-center py-6">
-          <h1 class="display-1 basil--text">Registro Punto de Venta</h1>
+          <h1 class="display-1 basil--text">Consulta Punto de Venta</h1>
         </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -15,40 +15,44 @@
               v-model="apiSucursal"
               :items="listaSucursal"
               item-text="nombreSucursal"
-              item-value="codigoSucursal"
+              item-value="codigoSucursal"               
               label="Sucursales"
               :rules="rules"
               required
             ></v-combobox>
-
-            <v-text-field
-              v-model="nombrePuntoVenta"
-              label="Nombre Punto Venta"
-              :rules="rules"
-              required
-            ></v-text-field>
-
-            <v-text-field v-model="descripcion" label="Descripcion" :rules="rules" required></v-text-field>
-
-            <v-combobox
-              v-model="parTipoPuntoVenta"
-              :items="listaTipoPuntoVenta"
-              item-text="descripcion"
-              item-value="codigo"
-              label="Tipo Punto Venta"
-              :rules="rules"
-              required
-            ></v-combobox>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4"  
+              @click="consultar"        
+              >Consultar Punto de Venta
+            </v-btn>
           </v-form>
+          <br/>
+          <v-simple-table
+            :dense="dense"
+            :fixed-header="fixedHeader"
+            :height="height"
+            >
+            <template v-slot:default>
+              <thead>
+                  <tr>
+                  <th class="text-left">Codigo</th>
+                  <th class="text-left">Nombre Punto Venta</th>
+                  <th class="text-left">Tipo Punto Venta</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="item in listaApiPuntoVenta" :key="item.codigo">
+                  <td>{{ item.codigoPuntoVenta }}</td>
+                  <td>{{ item.nombrePuntoVenta }}</td>
+                  <td>{{ item.descripcion }}</td>
+                  </tr>
+              </tbody>
+            </template>  
+          </v-simple-table>
         </v-card-text>
-        <v-card-actions>
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="registrar"
-          >Registrar Punto de Venta</v-btn>
-        </v-card-actions>
+
       </v-card>
       <v-container style="height: 400px;">
         <v-progress-linear v-show="progress" indeterminate color="teal"></v-progress-linear>
@@ -79,9 +83,7 @@
               label="Respuesta"
               disabled
           ></v-text-field>
-
-        </v-card-text>
-        
+        </v-card-text>        
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="dialog = false;error = ''">Continuar</v-btn>
@@ -95,33 +97,31 @@
 import ApiPuntoVentaService from "../services/ApiPuntoVentaService";
 import ApiSucursalService from "../services/ApiSucursalService";
 import AdministradorService from "../services/AdministradorService";
-import ParametrosService from "../services/ParametrosService";
 import ParMensajeFacturador  from "../models/ParMensajeFacturador"; 
-import SolicitudCliente from "../models/SolicitudCliente"; 
+import SolicitudCliente from "../models/SolicitudCliente";
 
 export default {
   data() {
     return {
+      dense: false,
+      fixedHeader: true,
+      height: 500,
       valid: true,
       rules: [v => !!v || "Dato requerido"],
       listaSucursal: [],
-      listaTipoPuntoVenta: [],
-      apiSucursal: null,
-      parTipoPuntoVenta: null,
-      parMensajeFacturador: ParMensajeFacturador,    
+      listaApiPuntoVenta: [],
+      apiSucursal: null,      
+      parMensajeFacturador: ParMensajeFacturador,
       listaParMensajeServicio: [],
       admSistema: {},
       admEmpresa: {},
       dialog: false,
-      nombrePuntoVenta: "",
-      descripcion: "",
-      snackbar: false,
       progress: false,
+      snackbar: false,
       error: ""
     };
   },
   created() {
-    //let idEmpresa = 1;
     let login = sessionStorage.getItem("usuario");
     AdministradorService.getParametros(login)
       .then(response => {
@@ -132,7 +132,7 @@ export default {
               this.admEmpresa.idEmpresa
             )
               .then(response => {
-                this.listaSucursal = response.data;             
+                this.listaSucursal = response.data;                              
               })
               .catch(e => {
                 console.error(e);
@@ -153,41 +153,29 @@ export default {
       .catch(e => {
         console.error(e);
       });
-
-    ParametrosService.getParTipoPuntoVenta()
-      .then(response => {
-        this.listaTipoPuntoVenta = response.data;
-      })
-      .catch(e => {
-        console.error(e);
-      });
   },
   methods: {
-    registrar() {
-      if (this.$refs.form.validate()) {
+    consultar() {
+      if (this.$refs.form.validate()) {        
         let login = sessionStorage.getItem("usuario");
-
         let solicitudCliente = SolicitudCliente;
         solicitudCliente.codigoAmbiente = this.admEmpresa.codigoAmbiente;
         solicitudCliente.codigoSistema = this.admSistema.codigoSistema;
         solicitudCliente.codigoSucursal = this.apiSucursal.codigoSucursal;
-        solicitudCliente.codigoTipoPuntoVenta = this.parTipoPuntoVenta.codigo;
         solicitudCliente.apiSucursal = this.apiSucursal;
-        solicitudCliente.parTipoPuntoVenta = this.parTipoPuntoVenta;
-        solicitudCliente.nitEmpresa = this.admEmpresa.nitEmpresa;
-        solicitudCliente.nombrePuntoVenta = this.nombrePuntoVenta;
-        solicitudCliente.descripcion = this.descripcion;
         solicitudCliente.cuis = this.apiSucursal.cuis;
-        solicitudCliente.codigoModalidad = this.apiSucursal.codigoModalidad;
+        solicitudCliente.nitEmpresa = this.admEmpresa.nitEmpresa;
         solicitudCliente.login = login;
-
+       
         this.progress = true;        
-        ApiPuntoVentaService.registrarPuntoVenta(solicitudCliente)
-          .then(response => {
-          //  console.log("dato", response.data);
+        ApiPuntoVentaService.consultaPuntoVenta(solicitudCliente)
+          .then(response => {           
             this.progress = false;            
             if (response.data.transaccion) {
-              this.snackbar = true;             
+              this.listaApiPuntoVenta = response.data.listaApiPuntoVenta;              
+              if (response.data.listaApiPuntoVenta.length == 0){
+                this.snackbar = true;
+              }
             } else {
               this.listaParMensajeServicio =
                 response.data.listaParMensajeServicio;

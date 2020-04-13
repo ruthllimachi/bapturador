@@ -17,4 +17,11 @@ export default {
     registrarPuntoVenta(dato){
         return Api().post("/api/apiPuntoVenta/registrarPuntoVenta", dato);
     },
+    consultaPuntoVenta(dato){
+        return Api().post("/api/apiPuntoVenta/consultaPuntoVenta", dato);
+    },
+    cierrePuntoVenta(dato){
+        return Api().post("/api/apiPuntoVenta/cierrePuntoVenta", dato);
+    },
+
 }

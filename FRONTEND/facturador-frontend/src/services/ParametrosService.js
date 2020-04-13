@@ -14,9 +14,12 @@ export default {
         return Api().get('/api/parTipoPuntoVenta');
     },
     getParTipoDocumentoIdentidad() {
-      return Api().get('/api/parTipoDocumentoIdentidad');
-  },
-  getParUnidadMedida() {
-      return Api().get('/api/parUnidadMedida');
-  }
+        return Api().get('/api/parTipoDocumentoIdentidad');
+    },
+    getParUnidadMedida() {
+        return Api().get('/api/parUnidadMedida');
+    },
+    getParEventoSignificativo() {
+        return Api().get('/api/parEventoSignificativo');
+    }
 }
