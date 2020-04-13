@@ -60,6 +60,9 @@ public class AdmEmpresa implements Serializable {
 
     @Column(name = "codigo_ambiente")
     private int codigoAmbiente;
+    
+    @Column(name = "tipo_modalidad_defecto")
+    private int tipoModalidadDefecto;
 
     public AdmEmpresa() {
     }
@@ -172,6 +175,20 @@ public class AdmEmpresa implements Serializable {
      */
     public void setNitEmpresa(Long nitEmpresa) {
         this.nitEmpresa = nitEmpresa;
+    }
+
+    /**
+     * @return the tipoModalidadDefecto
+     */
+    public int getTipoModalidadDefecto() {
+        return tipoModalidadDefecto;
+    }
+
+    /**
+     * @param tipoModalidadDefecto the tipoModalidadDefecto to set
+     */
+    public void setTipoModalidadDefecto(int tipoModalidadDefecto) {
+        this.tipoModalidadDefecto = tipoModalidadDefecto;
     }
 
     

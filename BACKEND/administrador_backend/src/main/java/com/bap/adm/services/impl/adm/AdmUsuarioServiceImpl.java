@@ -24,41 +24,41 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdmUsuarioServiceImpl implements AdmUsuarioService {
-
+    
     @Autowired
     private AdmUsuarioRepo repo;
-
+    
     @Autowired
     private AdmSessionService service;
     
     @Autowired
     private AdmSistemaService admSistemaService;
-
+    
     @Override
     public AdmUsuario registrar(AdmUsuario t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public AdmUsuario modificar(AdmUsuario t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public AdmUsuario leerPorId(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public List<AdmUsuario> listar() {
         return repo.findAll();
     }
-
+    
     @Override
     public void eliminar(AdmUsuario t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public UserToken authenticate(String login, String password) {
         List<AdmUsuario> lista = repo.findByLoginAndPassword(login, password);
@@ -84,16 +84,16 @@ public class AdmUsuarioServiceImpl implements AdmUsuarioService {
             userToken.setIdUsuario(lista.get(0).getIdUsuario());
             userToken.setIdEmpresa(lista.get(0).getAdmPersona().getAdmEmpresa().getIdEmpresa());
         }
-
+        
         return userToken;
     }
-
+    
     @Override
     public ConsultaParametros consultaParametros(String login) {        
-        ConsultaParametros  consultaParametros = new ConsultaParametros();
+        ConsultaParametros consultaParametros = new ConsultaParametros();
         
         AdmUsuario admUsuario = repo.findOneByLogin(login);
-   
+        
         consultaParametros.setIdEmpresa(admUsuario.getAdmPersona().getAdmEmpresa().getIdEmpresa());
         consultaParametros.setIdUsuario(admUsuario.getIdUsuario());
         consultaParametros.setIdSucursal(admUsuario.getIdSucursal());
@@ -101,7 +101,9 @@ public class AdmUsuarioServiceImpl implements AdmUsuarioService {
         consultaParametros.setCodigoSistema(admSistemaService.listar().get(0).getCodigoSistema());
         consultaParametros.setNitEmpresa(admUsuario.getAdmPersona().getAdmEmpresa().getNitEmpresa());
         consultaParametros.setCodigoAmbiente(admUsuario.getAdmPersona().getAdmEmpresa().getCodigoAmbiente());
+        consultaParametros.setTipoModalidadDefecto(admUsuario.getAdmPersona().getAdmEmpresa().getTipoModalidadDefecto());
+        
         return consultaParametros;
     }
-
+    
 }

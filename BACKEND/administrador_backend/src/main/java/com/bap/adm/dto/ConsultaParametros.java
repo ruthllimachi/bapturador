@@ -15,6 +15,7 @@ public class ConsultaParametros {
     private long nitEmpresa;
     private String codigoSistema;
     private String razonSocial;
+    private int tipoModalidadDefecto;
     /**
      * @return the idEmpresa
      */
@@ -126,6 +127,20 @@ public class ConsultaParametros {
      */
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
+    }
+
+    /**
+     * @return the tipoModalidadDefecto
+     */
+    public int getTipoModalidadDefecto() {
+        return tipoModalidadDefecto;
+    }
+
+    /**
+     * @param tipoModalidadDefecto the tipoModalidadDefecto to set
+     */
+    public void setTipoModalidadDefecto(int tipoModalidadDefecto) {
+        this.tipoModalidadDefecto = tipoModalidadDefecto;
     }
 
 }

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
 --
 -- Host: localhost    Database: dbo_administrador
 -- ------------------------------------------------------
--- Server version	5.7.27-0ubuntu0.18.04.1
+-- Server version	5.7.29-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -39,6 +39,7 @@ CREATE TABLE `adm_empresa` (
   `inicio_periodo` date NOT NULL,
   `fin_periodo` date NOT NULL,
   `codigo_ambiente` int(11) NOT NULL,
+  `tipo_modalidad_defecto` int(11) NOT NULL,
   PRIMARY KEY (`id_empresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -49,7 +50,7 @@ CREATE TABLE `adm_empresa` (
 
 LOCK TABLES `adm_empresa` WRITE;
 /*!40000 ALTER TABLE `adm_empresa` DISABLE KEYS */;
-INSERT INTO `adm_empresa` VALUES ('2019-01-01 00:00:00',NULL,NULL,'admin',NULL,NULL,1,'La Paz','Av. Siempre Viva #3466','BAP Srl.',1002329022,'juan perez',2245978,'2019-01-01','2020-01-01',2);
+INSERT INTO `adm_empresa` VALUES ('2019-01-01 00:00:00',NULL,NULL,'admin',NULL,NULL,1,'La Paz','Av. Siempre Viva #3466','BAP Srl.',1002329022,'juan perez',2245978,'2019-01-01','2020-01-01',2,1);
 /*!40000 ALTER TABLE `adm_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -386,4 +387,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-25  7:18:38
+-- Dump completed on 2020-04-13  0:10:07

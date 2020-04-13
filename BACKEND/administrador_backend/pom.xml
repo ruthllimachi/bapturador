@@ -12,8 +12,7 @@
     <url>http://maven.apache.org</url>
     <properties>        
         <spring.version>5.0.1.RELEASE</spring.version>
-        <hibernate.version>5.4.2.Final</hibernate.version>
-        <hibernate.validator>6.0.16.Final</hibernate.validator>
+        <hibernate.version>5.4.2.Final</hibernate.version>        
         <jdk.version>1.8</jdk.version>
     </properties>
 
@@ -72,13 +71,7 @@
             <artifactId>spring-ws-core</artifactId>
             <version>3.0.5.RELEASE</version>
         </dependency>
-
-        <!-- Hibernate Validator -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator}</version>
-        </dependency>
+    
         
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
@@ -91,7 +84,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
+            <version>8.0.15</version>
         </dependency>
         
         <!-- logging -->
