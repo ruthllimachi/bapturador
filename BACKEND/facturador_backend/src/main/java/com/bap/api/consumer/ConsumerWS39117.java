@@ -1,7 +1,5 @@
 package com.bap.api.consumer;
 
-import java.util.List;
-
 import javax.xml.bind.JAXBElement;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +9,18 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 
 import com.api.fesc_39117.CierreOperacionesSistema;
 import com.api.fesc_39117.CierreOperacionesSistemaResponse;
+import com.api.fesc_39117.CierrePuntoVenta;
+import com.api.fesc_39117.CierrePuntoVentaResponse;
+import com.api.fesc_39117.ConsultaPuntoVenta;
+import com.api.fesc_39117.ConsultaPuntoVentaResponse;
 import com.api.fesc_39117.ObjectFactory;
 import com.api.fesc_39117.RegistroPuntoVenta;
 import com.api.fesc_39117.RegistroPuntoVentaResponse;
-import com.api.fesc_39117.RespuestaCodigosMensajesSoapDto;
+import com.api.fesc_39117.SolicitudCierrePuntoVenta;
+import com.api.fesc_39117.SolicitudConsultaPuntoVenta;
 import com.api.fesc_39117.SolicitudCuis;
 import com.api.fesc_39117.SolicitudCuisResponse;
+import com.api.fesc_39117.SolicitudOperaciones;
 import com.api.fesc_39117.SolicitudOperacionesCuis;
 import com.api.fesc_39117.SolicitudRegistroPuntoVenta;
 import com.api.fesc_39117.VerificarComunicacion;
@@ -48,54 +52,23 @@ public class ConsumerWS39117 {
         }
     }
 
-    public Respuesta39117 solicitudCuis(SolicitudCliente solicitudSincronizacion) {
+    public Respuesta39117 registroPuntoVenta(SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
-        SolicitudCuis request = objectFactory.createSolicitudCuis();
-
-        SolicitudOperacionesCuis solicitudOperacionesCuis = new SolicitudOperacionesCuis();
-        solicitudOperacionesCuis.setCodigoAmbiente(solicitudSincronizacion.getCodigoAmbiente());
-        solicitudOperacionesCuis.setCodigoSistema(solicitudSincronizacion.getCodigoSistema());
-        solicitudOperacionesCuis.setCodigoSucursal(solicitudSincronizacion.getCodigoSucursal());
-        //solicitudOperacionesCuis.setCodigoPuntoVenta(solicitudSincronizacion.getCodigoPuntoVenta());        
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudOperacionesCuisCodigoPuntoVenta(solicitudSincronizacion.getCodigoPuntoVenta());
-        solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta.getValue());
-
-        solicitudOperacionesCuis.setCodigoModalidad(solicitudSincronizacion.getCodigoModalidad());
-        solicitudOperacionesCuis.setNit(solicitudSincronizacion.getNitEmpresa());
-        request.setSolicitudOperacionesCuis(solicitudOperacionesCuis);
-
-        JAXBElement<SolicitudCuis> jaxbRequest = objectFactory.createSolicitudCuis(request);
-        JAXBElement<SolicitudCuisResponse> solicitudCuisResponse = (JAXBElement<SolicitudCuisResponse>) webServiceTemplate
-                .marshalSendAndReceive(jaxbRequest);
-        SolicitudCuisResponse response = solicitudCuisResponse.getValue();
-        Respuesta39117 respuestaSincronizacion = new Respuesta39117();
-        respuestaSincronizacion.setTransaccion(response.getRespuestaCuis().isTransaccion());
-        respuestaSincronizacion.setListaRespuestaCodigosMensajesSoapDto(response.getRespuestaCuis().getListaCodigosRespuestas());
-        respuestaSincronizacion.setCodigoCuis(response.getRespuestaCuis().getCodigo());
-        return respuestaSincronizacion;
-    }
-
-    /**
-     * Modificado con buenas practicas
-     *
-     * @param solicitudSincronizacion
-     * @return
-     */
-    public Respuesta39117 registroPuntoVenta(SolicitudCliente solicitudSincronizacion) {
-        ObjectFactory objectFactory = new ObjectFactory();
+        
         RegistroPuntoVenta request = objectFactory.createRegistroPuntoVenta();
         SolicitudRegistroPuntoVenta solicitudRegistroPuntoVenta = new SolicitudRegistroPuntoVenta();
-        solicitudRegistroPuntoVenta.setCodigoAmbiente(solicitudSincronizacion.getCodigoAmbiente());
-        solicitudRegistroPuntoVenta.setCodigoModalidad(solicitudSincronizacion.getCodigoModalidad());
-        solicitudRegistroPuntoVenta.setCodigoSistema(solicitudSincronizacion.getCodigoSistema());
-        solicitudRegistroPuntoVenta.setCodigoSucursal(solicitudSincronizacion.getCodigoSucursal());
-        solicitudRegistroPuntoVenta.setCodigoTipoPuntoVenta(solicitudSincronizacion.getCodigoTipoPuntoVenta());
-        solicitudRegistroPuntoVenta.setCuis(solicitudSincronizacion.getCuis());
-        solicitudRegistroPuntoVenta.setNit(solicitudSincronizacion.getNitEmpresa());
-        solicitudRegistroPuntoVenta.setDescripcion(solicitudSincronizacion.getDescripcion());
-        solicitudRegistroPuntoVenta.setNombrePuntoVenta(solicitudSincronizacion.getNombrePuntoVenta());
-        request.setSolicitudRegistroPuntoVenta(solicitudRegistroPuntoVenta);
+        solicitudRegistroPuntoVenta.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudRegistroPuntoVenta.setCodigoModalidad(solicitud.getCodigoModalidad());
+        solicitudRegistroPuntoVenta.setCodigoSistema(solicitud.getCodigoSistema());
+//        solicitudRegistroPuntoVenta.setCodigoSistemaProveedor(null);
+        solicitudRegistroPuntoVenta.setCodigoSucursal(solicitud.getCodigoSucursal());
+        solicitudRegistroPuntoVenta.setCodigoTipoPuntoVenta(solicitud.getCodigoTipoPuntoVenta());
+        solicitudRegistroPuntoVenta.setCuis(solicitud.getCuis());
+        solicitudRegistroPuntoVenta.setDescripcion(solicitud.getDescripcion());
+        solicitudRegistroPuntoVenta.setNit(solicitud.getNitEmpresa());
+        solicitudRegistroPuntoVenta.setNombrePuntoVenta(solicitud.getNombrePuntoVenta());
 
+        request.setSolicitudRegistroPuntoVenta(solicitudRegistroPuntoVenta);
         JAXBElement<RegistroPuntoVenta> jaxbRequest = objectFactory.createRegistroPuntoVenta(request);
         JAXBElement<RegistroPuntoVentaResponse> registroPuntoVentaResponse = (JAXBElement<RegistroPuntoVentaResponse>) webServiceTemplate
                 .marshalSendAndReceive(jaxbRequest);
@@ -107,33 +80,104 @@ public class ConsumerWS39117 {
         return respuestaSincronizacion;
     }
 
-    public Respuesta39117 cierreOperacionesSistema(SolicitudCliente solicitudSincronizacion) {
+    public Respuesta39117 consultaPuntoVenta(SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
+        
+        ConsultaPuntoVenta request = objectFactory.createConsultaPuntoVenta();
+        SolicitudConsultaPuntoVenta solicitudConsultaPuntoVenta = new SolicitudConsultaPuntoVenta();
+        solicitudConsultaPuntoVenta.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudConsultaPuntoVenta.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudConsultaPuntoVenta.setCodigoSucursal(solicitud.getCodigoSucursal());
+        solicitudConsultaPuntoVenta.setCuis(solicitud.getCuis());
+        solicitudConsultaPuntoVenta.setNit(solicitud.getNitEmpresa());
+
+        request.setSolicitudConsultaPuntoVenta(solicitudConsultaPuntoVenta);
+        JAXBElement<ConsultaPuntoVenta> jaxbRequest = objectFactory.createConsultaPuntoVenta(request);
+        JAXBElement<ConsultaPuntoVentaResponse> consultaPuntoVentaResponse = (JAXBElement<ConsultaPuntoVentaResponse>) webServiceTemplate
+                .marshalSendAndReceive(jaxbRequest);
+        ConsultaPuntoVentaResponse response = consultaPuntoVentaResponse.getValue();
+        Respuesta39117 respuestaSincronizacion = new Respuesta39117();
+        respuestaSincronizacion.setTransaccion(response.getRespuestaConsultaPuntoVenta().isTransaccion());
+        respuestaSincronizacion.setListaPuntosVentas(response.getRespuestaConsultaPuntoVenta().getListaPuntosVentas());
+        respuestaSincronizacion.setListaRespuestaCodigosMensajesSoapDto(response.getRespuestaConsultaPuntoVenta().getListaCodigosRespuestas());
+        return respuestaSincronizacion;
+    }
+
+    public Respuesta39117 cierrePuntoVenta(SolicitudCliente solicitud) {
+        ObjectFactory objectFactory = new ObjectFactory();
+        
+        CierrePuntoVenta request = objectFactory.createCierrePuntoVenta();
+        SolicitudCierrePuntoVenta solicitudCierrePuntoVenta = new SolicitudCierrePuntoVenta();
+        solicitudCierrePuntoVenta.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudCierrePuntoVenta.setCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
+        solicitudCierrePuntoVenta.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudCierrePuntoVenta.setCodigoSucursal(solicitud.getCodigoSucursal());
+        solicitudCierrePuntoVenta.setCuis(solicitud.getCuis());
+        solicitudCierrePuntoVenta.setNit(solicitud.getNitEmpresa());
+
+        request.setSolicitudCierrePuntoVenta(solicitudCierrePuntoVenta);
+        JAXBElement<CierrePuntoVenta> jaxbRequest = objectFactory.createCierrePuntoVenta(request);
+        JAXBElement<CierrePuntoVentaResponse> cierrePuntoVentaResponse = (JAXBElement<CierrePuntoVentaResponse>) webServiceTemplate
+                .marshalSendAndReceive(jaxbRequest);
+        CierrePuntoVentaResponse response = cierrePuntoVentaResponse.getValue();
+        Respuesta39117 respuestaSincronizacion = new Respuesta39117();
+        respuestaSincronizacion.setTransaccion(response.getRespuestaCierrePuntoVenta().isTransaccion());
+        respuestaSincronizacion.setCodigoPuntoVenta(response.getRespuestaCierrePuntoVenta().getCodigoPuntoVenta().longValue());
+        respuestaSincronizacion.setListaRespuestaCodigosMensajesSoapDto(response.getRespuestaCierrePuntoVenta().getListaCodigosRespuestas());
+        return respuestaSincronizacion;
+    }
+
+    public Respuesta39117 solicitudCuis(SolicitudCliente solicitud) {
+        ObjectFactory objectFactory = new ObjectFactory();
+        
+        SolicitudCuis request = objectFactory.createSolicitudCuis();        
+        SolicitudOperacionesCuis solicitudOperacionesCuis = new SolicitudOperacionesCuis();        
+        solicitudOperacionesCuis.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudOperacionesCuis.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudOperacionesCuis.setNit(solicitud.getNitEmpresa());
+        solicitudOperacionesCuis.setCodigoModalidad(solicitud.getParTipoModalidad().getCodigo().intValue());                      
+        solicitudOperacionesCuis.setCodigoSucursal(solicitud.getCodigoSucursal());    
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudOperacionesCuisCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
+        solicitudOperacionesCuis.setCodigoPuntoVenta(codigoPuntoVenta);
+        solicitudOperacionesCuis.setLogin(solicitud.getLogin());
+        solicitudOperacionesCuis.setPassword(solicitud.getPassword());
+                         
+        request.setSolicitudOperacionesCuis(solicitudOperacionesCuis);
+        JAXBElement<SolicitudCuis> jaxbRequest = objectFactory.createSolicitudCuis(request);
+        JAXBElement<SolicitudCuisResponse> solicitudCuisResponse = (JAXBElement<SolicitudCuisResponse>) webServiceTemplate
+                .marshalSendAndReceive(jaxbRequest);
+        SolicitudCuisResponse response = solicitudCuisResponse.getValue();
+        Respuesta39117 respuestaSincronizacion = new Respuesta39117();
+        respuestaSincronizacion.setTransaccion(response.getRespuestaCuis().isTransaccion());
+        respuestaSincronizacion.setListaRespuestaCodigosMensajesSoapDto(response.getRespuestaCuis().getListaCodigosRespuestas());
+        respuestaSincronizacion.setCodigoCuis(response.getRespuestaCuis().getCodigo());
+        return respuestaSincronizacion;
+    }
+
+    public Respuesta39117 cierreOperacionesSistema(SolicitudCliente t) {
+        ObjectFactory objectFactory = new ObjectFactory();
+        
         CierreOperacionesSistema request = objectFactory.createCierreOperacionesSistema();
-
-        request.getSolicitudOperaciones().setCodigoAmbiente(solicitudSincronizacion.getCodigoAmbiente());
-        request.getSolicitudOperaciones().setCodigoModalidad(solicitudSincronizacion.getCodigoModalidad());
-        //request.getSolicitudOperaciones().setCodigoPuntoVenta(solicitudSincronizacion.getCodigoPuntoVenta());		
-        request.getSolicitudOperaciones().setCodigoSistema(solicitudSincronizacion.getCodigoSistema());
-        request.getSolicitudOperaciones().setCodigoSucursal(solicitudSincronizacion.getCodigoSucursal());
-        request.getSolicitudOperaciones().setCuis(solicitudSincronizacion.getCuis());
-        request.getSolicitudOperaciones().setNit(solicitudSincronizacion.getNitEmpresa());
-
+        SolicitudOperaciones  solicitudOperaciones  = new SolicitudOperaciones();
+        solicitudOperaciones.setCodigoAmbiente(t.getCodigoAmbiente());
+        solicitudOperaciones.setCodigoSistema(t.getCodigoSistema());
+        solicitudOperaciones.setNit(t.getNitEmpresa());        
+        solicitudOperaciones.setCodigoModalidad(t.getApiDosificacion().getParTipoModalidad().getCodigo().intValue());
+        solicitudOperaciones.setCuis(t.getApiDosificacion().getCuis());
+        solicitudOperaciones.setCodigoSucursal(t.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudOperacionesCodigoPuntoVenta(t.getCodigoPuntoVenta());        
+        solicitudOperaciones.setCodigoPuntoVenta(codigoPuntoVenta);
+                
+        request.setSolicitudOperaciones(solicitudOperaciones);
         JAXBElement<CierreOperacionesSistema> jaxbRequest = objectFactory.createCierreOperacionesSistema(request);
         JAXBElement<CierreOperacionesSistemaResponse> cierreOperacionesSistemaResponse = (JAXBElement<CierreOperacionesSistemaResponse>) webServiceTemplate
                 .marshalSendAndReceive(jaxbRequest);
         CierreOperacionesSistemaResponse response = cierreOperacionesSistemaResponse.getValue();
-
-        List<RespuestaCodigosMensajesSoapDto> listMensajeSoapDto = response.getRespuestaCierreSistemas().getListaCodigosRespuestas();
-        String codigoSistema = response.getRespuestaCierreSistemas().getCodigoSistema();
-
         Respuesta39117 respuestaSincronizacion = new Respuesta39117();
-        if (!listMensajeSoapDto.isEmpty()) {
-            ///ojo se quito codigoMensaje porque no lanza un solo mensaje puede evnicar n - mensajes
-            /////   respuestaSincronizacion.setCodigoMensaje(listMensajeSoapDto.get(0).getCodigoMensaje());
-        }
-        respuestaSincronizacion.setCodigoSistema(codigoSistema);
-        return respuestaSincronizacion;
+        respuestaSincronizacion.setTransaccion(response.getRespuestaCierreSistemas().isTransaccion());
+        respuestaSincronizacion.setListaRespuestaCodigosMensajesSoapDto(response.getRespuestaCierreSistemas().getListaCodigosRespuestas());
+        respuestaSincronizacion.setCodigoSistema(response.getRespuestaCierreSistemas().getCodigoSistema());
+        return respuestaSincronizacion;        
     }
 
 }

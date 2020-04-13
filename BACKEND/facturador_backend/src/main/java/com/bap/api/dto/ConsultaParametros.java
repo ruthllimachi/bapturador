@@ -16,6 +16,7 @@ public class ConsultaParametros {
     private String codigoSistema;
     private String razonSocial;
 
+
     /**
      * @return the idEmpresa
      */

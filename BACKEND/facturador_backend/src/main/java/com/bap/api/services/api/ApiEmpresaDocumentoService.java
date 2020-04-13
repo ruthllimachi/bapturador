@@ -14,5 +14,5 @@ import com.bap.api.model.api.ApiEmpresaDocumento;
  */
 public interface ApiEmpresaDocumentoService extends AbstractEntity<ApiEmpresaDocumento> {
 
-   ApiEmpresaDocumento leerPotEmpresaAndTipo(Long idEmpresa, Long codigoDocumentoFiscal, Long codigoDocumentoSector, Long codigoTipoModalidad);
+   ApiEmpresaDocumento leerPorTipos(Long idEmpresa, Long codigoDocumentoFiscal, Long codigoDocumentoSector, Long codigoTipoModalidad);
 }

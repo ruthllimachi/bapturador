@@ -42,7 +42,7 @@ public class ApiEmpresaDocumentoServiceImpl implements ApiEmpresaDocumentoServic
     }
 
     @Override
-    public ApiEmpresaDocumento leerPotEmpresaAndTipo(Long idEmpresa, Long codigoDocumentoFiscal, Long codigoDocumentoSector, Long codigoTipoModalidad) {
+    public ApiEmpresaDocumento leerPorTipos(Long idEmpresa, Long codigoDocumentoFiscal, Long codigoDocumentoSector, Long codigoTipoModalidad) {
         try {
             return repo.findPorEmpresaAndTipo(idEmpresa, codigoDocumentoFiscal, codigoDocumentoSector, codigoTipoModalidad).get(0);
         } catch (Exception e) {

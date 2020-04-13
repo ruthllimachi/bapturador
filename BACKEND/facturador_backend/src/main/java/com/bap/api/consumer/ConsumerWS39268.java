@@ -43,17 +43,18 @@ public class ConsumerWS39268 {
         }
     }
 
-    public Respuesta39268 solicitudCufd(SolicitudCliente solicitudCliente) {
+    public Respuesta39268 solicitudCufd(SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
         SolicitudOperaciones solicitudOperaciones = objectFactory.createSolicitudOperaciones();
-        solicitudOperaciones.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudOperaciones.setCodigoModalidad(solicitudCliente.getCodigoModalidad());
-        solicitudOperaciones.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudOperaciones.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudOperacionesCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudOperaciones.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        //solicitudOperaciones.setCodigoModalidad(solicitud.getCodigoModalidad());
+        solicitudOperaciones.setCodigoModalidad(solicitud.getApiDosificacion().getParTipoModalidad().getCodigo().intValue());
+        solicitudOperaciones.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudOperaciones.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudOperacionesCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudOperaciones.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudOperaciones.setNit(solicitudCliente.getNitEmpresa());
-        solicitudOperaciones.setCuis(solicitudCliente.getCuis());
+        solicitudOperaciones.setNit(solicitud.getNitEmpresa());
+        solicitudOperaciones.setCuis(solicitud.getApiDosificacion().getCuis());
 
         SolicitudCufd request = objectFactory.createSolicitudCufd();
         request.setSolicitudOperaciones(solicitudOperaciones);

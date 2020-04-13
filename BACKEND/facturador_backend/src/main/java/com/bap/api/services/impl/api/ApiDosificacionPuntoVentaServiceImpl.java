@@ -43,8 +43,8 @@ public class ApiDosificacionPuntoVentaServiceImpl implements ApiDosificacionPunt
         return repo.findAll();
     }
 
-    @Override    
-    public Entidad getDosificacionPuntoVentaVigte(Long idPuntoVenta) {
+    @Override
+    public ApiDosificacion getDosificacionPuntoVentaVigte(Long idPuntoVenta) {
         List<Entidad> lista = new ArrayList<>();
         repo.findDosificacionVigente(idPuntoVenta).forEach(x -> {
             Entidad entidad = new Entidad();
@@ -55,7 +55,8 @@ public class ApiDosificacionPuntoVentaServiceImpl implements ApiDosificacionPunt
         if (lista.isEmpty()) {
             return null;
         } else {
-            return lista.get(0);
+            ApiDosificacion apiDosificacion = servicio.leerPorId(lista.get(0).getIdDosificacion());
+            return apiDosificacion;
         }
     }
 

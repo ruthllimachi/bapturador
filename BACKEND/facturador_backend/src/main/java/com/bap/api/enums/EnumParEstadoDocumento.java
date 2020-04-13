@@ -9,13 +9,19 @@ package com.bap.api.enums;
  *
  * @author ruth
  */
-public enum EnumParEstado {
-    ESTADO_VIGENTE("VGTE"),
-    ESTADO_NO_VIGENTE("NVGTE");
+//    DOCUMENTO_EVENTO("EVENT"),
+//    DOCUMENTO_ADMITIDO("ADMTD"),
+//    DOCUMENTO_ERROR("ERROR");
+//
+public enum EnumParEstadoDocumento {
+    DOCUMENTO_VALIDO("VLIDA"),
+    DOCUMENTO_ANULADO("ANLDA"),
+    DOCUMENTO_RECEPCIONADA("RCNDA");
+
     
     private String codigo;
 
-    private EnumParEstado(String codigo) {
+    private EnumParEstadoDocumento(String codigo) {
         this.codigo = codigo;
     }
 

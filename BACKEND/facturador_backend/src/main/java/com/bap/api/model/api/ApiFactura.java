@@ -6,7 +6,7 @@
 package com.bap.api.model.api;
 
 import com.bap.api.configurate.AbstractAudit;
-import com.bap.api.model.par.ParCondicion;
+import com.bap.api.model.par.ParEstadoDocumento;
 import com.bap.api.model.par.ParLeyendaFactura;
 import com.bap.api.model.par.ParMotivoAnulacion;
 import com.bap.api.model.par.ParTipoEmision;
@@ -15,10 +15,9 @@ import com.bap.api.model.par.ParTipoMoneda;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,14 +58,14 @@ public class ApiFactura extends AbstractAudit {
 
     @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "fecha_emision")
-    private LocalDateTime fechaEmision;
+    private LocalDate fechaEmision;
 
     @Column(name = "utc_fecha_emision")
     private String utcFechaEmision;
 
     @JsonSerialize(using = ToStringSerializer.class)
     @Column(name = "fecha_envio")
-    private LocalDateTime fechaEnvio;
+    private LocalDate fechaEnvio;
 
     @Column(name = "utc_fecha_envio")
     private String utcFechaEnvio;
@@ -145,8 +144,8 @@ public class ApiFactura extends AbstractAudit {
     private ApiActividad apiActividad;
 
     @ManyToOne()
-    @JoinColumn(name = "anulado", referencedColumnName = "codigo", nullable = true, foreignKey = @ForeignKey(name = "none"))
-    private ParCondicion parCondicion;
+    @JoinColumn(name = "estado_factura", referencedColumnName = "codigo", nullable = true, foreignKey = @ForeignKey(name = "none"))
+    private ParEstadoDocumento parEstadoDocumento;
 
     @Column(name = "codigo_recepcion_anulado")
     private Long codigoRecepcionAnulado;
@@ -199,20 +198,6 @@ public class ApiFactura extends AbstractAudit {
      */
     public void setApiConfiguracion(ApiConfiguracion apiConfiguracion) {
         this.apiConfiguracion = apiConfiguracion;
-    }
-
-    /**
-     * @return the fechaEmision
-     */
-    public LocalDateTime getFechaEmision() {
-        return fechaEmision;
-    }
-
-    /**
-     * @param fechaEmision the fechaEmision to set
-     */
-    public void setFechaEmision(LocalDateTime fechaEmision) {
-        this.fechaEmision = fechaEmision;
     }
 
     /**
@@ -496,34 +481,6 @@ public class ApiFactura extends AbstractAudit {
     }
 
     /**
-     * @return the fechaEnvio
-     */
-    public LocalDateTime getFechaEnvio() {
-        return fechaEnvio;
-    }
-
-    /**
-     * @param fechaEnvio the fechaEnvio to set
-     */
-    public void setFechaEnvio(LocalDateTime fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
-    }
-
-    /**
-     * @return the utcFechaEnvio
-     */
-    public String getUtcFechaEnvio() {
-        return utcFechaEnvio;
-    }
-
-    /**
-     * @param utcFechaEnvio the utcFechaEnvio to set
-     */
-    public void setUtcFechaEnvio(String utcFechaEnvio) {
-        this.utcFechaEnvio = utcFechaEnvio;
-    }
-
-    /**
      * @return the apiEmpresaDocumento
      */
     public ApiEmpresaDocumento getApiEmpresaDocumento() {
@@ -580,20 +537,6 @@ public class ApiFactura extends AbstractAudit {
     }
 
     /**
-     * @return the parCondicion
-     */
-    public ParCondicion getParCondicion() {
-        return parCondicion;
-    }
-
-    /**
-     * @param parCondicion the parCondicion to set
-     */
-    public void setParCondicion(ParCondicion parCondicion) {
-        this.parCondicion = parCondicion;
-    }
-
-    /**
      * @return the codigoRecepcionAnulado
      */
     public Long getCodigoRecepcionAnulado() {
@@ -619,5 +562,61 @@ public class ApiFactura extends AbstractAudit {
      */
     public void setParMotivoAnulacion(ParMotivoAnulacion parMotivoAnulacion) {
         this.parMotivoAnulacion = parMotivoAnulacion;
+    }
+
+    /**
+     * @return the fechaEmision
+     */
+    public LocalDate getFechaEmision() {
+        return fechaEmision;
+    }
+
+    /**
+     * @param fechaEmision the fechaEmision to set
+     */
+    public void setFechaEmision(LocalDate fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    /**
+     * @return the parEstadoDocumento
+     */
+    public ParEstadoDocumento getParEstadoDocumento() {
+        return parEstadoDocumento;
+    }
+
+    /**
+     * @param parEstadoDocumento the parEstadoDocumento to set
+     */
+    public void setParEstadoDocumento(ParEstadoDocumento parEstadoDocumento) {
+        this.parEstadoDocumento = parEstadoDocumento;
+    }
+
+    /**
+     * @return the fechaEnvio
+     */
+    public LocalDate getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    /**
+     * @param fechaEnvio the fechaEnvio to set
+     */
+    public void setFechaEnvio(LocalDate fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    /**
+     * @return the utcFechaEnvio
+     */
+    public String getUtcFechaEnvio() {
+        return utcFechaEnvio;
+    }
+
+    /**
+     * @param utcFechaEnvio the utcFechaEnvio to set
+     */
+    public void setUtcFechaEnvio(String utcFechaEnvio) {
+        this.utcFechaEnvio = utcFechaEnvio;
     }
 }

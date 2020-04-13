@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open  the template in the editor.
  */
 package com.bap.api.services.impl.api;
 
@@ -44,20 +44,21 @@ public class ApiDosificacionSucursalServiceImpl implements ApiDosificacionSucurs
     }
 
     @Override
-    public Entidad getDosificacionSucursalVigte(Long idSucursal) {
+    public ApiDosificacion getDosificacionSucursalVigte(Long idSucursal) {
         List<Entidad> lista = new ArrayList<>();
         repo.findDosificacionVigente(idSucursal).forEach(x -> {
             Entidad entidad = new Entidad();
-            entidad.setCuis(String.valueOf(x[0]));
-            entidad.setCodigoModalidad((Integer.parseInt(String.valueOf(x[1]))));
-            entidad.setIdDosificacion((Long.parseLong(String.valueOf(x[2]))));
+            entidad.setIdDosificacion((Long.parseLong(String.valueOf(x[0]))));
             lista.add(entidad);
         });
         if (lista.isEmpty()) {
             return null;
         } else {
-            return lista.get(0);
+            Long idDosificacion = lista.get(0).getIdDosificacion();
+            ApiDosificacion apiDosificacion = servicio.leerPorId(idDosificacion);
+            return apiDosificacion;
         }
+
     }
 
     @Override

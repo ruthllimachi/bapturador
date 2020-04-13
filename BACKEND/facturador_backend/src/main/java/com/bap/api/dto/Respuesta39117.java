@@ -1,5 +1,6 @@
 package com.bap.api.dto;
 
+import com.api.fesc_39117.PuntosVentasDto;
 import com.api.fesc_39117.RespuestaCodigosMensajesSoapDto;
 import com.bap.api.model.par.ParMensajeServicio;
 import java.util.List;
@@ -11,7 +12,11 @@ public class Respuesta39117 {
     private String codigoSistema;
     private List<ParMensajeServicio> listaParMensajeServicio;
     private List<RespuestaCodigosMensajesSoapDto> listaRespuestaCodigosMensajesSoapDto;
+    private List<PuntosVentasDto> listaPuntosVentas;
     private boolean transaccion;
+    private String codigoMensaje;
+    private String nombrePuntoVenta;
+    private String tipoPuntoVenta;
 
     public String getCodigoCuis() {
         return codigoCuis;
@@ -78,6 +83,62 @@ public class Respuesta39117 {
      */
     public void setListaRespuestaCodigosMensajesSoapDto(List<RespuestaCodigosMensajesSoapDto> listaRespuestaCodigosMensajesSoapDto) {
         this.listaRespuestaCodigosMensajesSoapDto = listaRespuestaCodigosMensajesSoapDto;
+    }
+
+    /**
+     * @return the codigoMensaje
+     */
+    public String getCodigoMensaje() {
+        return codigoMensaje;
+    }
+
+    /**
+     * @param codigoMensaje the codigoMensaje to set
+     */
+    public void setCodigoMensaje(String codigoMensaje) {
+        this.codigoMensaje = codigoMensaje;
+    }
+
+    /**
+     * @return the nombrePuntoVenta
+     */
+    public String getNombrePuntoVenta() {
+        return nombrePuntoVenta;
+    }
+
+    /**
+     * @param nombrePuntoVenta the nombrePuntoVenta to set
+     */
+    public void setNombrePuntoVenta(String nombrePuntoVenta) {
+        this.nombrePuntoVenta = nombrePuntoVenta;
+    }
+
+    /**
+     * @return the tipoPuntoVenta
+     */
+    public String getTipoPuntoVenta() {
+        return tipoPuntoVenta;
+    }
+
+    /**
+     * @param tipoPuntoVenta the tipoPuntoVenta to set
+     */
+    public void setTipoPuntoVenta(String tipoPuntoVenta) {
+        this.tipoPuntoVenta = tipoPuntoVenta;
+    }
+
+    /**
+     * @return the listaPuntosVentas
+     */
+    public List<PuntosVentasDto> getListaPuntosVentas() {
+        return listaPuntosVentas;
+    }
+
+    /**
+     * @param listaPuntosVentas the listaPuntosVentas to set
+     */
+    public void setListaPuntosVentas(List<PuntosVentasDto> listaPuntosVentas) {
+        this.listaPuntosVentas = listaPuntosVentas;
     }
 
 }

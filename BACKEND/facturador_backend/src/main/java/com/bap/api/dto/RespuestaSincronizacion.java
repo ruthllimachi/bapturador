@@ -24,6 +24,7 @@ public class RespuestaSincronizacion {
     private String fileXMLSinFirma;
     private String fileXMLFirmado;
     private String cuf;
+    private Long codigoSolicitud;
 
     public String getCuf() {
         return cuf;
@@ -146,20 +147,6 @@ public class RespuestaSincronizacion {
     }
 
     /**
-     * @return the fechaEnvio
-     */
-    public LocalDateTime getFechaEnvio() {
-        return fechaEnvio;
-    }
-
-    /**
-     * @param fechaEnvio the fechaEnvio to set
-     */
-    public void setFechaEnvio(LocalDateTime fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
-    }
-
-    /**
      * @return the utcFechaEnvio
      */
     public String getUtcFechaEnvio() {
@@ -201,4 +188,33 @@ public class RespuestaSincronizacion {
         this.fileXMLFirmado = fileXMLFirmado;
     }
 
+    /**
+     * @return the codigoSolicitud
+     */
+    public Long getCodigoSolicitud() {
+        return codigoSolicitud;
+    }
+
+    /**
+     * @param codigoSolicitud the codigoSolicitud to set
+     */
+    public void setCodigoSolicitud(Long codigoSolicitud) {
+        this.codigoSolicitud = codigoSolicitud;
+    }
+
+    /**
+     * @return the fechaEnvio
+     */
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    /**
+     * @param fechaEnvio the fechaEnvio to set
+     */
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
+
+  
 }

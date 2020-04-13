@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 
 /**
@@ -53,6 +54,9 @@ public class ApiPuntoVenta extends AbstractAudit {
     @ManyToOne()
     @JoinColumn(name = "tiene_cuis", referencedColumnName = "codigo", nullable = true, foreignKey = @ForeignKey(name = "none"))
     private ParCondicion tieneCuis;
+    
+    @Transient
+    private String usuario;
 
     /**
      * @return the idPuntoVenta
@@ -150,6 +154,20 @@ public class ApiPuntoVenta extends AbstractAudit {
      */
     public void setTieneCuis(ParCondicion tieneCuis) {
         this.tieneCuis = tieneCuis;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
 }

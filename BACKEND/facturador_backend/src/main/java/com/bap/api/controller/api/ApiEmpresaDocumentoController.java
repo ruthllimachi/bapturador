@@ -41,7 +41,7 @@ public class ApiEmpresaDocumentoController {
             @PathVariable("codigoDocumentoFiscal") Long codigoDocumentoFiscal,
             @PathVariable("codigoDocumentoSector") Long codigoDocumentoSector,
             @PathVariable("codigoTipoModalidad") Long codigoTipoModalidad) {
-        ApiEmpresaDocumento obj = servicio.leerPotEmpresaAndTipo(idEmpresa, codigoDocumentoFiscal, codigoDocumentoSector, codigoTipoModalidad);
+        ApiEmpresaDocumento obj = servicio.leerPorTipos(idEmpresa, codigoDocumentoFiscal, codigoDocumentoSector, codigoTipoModalidad);
         return new ResponseEntity<ApiEmpresaDocumento>(obj, HttpStatus.OK);
     }
 }

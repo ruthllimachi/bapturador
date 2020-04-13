@@ -5,7 +5,6 @@
  */
 package com.bap.api.controller.api;
 
-import com.bap.api.dto.CabeceraDTO;
 import com.bap.api.dto.DocumentoFiscalDTO;
 import com.bap.api.dto.Respuesta;
 import com.bap.api.services.api.ApiDocumentoFiscalService;
@@ -30,34 +29,33 @@ public class ApiDocumentoFiscalController {
     @Autowired
     private ApiDocumentoFiscalService servicio;
 
-    @PostMapping("/registroFacturaEstandarIndividual")
-    public Respuesta registroFacturaEstandarIndividual(@Valid @RequestBody DocumentoFiscalDTO documentoFiscalDTO) {
-        return servicio.registroFacturaEstandarIndividual(documentoFiscalDTO);
-    }
-    
-    @PostMapping("/anularFacturaEstandar")
-    public Respuesta anularFacturaEstandar(@Valid @RequestBody CabeceraDTO cabeceraDTO) {
-        return servicio.anularFacturaEstandar(cabeceraDTO);
-    }    
-
-    @PostMapping("/registroFacturaComercialExportacion")
-    public Respuesta registroFacturaComercialExportacion(@Valid @RequestBody DocumentoFiscalDTO documentoFiscalDTO) {
-        return servicio.registroFacturaComercialExportacion(documentoFiscalDTO);
-    }
-    
-    @PostMapping("/anularFacturaComercialExportacion")
-    public Respuesta anularFacturaComercialExportacion(@Valid @RequestBody CabeceraDTO cabeceraDTO) {
-        return servicio.anularFacturaComercialExportacion(cabeceraDTO);
+    @PostMapping("/registraFacturaEstandar")
+    public Respuesta registraFacturaEstandar(@Valid @RequestBody DocumentoFiscalDTO documentoFiscalDTO) {
+        return servicio.registraFacturaEstandar(documentoFiscalDTO);
     }
 
-    @PostMapping("/registroNotaFiscalCreditoDebito")
-    public Respuesta registroNotaFiscalCreditoDebito(@Valid @RequestBody DocumentoFiscalDTO documentoFiscalDTO) {
-        return servicio.registroNotaFiscalCreditoDebito(documentoFiscalDTO);
-    }
-    
-    @PostMapping("/anularNotaFiscalCreditoDebito")
-    public Respuesta anularNotaFiscalCreditoDebito(@Valid @RequestBody CabeceraDTO cabeceraDTO) {
-        return servicio.anularNotaFiscalCreditoDebito(cabeceraDTO);
-    }
-    
+//    @PostMapping("/anularFacturaEstandar")
+//    public Respuesta anularFacturaEstandar(@Valid @RequestBody CabeceraDTO cabeceraDTO) {
+//        return servicio.anularFacturaEstandar(cabeceraDTO);
+//    }    
+//
+//    @PostMapping("/registroFacturaComercialExportacion")
+//    public Respuesta registroFacturaComercialExportacion(@Valid @RequestBody DocumentoFiscalDTO documentoFiscalDTO) {
+//        return servicio.registroFacturaComercialExportacion(documentoFiscalDTO);
+//    }
+//    
+//    @PostMapping("/anularFacturaComercialExportacion")
+//    public Respuesta anularFacturaComercialExportacion(@Valid @RequestBody CabeceraDTO cabeceraDTO) {
+//        return servicio.anularFacturaComercialExportacion(cabeceraDTO);
+//    }
+//
+//    @PostMapping("/registroNotaFiscalCreditoDebito")
+//    public Respuesta registroNotaFiscalCreditoDebito(@Valid @RequestBody DocumentoFiscalDTO documentoFiscalDTO) {
+//        return servicio.registroNotaFiscalCreditoDebito(documentoFiscalDTO);
+//    }
+//    
+//    @PostMapping("/anularNotaFiscalCreditoDebito")
+//    public Respuesta anularNotaFiscalCreditoDebito(@Valid @RequestBody CabeceraDTO cabeceraDTO) {
+//        return servicio.anularNotaFiscalCreditoDebito(cabeceraDTO);
+//    }
 }

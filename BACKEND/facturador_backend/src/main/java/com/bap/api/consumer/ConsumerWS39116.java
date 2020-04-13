@@ -64,13 +64,14 @@ public class ConsumerWS39116 {
             solicitudRecepcion.setCodigoDocumentoFiscal(solicitud.getCodigoDocumentoFiscal());
             solicitudRecepcion.setCodigoDocumentoSector(solicitud.getCodigoDocumentoSector());
             solicitudRecepcion.setCodigoEmision(solicitud.getCodigoEmision());
-            solicitudRecepcion.setCodigoModalidad(solicitud.getCodigoModalidad());
+            //solicitudRecepcion.setCodigoModalidad(solicitud.getCodigoModalidad());
+            solicitudRecepcion.setCodigoModalidad(solicitud.getApiDosificacion().getParTipoModalidad().getCodigo().intValue());
             JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudRecepcionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
             solicitudRecepcion.setCodigoPuntoVenta(codigoPuntoVenta);
             solicitudRecepcion.setCodigoSistema(solicitud.getCodigoSistema());
             solicitudRecepcion.setCodigoSucursal(solicitud.getCodigoSucursal());
             solicitudRecepcion.setCufd(solicitud.getCufd());
-            solicitudRecepcion.setCuis(solicitud.getCuis());
+            solicitudRecepcion.setCuis(solicitud.getApiDosificacion().getCuis());
             XMLGregorianCalendar xmlGregoriaFechaEmision = DatatypeFactory.newInstance().newXMLGregorianCalendar(solicitud.getFechaEnvio().toString());
             solicitudRecepcion.setFechaEnvio(xmlGregoriaFechaEmision);
             solicitudRecepcion.setNit(solicitud.getNitEmpresa());
@@ -106,9 +107,10 @@ public class ConsumerWS39116 {
         solicitudValidacionRecepcion.setCodigoSistema(solicitud.getCodigoSistema());
         solicitudValidacionRecepcion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
         solicitudValidacionRecepcion.setCodigoEmision(solicitud.getCodigoEmision());
-        solicitudValidacionRecepcion.setCodigoModalidad(solicitud.getCodigoModalidad());
+        //solicitudValidacionRecepcion.setCodigoModalidad(solicitud.getCodigoModalidad());
+        solicitudValidacionRecepcion.setCodigoModalidad(solicitud.getApiDosificacion().getParTipoModalidad().getCodigo().intValue());
         solicitudValidacionRecepcion.setNit(solicitud.getNitEmpresa());
-        solicitudValidacionRecepcion.setCuis(solicitud.getCuis());
+        solicitudValidacionRecepcion.setCuis(solicitud.getApiDosificacion().getCuis());
         solicitudValidacionRecepcion.setCufd(solicitud.getCufd());
         solicitudValidacionRecepcion.setCodigoDocumentoFiscal(solicitud.getCodigoDocumentoFiscal());
         solicitudValidacionRecepcion.setCodigoDocumentoSector(solicitud.getCodigoDocumentoSector());
@@ -143,7 +145,8 @@ public class ConsumerWS39116 {
         solicitudAnulacion.setCodigoDocumentoFiscal(solicitud.getCodigoDocumentoFiscal());
         solicitudAnulacion.setCodigoDocumentoSector(solicitud.getCodigoDocumentoSector());
         solicitudAnulacion.setCodigoEmision(solicitud.getCodigoEmision());
-        solicitudAnulacion.setCodigoModalidad(solicitud.getCodigoModalidad());
+        //solicitudAnulacion.setCodigoModalidad(solicitud.getCodigoModalidad());
+        solicitudAnulacion.setCodigoModalidad(solicitud.getApiDosificacion().getParTipoModalidad().getCodigo().intValue());
         solicitudAnulacion.setCodigoMotivo(solicitud.getCodigoMotivo());
         JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudValidacionRecepcionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudAnulacion.setCodigoPuntoVenta(codigoPuntoVenta);
@@ -151,7 +154,7 @@ public class ConsumerWS39116 {
         solicitudAnulacion.setCodigoSucursal(solicitud.getCodigoSucursal());
         solicitudAnulacion.setCufd(solicitud.getCufd());
         solicitudAnulacion.setCuf(solicitud.getCuf());
-        solicitudAnulacion.setCuis(solicitud.getCuis());
+        solicitudAnulacion.setCuis(solicitud.getApiDosificacion().getCuis());
         solicitudAnulacion.setNit(solicitud.getNitEmpresa());
         solicitudAnulacion.setNumeroDocumentoFiscal(solicitud.getNumeroDocumentoFiscal());
         request.setSolicitudServicioAnulacion(solicitudAnulacion);
@@ -178,7 +181,8 @@ public class ConsumerWS39116 {
         solicitudValidacionAnulacion.setCodigoDocumentoFiscal(solicitud.getCodigoDocumentoFiscal());
         solicitudValidacionAnulacion.setCodigoDocumentoSector(solicitud.getCodigoDocumentoSector());
         solicitudValidacionAnulacion.setCodigoEmision(solicitud.getCodigoEmision());
-        solicitudValidacionAnulacion.setCodigoModalidad(solicitud.getCodigoModalidad());
+        //solicitudValidacionAnulacion.setCodigoModalidad(solicitud.getCodigoModalidad());
+        solicitudValidacionAnulacion.setCodigoModalidad(solicitud.getApiDosificacion().getParTipoModalidad().getCodigo().intValue());
         solicitudValidacionAnulacion.setCodigoMotivo(solicitud.getCodigoMotivo());
         JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudValidacionRecepcionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudValidacionAnulacion.setCodigoPuntoVenta(codigoPuntoVenta);
@@ -187,7 +191,7 @@ public class ConsumerWS39116 {
         solicitudValidacionAnulacion.setCodigoSucursal(solicitud.getCodigoSucursal());
         solicitudValidacionAnulacion.setCuf(solicitud.getCuf());
         solicitudValidacionAnulacion.setCufd(solicitud.getCufd());
-        solicitudValidacionAnulacion.setCuis(solicitud.getCuis());
+        solicitudValidacionAnulacion.setCuis(solicitud.getApiDosificacion().getCuis());
         solicitudValidacionAnulacion.setNit(solicitud.getNitEmpresa());
         solicitudValidacionAnulacion.setNumeroDocumentoFiscal(solicitud.getNumeroDocumentoFiscal());
 

@@ -5,7 +5,7 @@
  */
 package com.bap.api.services.api;
 
-import com.bap.api.dto.Entidad;
+import com.bap.api.model.api.ApiConfiguracion;
 import com.bap.api.model.api.ApiConfiguracionPuntoVenta;
 import java.util.List;
 
@@ -19,6 +19,6 @@ public interface ApiConfiguracionPuntoVentaService {
     
     List<ApiConfiguracionPuntoVenta> listar();
     
-    Entidad getConfiguracionPuntoVentaVigte(Long idPuntoVenta);
+    ApiConfiguracion getConfiguracionPuntoVentaVigte(Long idPuntoVenta);
     
 }

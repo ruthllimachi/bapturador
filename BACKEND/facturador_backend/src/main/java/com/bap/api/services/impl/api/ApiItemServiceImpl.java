@@ -31,9 +31,7 @@ public class ApiItemServiceImpl implements ApiItemService {
     }
 
     @Override
-    public ApiItem modificar(ApiItem t) {
-        t.setUsuarioModificacion("admin");
-        t.setFechaModificacion(new Date());
+    public ApiItem modificar(ApiItem t) {      
         return repo.save(t);
     }
 
@@ -66,6 +64,11 @@ public class ApiItemServiceImpl implements ApiItemService {
     @Override
     public List<Object[]> listarDatos(Long idEmpresa) {
         return repo.listaItemDatosByIdEmpresa(idEmpresa);
+    }
+    
+    @Override
+    public ApiItem leerPorCodigoSolicitud(Long idEmpresa, Long codigoSolicitud) {
+        return repo.leerPorCodigoSolicitud(idEmpresa, codigoSolicitud);
     }
 
 }

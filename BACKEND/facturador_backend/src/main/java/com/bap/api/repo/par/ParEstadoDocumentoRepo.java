@@ -1,9 +1,9 @@
 package com.bap.api.repo.par;
 
-import com.bap.api.model.par.ParEstado;
+import com.bap.api.model.par.ParEstadoDocumento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParEstadoRepo extends JpaRepository<ParEstado, String> {
+public interface ParEstadoDocumentoRepo extends JpaRepository<ParEstadoDocumento, String> {
 
-    ParEstado findByCodigo(String codigo);
+    ParEstadoDocumento findByCodigo(String codigo);
 }

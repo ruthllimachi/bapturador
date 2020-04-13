@@ -13,10 +13,12 @@ import com.bap.api.dto.SolicitudCliente;
  * @author ruth
  */
 public interface AdmConsultasService {
-    
+
     ConsultaParametros consultarDatosUsuario(String login);
 
-    SolicitudCliente wsSin(String login, String ws);
-    
+    boolean cudfVigente(String login);
+
+    SolicitudCliente wsSin(String login);
+
     ConsultaParametros consultarDatosEmpresa(Long nitEmpresa);
 }

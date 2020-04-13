@@ -5,7 +5,7 @@
  */
 package com.bap.api.services.api;
 
-import com.bap.api.dto.Entidad;
+import com.bap.api.model.api.ApiConfiguracion;
 import com.bap.api.model.api.ApiConfiguracionSucursal;
 import java.util.List;
 
@@ -19,6 +19,6 @@ public interface ApiConfiguracionSucursalService {
 
     List<ApiConfiguracionSucursal> listar();  
     
-    Entidad getConfiguracionSucursalVigte(Long idSucursal);
+    ApiConfiguracion getConfiguracionSucursalVigte(Long idSucursal);
 
 }

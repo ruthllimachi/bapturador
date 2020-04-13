@@ -5,7 +5,6 @@
  */
 package com.bap.api.services.api;
 
-import com.bap.api.dto.CabeceraDTO;
 import com.bap.api.dto.DocumentoFiscalDTO;
 import com.bap.api.dto.Respuesta;
 
@@ -15,15 +14,15 @@ import com.bap.api.dto.Respuesta;
  */
 public interface ApiDocumentoFiscalService {
 
-    Respuesta registroFacturaEstandarIndividual(DocumentoFiscalDTO documentoFiscalDTO);
+    Respuesta registraFacturaEstandar(DocumentoFiscalDTO documentoFiscalDTO);
 
-    Respuesta anularFacturaEstandar(CabeceraDTO cabeceraDTO);
-
-    Respuesta registroFacturaComercialExportacion(DocumentoFiscalDTO documentoFiscalDTO);
-
-    Respuesta registroNotaFiscalCreditoDebito(DocumentoFiscalDTO documentoFiscalDTO);
-
-    Respuesta anularFacturaComercialExportacion(CabeceraDTO cabeceraDTO);
-    
-    Respuesta anularNotaFiscalCreditoDebito(CabeceraDTO cabeceraDTO);
+//    Respuesta anularFacturaEstandar(CabeceraDTO cabeceraDTO);
+//
+//    Respuesta registroFacturaComercialExportacion(DocumentoFiscalDTO documentoFiscalDTO);
+//
+//    Respuesta registroNotaFiscalCreditoDebito(DocumentoFiscalDTO documentoFiscalDTO);
+//
+//    Respuesta anularFacturaComercialExportacion(CabeceraDTO cabeceraDTO);
+//    
+//    Respuesta anularNotaFiscalCreditoDebito(CabeceraDTO cabeceraDTO);
 }

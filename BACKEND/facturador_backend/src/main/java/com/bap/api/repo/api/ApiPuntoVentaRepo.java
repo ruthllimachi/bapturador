@@ -20,7 +20,7 @@ public interface ApiPuntoVentaRepo extends JpaRepository<ApiPuntoVenta, Long> {
     @Query("select o from ApiPuntoVenta o where o.apiSucursal.idEmpresa = :idEmpresa")
     List<ApiPuntoVenta> listaByIdEmpresa(@Param("idEmpresa") Long idEmpresa);
 
-    @Query("select o from ApiPuntoVenta o where o.apiSucursal.idSucursal = :idSucursal")
+    @Query("select o from ApiPuntoVenta o where o.fechaBaja is null and o.apiSucursal.idSucursal = :idSucursal")
     List<ApiPuntoVenta> listaByIdSucursal(@Param("idSucursal") Long idSucursal);    
     
     @Query("select u from ApiPuntoVenta u  where u.apiSucursal.idSucursal = :idSucursal and u.codigoPuntoVenta = :codigoPuntoVenta")

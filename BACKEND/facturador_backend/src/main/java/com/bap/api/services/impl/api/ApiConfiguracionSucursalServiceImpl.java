@@ -11,7 +11,6 @@ import com.bap.api.model.api.ApiConfiguracionSucursal;
 import com.bap.api.repo.api.ApiConfiguracionSucursalRepo;
 import com.bap.api.services.api.ApiConfiguracionService;
 import com.bap.api.services.api.ApiConfiguracionSucursalService;
-import com.bap.api.utils.FechaUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -43,25 +42,40 @@ public class ApiConfiguracionSucursalServiceImpl implements ApiConfiguracionSucu
     public List<ApiConfiguracionSucursal> listar() {
         return repo.findAll();
     }
-    
+
     @Override
-    public Entidad getConfiguracionSucursalVigte(Long idSucursal) {
+    public ApiConfiguracion getConfiguracionSucursalVigte(Long idSucursal) {
         List<Entidad> lista = new ArrayList<>();
         repo.findConfiguracionVigente(idSucursal).forEach(x -> {
             Entidad entidad = new Entidad();
             entidad.setIdConfiguracion(Long.parseLong((String.valueOf(x[0]))));
-            entidad.setCufd(String.valueOf(x[1]));           
-            String fechaVigencia = String.valueOf(x[2]);                                    
-            entidad.setFechaVigencia(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaVigencia));
-//            String fechaHora = String.valueOf(x[3]);                                    
-//            entidad.setFechaHora(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaHora));
             lista.add(entidad);
         });
         if (lista.isEmpty()) {
             return null;
         } else {
-            return lista.get(0);
+            ApiConfiguracion apiConfiguracion = servicio.leerPorId(lista.get(0).getIdConfiguracion());
+            return apiConfiguracion;
         }
     }
 
+//    @Override
+//    public Entidad getConfiguracionSucursalVigte(Long idSucursal) {
+//        List<Entidad> lista = new ArrayList<>();
+//        repo.findConfiguracionVigente(idSucursal).forEach(x -> {
+//            Entidad entidad = new Entidad();
+//            entidad.setIdConfiguracion(Long.parseLong((String.valueOf(x[0]))));
+//            entidad.setCufd(String.valueOf(x[1]));           
+//            String fechaVigencia = String.valueOf(x[2]);                                    
+//            entidad.setFechaVigencia(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaVigencia));
+////            String fechaHora = String.valueOf(x[3]);                                    
+////            entidad.setFechaHora(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaHora));
+//            lista.add(entidad);
+//        });
+//        if (lista.isEmpty()) {
+//            return null;
+//        } else {
+//            return lista.get(0);
+//        }
+//    }
 }

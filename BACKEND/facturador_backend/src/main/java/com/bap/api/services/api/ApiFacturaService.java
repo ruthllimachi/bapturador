@@ -6,7 +6,13 @@
 package com.bap.api.services.api;
 
 import com.bap.api.configurate.AbstractEntity;
+import com.bap.api.dto.CabeceraDTO;
+import com.bap.api.dto.DocumentoFiscalDTO;
+import com.bap.api.dto.Respuesta;
+import com.bap.api.dto.RespuestaDocumentoFiscal;
+import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.model.api.ApiFactura;
+import com.bap.api.model.par.ParTipoModalidad;
 import java.util.List;
 
 /**
@@ -25,9 +31,14 @@ public interface ApiFacturaService extends AbstractEntity<ApiFactura> {
 
     byte[] facturaEstandarPdf(Long idFactura);
 
-    //ApiFactura findFactura(Long numeroFactura, String numeroAutorizacionCuf, String fechaEmisionFactura);
     ApiFactura findFacturaPorSucursal(Long numeroFactura, String numeroAutorizacionCuf, Long idSucursal, String fechaEmisionFactura);
 
     ApiFactura findFacturaPorPuntoVenta(Long numeroFactura, String numeroAutorizacionCuf, Long idPuntoVenta, String fechaEmisionFactura);
+
+    Respuesta enviaFacturaEstandar(ApiFactura apiFactura, SolicitudCliente solicitud, CabeceraDTO cabeceraDTO);
+
+    RespuestaDocumentoFiscal validaFacturaEstandar(DocumentoFiscalDTO documentoFiscalDTO);
+
+    Respuesta verficaComunicacion(ParTipoModalidad parTipoModalidad);
 
 }

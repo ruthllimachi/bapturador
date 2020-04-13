@@ -6,19 +6,23 @@
 package com.bap.api.services.impl.api;
 
 import com.bap.api.consumer.ConsumerWS39117;
-import com.bap.api.dto.Entidad;
+import com.bap.api.dto.Respuesta;
 import com.bap.api.dto.Respuesta39117;
 import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.enums.EnumParEstado;
 import com.bap.api.model.api.ApiDosificacion;
 import com.bap.api.model.api.ApiDosificacionPuntoVenta;
 import com.bap.api.model.api.ApiDosificacionSucursal;
+import com.bap.api.model.api.ApiPuntoVenta;
+import com.bap.api.model.api.ApiSucursal;
 import com.bap.api.model.par.ParEstado;
 import com.bap.api.model.par.ParMensajeServicio;
 import com.bap.api.repo.api.ApiDosificacionRepo;
 import com.bap.api.services.api.ApiDosificacionPuntoVentaService;
 import com.bap.api.services.api.ApiDosificacionService;
 import com.bap.api.services.api.ApiDosificacionSucursalService;
+import com.bap.api.services.api.ApiPuntoVentaService;
+import com.bap.api.services.api.ApiSucursalService;
 import com.bap.api.services.par.ParEstadoService;
 import com.bap.api.services.par.ParMensajeServicioService;
 import java.util.ArrayList;
@@ -52,6 +56,12 @@ public class ApiDosificacionServiceImpl implements ApiDosificacionService {
     @Autowired
     private ApiDosificacionPuntoVentaService apiDosificacionPuntoVentaService;
 
+    @Autowired
+    private ApiSucursalService apiSucursalService;
+
+    @Autowired
+    private ApiPuntoVentaService apiPuntoVentaService;
+
     @Override
     public ApiDosificacion registrar(ApiDosificacion t) {
         t.setUsuarioAlta("admin");
@@ -61,7 +71,6 @@ public class ApiDosificacionServiceImpl implements ApiDosificacionService {
 
     @Override
     public ApiDosificacion modificar(ApiDosificacion t) {
-        t.setUsuarioModificacion("admin");
         t.setFechaModificacion(new Date());
         return repo.save(t);
     }
@@ -87,27 +96,25 @@ public class ApiDosificacionServiceImpl implements ApiDosificacionService {
 
     @Override
     public ApiDosificacion getDosificacionVigenteBySucursal(Long idSucursal) {
-        Entidad entidad = apiDosificacionSucursalService.getDosificacionSucursalVigte(idSucursal);
-        return leerPorId(entidad.getIdDosificacion());
+        return apiDosificacionSucursalService.getDosificacionSucursalVigte(idSucursal);
     }
 
     @Override
     public ApiDosificacion getDosificacionVigenteByPuntoVenta(Long idPuntoVenta) {
-        Entidad entidad = apiDosificacionPuntoVentaService.getDosificacionPuntoVentaVigte(idPuntoVenta);
-        return leerPorId(entidad.getIdDosificacion());
+        return apiDosificacionPuntoVentaService.getDosificacionPuntoVentaVigte(idPuntoVenta);
     }
 
     @Override
-    public Respuesta39117 solicitudCuis(SolicitudCliente t) {
+    public Respuesta solicitudCuis(SolicitudCliente t) {
         long codigo = consumerWS39117.verificarComunicacion();
-        Respuesta39117 respuestaSincronizacion39117 = new Respuesta39117();
+        Respuesta respuesta = null;
         List<ParMensajeServicio> lista = new ArrayList<>();
         if (codigo == 66) {
-            respuestaSincronizacion39117 = consumerWS39117.solicitudCuis(t);
-            if (respuestaSincronizacion39117.isTransaccion()) {
+            Respuesta39117 respuesta39117 = consumerWS39117.solicitudCuis(t);
+            if (respuesta39117.isTransaccion()) {
                 ParEstado parEstado = parEstadoService.leerPorCodigo(EnumParEstado.ESTADO_VIGENTE.getCodigo());
                 ApiDosificacion apiDosificacion = new ApiDosificacion();
-                apiDosificacion.setCuis(respuestaSincronizacion39117.getCodigoCuis());
+                apiDosificacion.setCuis(respuesta39117.getCodigoCuis());
                 apiDosificacion.setEstadoDosificacion(parEstado);
                 apiDosificacion.setParTipoModalidad(t.getParTipoModalidad());
                 if (t.getCodigoPuntoVenta() == 0) {
@@ -121,19 +128,66 @@ public class ApiDosificacionServiceImpl implements ApiDosificacionService {
                     apiDosificacionPuntoVenta.setApiDosificacion(apiDosificacion);
                     apiDosificacionPuntoVentaService.registrar(apiDosificacionPuntoVenta);
                 }
+                respuesta = new Respuesta();
+                respuesta.setTransaccion(true);
             } else {
-                respuestaSincronizacion39117.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                respuesta39117.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
                     long r = res.getCodigoMensaje();
                     ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
                     lista.add(parMensajeServicio);
                 });
+                respuesta = new Respuesta();
+                respuesta.setListaParMensajeServicio(lista);
             }
         } else {
             ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(codigo);
             lista.add(parMensajeServicio);
+            respuesta = new Respuesta();
+            respuesta.setListaParMensajeServicio(lista);
         }
-        respuestaSincronizacion39117.setListaParMensajeServicio(lista);
-        return respuestaSincronizacion39117;
+        return respuesta;
+    }
+
+    @Override
+    public Respuesta cierreOperaciones(SolicitudCliente t) {
+        long codigo = consumerWS39117.verificarComunicacion();
+        Respuesta respuesta = null;
+        List<ParMensajeServicio> lista = new ArrayList<>();
+        if (codigo == 66) {
+            Respuesta39117 respuesta39117 = consumerWS39117.cierreOperacionesSistema(t);
+            if (respuesta39117.isTransaccion()) {
+                ParEstado parEstado = parEstadoService.leerPorCodigo(EnumParEstado.ESTADO_NO_VIGENTE.getCodigo());
+                ApiDosificacion apiDosificacion = t.getApiDosificacion();
+                apiDosificacion.setEstadoDosificacion(parEstado);
+                apiDosificacion.setUsuarioModificacion(t.getLogin());
+                modificar(apiDosificacion);
+                if (t.getCodigoPuntoVenta() == 0) {
+                    ApiSucursal apiSucursal = t.getApiSucursal();
+                    apiSucursal.setUsuarioBaja(t.getLogin());
+                    apiSucursalService.eliminar(apiSucursal);
+                } else {
+                    ApiPuntoVenta apiPuntoVenta = t.getApiPuntoVenta();
+                    apiPuntoVenta.setUsuarioBaja(t.getLogin());
+                    apiPuntoVentaService.eliminar(apiPuntoVenta);
+                }
+                respuesta = new Respuesta();
+                respuesta.setTransaccion(true);
+            } else {
+                respuesta39117.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                    long r = res.getCodigoMensaje();
+                    ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                    lista.add(parMensajeServicio);
+                });
+                respuesta = new Respuesta();
+                respuesta.setListaParMensajeServicio(lista);
+            }
+        } else {
+            ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(codigo);
+            lista.add(parMensajeServicio);
+            respuesta = new Respuesta();
+            respuesta.setListaParMensajeServicio(lista);
+        }
+        return respuesta;
     }
 
 }

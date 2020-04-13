@@ -5,11 +5,15 @@
  */
 package com.bap.api.utils;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 import java.math.BigInteger;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -22,11 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class FechaUtils {
 
     public static void main(String[] args) throws ParseException, DatatypeConfigurationException {
-        System.out.println( "¡Hola pap\u00e1!\nYa puedo escribir bien.\n\u00d1a\u00f1a\u00f1a\u00f1a" );
- 
-
- 
-
+//        System.out.println("¡Hola pap\u00e1!\nYa puedo escribir bien.\n\u00d1a\u00f1a\u00f1a\u00f1a");
 
 //        //sin
 //        BigInteger x = hexToDecimal("159FFE6FB199C9A7344BBC92A10A653BF28AC9E6");
@@ -34,15 +34,12 @@ public class FechaUtils {
 //        
 //        String y = Base16("123456789201908261100122080000111010000101100006");
 //        System.out.println("decimal a hexadecimal es " + y);
-
 //mio
 //        BigInteger x = hexToDecimal("159FFE6FB199C9A7344BBC92A10A653BF28AC9E6");
 //        System.out.println("decimal es " + x.toString());
-
 /////
         //Base16_2("123456789201908261100122080000111010000101100006");
 //        Base16_2("7000");
-
 //        LocalDateTime now = LocalDateTime.now();
 //        System.out.println("Before : " + now);
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
@@ -83,9 +80,19 @@ public class FechaUtils {
 //                
 //                Date utcDate = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTime();
 //                System.out.println("UTC Millesegundo is: " + utcDate.toString());
+//        LocalDateTime r = convertToLocalDateTime(LocalDate.now());
+//        System.out.println("r tiene " + r);
+//        LocalDateTime r = convertStringToLocalDateTimeWithoutMillisecond("2020-01-10T07:37:33.501");
+        //      System.out.println("r tiene " + r);
+        String str = "2020-01-10T07:37:33.501";
+        LocalDateTime dateTime = LocalDateTime.parse(str);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = dateTime.format(formatter);
+        LocalDateTime dateTime2 = LocalDateTime.parse(formatDateTime, formatter);
+        System.out.println("r tiene " + dateTime2);
+
     }
 
-//    public static LocalDateTime convertToLocalDateTime(String dateToConvert) {
     public static LocalDateTime convertStringToLocalDateTime(String dateToConvert) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         return LocalDateTime.parse(dateToConvert, formatter);
@@ -93,9 +100,15 @@ public class FechaUtils {
 
 //    //public static LocalDateTime convertStringtLocalDateTime(String dateToConvert) {
     public static LocalDateTime convertStringToLocalDateTimeWithoutMillisecond(String dateToConvert) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        LocalDateTime dateTime = LocalDateTime.parse(dateToConvert, formatter);
+        
+        LocalDateTime dateTimeX = LocalDateTime.parse(dateToConvert);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(dateToConvert, formatter);
+        String formatDateTime = dateTimeX.format(formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(formatDateTime, formatter);        
         return dateTime;
+
     }
 
     //convierte date a localdatetime
@@ -113,16 +126,37 @@ public class FechaUtils {
         return formatDateTime;
     }
 
+    public static LocalDateTime convertToLocalDateTime(LocalDate f) {
+        /* atTime(int hour, int minutes, int seconds, int nanoseconds)
+       * hour - the hour-of-day, value range from 0 to 23.
+       * minute - the minute-of-hour, value range from 0 to 59.
+       * second - the second-of-minute, value range from 0 to 59.
+       * nanoOfSecond - the nano-of-second, value range from 0 to 999,999,999
+         */
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+        int second = cal.get(Calendar.SECOND);
+        int nano = cal.get(Calendar.MILLISECOND);
+        LocalDateTime localDateTime = f.atTime(hour, minute, second, nano);
+        return localDateTime;
+    }
+
     public static String convertLocalDateTimeToFormatStringMillesecond(LocalDateTime fecha) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         String formatDateTime = fecha.format(formatter);
         return formatDateTime;
     }
-    
-      public static String convertLocalDateTimeToFormatReport(LocalDateTime fecha) {
+
+    public static String convertLocalDateTimeToFormatReport(LocalDateTime fecha) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formatDateTime = fecha.format(formatter);
         return formatDateTime;
+    }
+
+    public static String convertLocalDateToFormatReport(LocalDate fecha) {
+        String formattedDate = fecha.format(DateTimeFormatter.ofPattern("dd/MMM/yy"));
+        return formattedDate;
     }
 
     public static XMLGregorianCalendar convertLocalDateTimeToXMLGregorianCalendar(String f) throws DatatypeConfigurationException {
@@ -162,7 +196,6 @@ public class FechaUtils {
 //        String h = f.toString(16).toUpperCase();
 //        return h;
 //    }
-
 //    private static String Base16_2(String dato) {
 //        char digitosH[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 //        String hexadecimal2 = "";

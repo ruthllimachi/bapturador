@@ -11,9 +11,6 @@ import com.bap.api.model.api.ApiConfiguracionPuntoVenta;
 import com.bap.api.repo.api.ApiConfiguracionPuntoVentaRepo;
 import com.bap.api.services.api.ApiConfiguracionPuntoVentaService;
 import com.bap.api.services.api.ApiConfiguracionService;
-import com.bap.api.services.par.ParEstadoService;
-import com.bap.api.services.par.ParMensajeServicioService;
-import com.bap.api.utils.FechaUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -33,14 +30,6 @@ public class ApiConfiguracionPuntoVentaServiceImpl implements ApiConfiguracionPu
     @Autowired
     private ApiConfiguracionService servicio;
 
-//    @Autowired
-//    ConsumerWS39117 consumerWS39117;
-    @Autowired
-    private ParMensajeServicioService parMensajeServicioService;
-
-    @Autowired
-    private ParEstadoService parEstadoService;
-
     @Transactional
     @Override
     public ApiConfiguracionPuntoVenta registrar(ApiConfiguracionPuntoVenta t) {
@@ -55,23 +44,38 @@ public class ApiConfiguracionPuntoVentaServiceImpl implements ApiConfiguracionPu
     }
 
     @Override
-    public Entidad getConfiguracionPuntoVentaVigte(Long idPuntoVenta) {
+    public ApiConfiguracion getConfiguracionPuntoVentaVigte(Long idPuntoVenta) {
         List<Entidad> lista = new ArrayList<>();
         repo.findConfiguracionVigente(idPuntoVenta).forEach(x -> {
             Entidad entidad = new Entidad();
             entidad.setIdConfiguracion(Long.parseLong((String.valueOf(x[0]))));
-            entidad.setCufd(String.valueOf(x[1]));
-            String fechaVigencia = String.valueOf(x[2]);
-            entidad.setFechaVigencia(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaVigencia));
-            String fechaHora = String.valueOf(x[3]);                                    
-            entidad.setFechaHora(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaHora));
             lista.add(entidad);
         });
         if (lista.isEmpty()) {
             return null;
         } else {
-            return lista.get(0);
+            ApiConfiguracion apiConfiguracion = servicio.leerPorId(lista.get(0).getIdConfiguracion());
+            return apiConfiguracion;
         }
     }
 
+//    @Override
+//    public Entidad getConfiguracionPuntoVentaVigte(Long idPuntoVenta) {
+//        List<Entidad> lista = new ArrayList<>();
+//        repo.findConfiguracionVigente(idPuntoVenta).forEach(x -> {
+//            Entidad entidad = new Entidad();
+//            entidad.setIdConfiguracion(Long.parseLong((String.valueOf(x[0]))));
+//            entidad.setCufd(String.valueOf(x[1]));
+//            String fechaVigencia = String.valueOf(x[2]);
+//            entidad.setFechaVigencia(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaVigencia));
+//            String fechaHora = String.valueOf(x[3]);                                    
+//            entidad.setFechaHora(FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(fechaHora));
+//            lista.add(entidad);
+//        });
+//        if (lista.isEmpty()) {
+//            return null;
+//        } else {
+//            return lista.get(0);
+//        }
+//    }
 }

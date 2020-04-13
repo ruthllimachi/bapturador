@@ -44,6 +44,9 @@ public class ApiItem extends AbstractAudit {
     @JoinColumn(name = "codigo_actividad", referencedColumnName = "codigo", nullable = true, foreignKey = @ForeignKey(name = "none"))
     private ParActividad parActividad;
 
+    @Column(name = "codigo_solicitud")
+    private Long codigoSolicitud;
+
     /**
      * @return the idEmpresa
      */
@@ -71,7 +74,7 @@ public class ApiItem extends AbstractAudit {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
     /**
      * @return the idItem
      */
@@ -86,8 +89,6 @@ public class ApiItem extends AbstractAudit {
         this.idItem = idItem;
     }
 
-    
-
     /**
      * @return the parActividad
      */
@@ -100,7 +101,7 @@ public class ApiItem extends AbstractAudit {
      */
     public void setParActividad(ParActividad parActividad) {
         this.parActividad = parActividad;
-    }   
+    }
 
     /**
      * @return the codigoProductoSin
@@ -116,5 +117,18 @@ public class ApiItem extends AbstractAudit {
         this.codigoProductoSin = codigoProductoSin;
     }
 
-  
+    /**
+     * @return the codigoSolicitud
+     */
+    public Long getCodigoSolicitud() {
+        return codigoSolicitud;
+    }
+
+    /**
+     * @param codigoSolicitud the codigoSolicitud to set
+     */
+    public void setCodigoSolicitud(Long codigoSolicitud) {
+        this.codigoSolicitud = codigoSolicitud;
+    }
+
 }

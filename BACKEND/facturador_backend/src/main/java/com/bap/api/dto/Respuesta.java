@@ -1,5 +1,7 @@
 package com.bap.api.dto;
 
+import com.bap.api.model.api.ApiEventoSignificativo;
+import com.bap.api.model.api.ApiPuntoVenta;
 import com.bap.api.model.par.ParMensajeFacturador;
 import com.bap.api.model.par.ParMensajeServicio;
 import java.util.List;
@@ -9,6 +11,9 @@ public class Respuesta {
     private List<ParMensajeServicio> listaParMensajeServicio;
     private boolean transaccion;
     private ParMensajeFacturador parMensajeFacturador;
+    private Long idDocumentoFiscal;    
+    private List<ApiPuntoVenta> listaApiPuntoVenta;
+    private List<ApiEventoSignificativo> listaApiEventoSignificativo;
 
     /**
      * @return the listaParMensajeServicio
@@ -50,6 +55,48 @@ public class Respuesta {
      */
     public void setParMensajeFacturador(ParMensajeFacturador parMensajeFacturador) {
         this.parMensajeFacturador = parMensajeFacturador;
+    }
+
+    /**
+     * @return the idDocumentoFiscal
+     */
+    public Long getIdDocumentoFiscal() {
+        return idDocumentoFiscal;
+    }
+
+    /**
+     * @param idDocumentoFiscal the idDocumentoFiscal to set
+     */
+    public void setIdDocumentoFiscal(Long idDocumentoFiscal) {
+        this.idDocumentoFiscal = idDocumentoFiscal;
+    }
+
+    /**
+     * @return the listaApiPuntoVenta
+     */
+    public List<ApiPuntoVenta> getListaApiPuntoVenta() {
+        return listaApiPuntoVenta;
+    }
+
+    /**
+     * @param listaApiPuntoVenta the listaApiPuntoVenta to set
+     */
+    public void setListaApiPuntoVenta(List<ApiPuntoVenta> listaApiPuntoVenta) {
+        this.listaApiPuntoVenta = listaApiPuntoVenta;
+    }
+
+    /**
+     * @return the listaApiEventoSignificativo
+     */
+    public List<ApiEventoSignificativo> getListaApiEventoSignificativo() {
+        return listaApiEventoSignificativo;
+    }
+
+    /**
+     * @param listaApiEventoSignificativo the listaApiEventoSignificativo to set
+     */
+    public void setListaApiEventoSignificativo(List<ApiEventoSignificativo> listaApiEventoSignificativo) {
+        this.listaApiEventoSignificativo = listaApiEventoSignificativo;
     }
 
 }

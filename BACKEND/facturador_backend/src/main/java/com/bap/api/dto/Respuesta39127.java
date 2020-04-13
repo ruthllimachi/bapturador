@@ -1,44 +1,71 @@
 package com.bap.api.dto;
 
+import com.api.fesc_39127.EventosSignificativosDto;
+import com.api.fesc_39127.RespuestaCodigosMensajesSoapDto;
+import java.util.List;
 
 public class Respuesta39127 {
 
-    private int codigoMensaje;
-  
-    private int codigoSolicitud;
-    protected Long codigoProducto;
-    protected String descripcionProducto;
+    private Long codigoRecepcionEventoSignificativo;
+    private List<EventosSignificativosDto> listaCodigos;
+    private List<RespuestaCodigosMensajesSoapDto> listaCodigosRespuestas;
+    private boolean transaccion;
 
-    public int getCodigoMensaje() {
-        return codigoMensaje;
+    /**
+     * @return the codigoRecepcionEventoSignificativo
+     */
+    public Long getCodigoRecepcionEventoSignificativo() {
+        return codigoRecepcionEventoSignificativo;
     }
 
-    public void setCodigoMensaje(int codigoMensaje) {
-        this.codigoMensaje = codigoMensaje;
+    /**
+     * @param codigoRecepcionEventoSignificativo the
+     * codigoRecepcionEventoSignificativo to set
+     */
+    public void setCodigoRecepcionEventoSignificativo(Long codigoRecepcionEventoSignificativo) {
+        this.codigoRecepcionEventoSignificativo = codigoRecepcionEventoSignificativo;
     }
 
-    public int getCodigoSolicitud() {
-        return codigoSolicitud;
+    /**
+     * @return the listaCodigos
+     */
+    public List<EventosSignificativosDto> getListaCodigos() {
+        return listaCodigos;
     }
 
-    public void setCodigoSolicitud(int codigoSolicitud) {
-        this.codigoSolicitud = codigoSolicitud;
+    /**
+     * @param listaCodigos the listaCodigos to set
+     */
+    public void setListaCodigos(List<EventosSignificativosDto> listaCodigos) {
+        this.listaCodigos = listaCodigos;
     }
 
-    public Long getCodigoProducto() {
-        return codigoProducto;
+    /**
+     * @return the listaCodigosRespuestas
+     */
+    public List<RespuestaCodigosMensajesSoapDto> getListaCodigosRespuestas() {
+        return listaCodigosRespuestas;
     }
 
-    public void setCodigoProducto(Long codigoProducto) {
-        this.codigoProducto = codigoProducto;
+    /**
+     * @param listaCodigosRespuestas the listaCodigosRespuestas to set
+     */
+    public void setListaCodigosRespuestas(List<RespuestaCodigosMensajesSoapDto> listaCodigosRespuestas) {
+        this.listaCodigosRespuestas = listaCodigosRespuestas;
     }
 
-    public String getDescripcionProducto() {
-        return descripcionProducto;
+    /**
+     * @return the transaccion
+     */
+    public boolean isTransaccion() {
+        return transaccion;
     }
 
-    public void setDescripcionProducto(String descripcionProducto) {
-        this.descripcionProducto = descripcionProducto;
+    /**
+     * @param transaccion the transaccion to set
+     */
+    public void setTransaccion(boolean transaccion) {
+        this.transaccion = transaccion;
     }
 
 }

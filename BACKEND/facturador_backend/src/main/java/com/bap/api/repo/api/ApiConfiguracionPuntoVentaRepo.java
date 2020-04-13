@@ -18,6 +18,7 @@ import org.springframework.data.repository.query.Param;
 public interface ApiConfiguracionPuntoVentaRepo extends JpaRepository<ApiConfiguracionPuntoVenta, Long> {
 
     //@Query(value = "SELECT distinct b.id_configuracion, b.cufd, b.fecha_vigencia,  b.fecha_hora  FROM api_configuracion_punto_venta a  inner join api_configuracion b on a.id_configuracion = a.id_configuracion  where b.estado_configuracion = 'VGTE' and a.id_punto_venta = :idPuntoVenta", nativeQuery = true)
-    @Query(value = "SELECT distinct b.id_configuracion, b.cufd, CAST(b.fecha_vigencia AS char) t_fecha_vigencia, CAST(b.fecha_hora AS char) t_fecha_hora FROM api_configuracion_punto_venta a inner join api_configuracion b on a.id_configuracion = a.id_configuracion where b.estado_configuracion = 'VGTE' and a.id_punto_venta = :idPuntoVenta", nativeQuery = true)
+//   @Query(value = "SELECT distinct b.id_configuracion, b.cufd, CAST(b.fecha_vigencia AS char) t_fecha_vigencia, CAST(b.fecha_hora AS char) t_fecha_hora FROM api_configuracion_punto_venta a inner join api_configuracion b on a.id_configuracion = a.id_configuracion where b.estado_configuracion = 'VGTE' and a.id_punto_venta = :idPuntoVenta", nativeQuery = true)
+    @Query(value = "SELECT distinct b.id_configuracion FROM api_configuracion_punto_venta a inner join api_configuracion b on a.id_configuracion = a.id_configuracion where b.estado_configuracion = 'VGTE' and a.id_punto_venta = :idPuntoVenta", nativeQuery = true)
     List<Object[]> findConfiguracionVigente(@Param("idPuntoVenta") Long idPuntoVenta);
 }

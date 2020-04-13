@@ -9,7 +9,6 @@ import com.bap.api.exception.ModelNotFoundException;
 import com.bap.api.model.api.ApiItemHomologado;
 import com.bap.api.services.api.ApiItemHomologadoService;
 import java.net.URI;
-import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

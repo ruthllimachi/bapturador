@@ -17,9 +17,16 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ApiDosificacionSucursalRepo extends JpaRepository<ApiDosificacionSucursal, Long> {
 
-    @Query(value = "select b.cuis, b.tipo_modalidad, b.id_dosificacion from api_dosificacion_sucursal a inner join api_dosificacion b on a.id_dosificacion = b.id_dosificacion where b.estado_dosificacion = 'VGTE' and a.id_sucursal = :idSucursal", nativeQuery = true)
+//    @Query(value = "select b.cuis, b.tipo_modalidad, b.id_dosificacion from api_dosificacion_sucursal a inner join api_dosificacion b on a.id_dosificacion = b.id_dosificacion where b.estado_dosificacion = 'VGTE' and a.id_sucursal = :idSucursal and b.tipo_modalidad = :tipoModalidad ", nativeQuery = true)
+//    List<Object[]> findDosificacionVigente(@Param("idSucursal") Long idSucursal, @Param("tipoModalidad") Long tipoModalidad);
+    
+//    @Query(value = "select b.id_dosificacion, b.cuis, b.tipo_modalidad from api_dosificacion_sucursal a inner join api_dosificacion b on a.id_dosificacion = b.id_dosificacion where b.estado_dosificacion = 'VGTE' and a.id_sucursal = :idSucursal and b.tipo_modalidad = :tipoModalidad ", nativeQuery = true)
+//    List<Object[]> findDosificacionVigente(@Param("idSucursal") Long idSucursal, @Param("tipoModalidad") Long tipoModalidad);
+    
+    @Query(value = "select b.id_dosificacion, b.cuis, b.tipo_modalidad from api_dosificacion_sucursal a inner join api_dosificacion b on a.id_dosificacion = b.id_dosificacion where b.estado_dosificacion = 'VGTE' and a.id_sucursal = :idSucursal", nativeQuery = true)
     List<Object[]> findDosificacionVigente(@Param("idSucursal") Long idSucursal);
-   
+
+
     @Query("select u from ApiDosificacionSucursal u  where u.apiSucursal.idEmpresa = :idEmpresa")
     List<ApiDosificacionSucursal> findDosificacionPorEmpresa(@Param("idEmpresa") Long idEmpresa);
 }

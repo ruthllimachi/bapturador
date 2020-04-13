@@ -1,9 +1,9 @@
 package com.bap.api.repo.par;
 
-import com.bap.api.model.par.ParEstado;
+import com.bap.api.model.par.ParTipoEventoSignificativo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParEstadoRepo extends JpaRepository<ParEstado, String> {
+public interface ParTipoEventoSignificativoRepo extends JpaRepository<ParTipoEventoSignificativo, String> {
 
-    ParEstado findByCodigo(String codigo);
+    ParTipoEventoSignificativo findByCodigo(String codigo);
 }

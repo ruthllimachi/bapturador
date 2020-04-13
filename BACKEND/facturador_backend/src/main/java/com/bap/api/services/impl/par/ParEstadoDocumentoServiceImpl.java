@@ -5,32 +5,32 @@
  */
 package com.bap.api.services.impl.par;
 
-import com.bap.api.model.par.ParEstado;
+import com.bap.api.model.par.ParEstadoDocumento;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bap.api.repo.par.ParEstadoRepo;
-import com.bap.api.services.par.ParEstadoService;
+import com.bap.api.repo.par.ParEstadoDocumentoRepo;
+import com.bap.api.services.par.ParEstadoDocumentoService;
 
 /**
  *
  * @author ruth
  */
 @Service
-public class ParEstadoServiceImpl implements ParEstadoService {
+public class ParEstadoDocumentoServiceImpl implements ParEstadoDocumentoService {
 
     @Autowired
-    private ParEstadoRepo repo;
-    
+    private ParEstadoDocumentoRepo repo;
+
     @Override
-    public List<ParEstado> listar() {
+    public List<ParEstadoDocumento> listar() {
         return repo.findAll();
     }
 
     @Override
-    public ParEstado leerPorCodigo(String codigo) {
+    public ParEstadoDocumento leerPorCodigo(String codigo) {
         return repo.findByCodigo(codigo);
-        
+
     }
-    
+
 }

@@ -423,14 +423,14 @@ public class FacturaUtils {
         System.out.println("entidad.getArchivo().getBytes() " + entidad.getArchivo().getBytes());
         //byte[] base64Compress = Base64.getDecoder().decode(entidad.getArchivo().getBytes());
         byte[] base64Compress = entidad.getArchivo().getBytes();
-        System.out.println("base64Compress " + base64Compress);
+//        System.out.println("base64Compress " + base64Compress);
         byte[] compress1 = decodeBase64(base64Compress);
-        System.out.println("compress1 " + compress1);
+//        System.out.println("compress1 " + compress1);
         byte[] decompress1 = decompress(compress1);
         byte[] descompress1Decode = Base64.getDecoder().decode(decompress1);
         String xml = new String(descompress1Decode);
-        System.out.println("xml " + xml);
-        System.out.println("sadfasgsagag");
+//        System.out.println("xml " + xml);
+//        System.out.println("sadfasgsagag");
 //        //byte[] Base64.getEncoder().encode
 //        //7) Descomprimir 
 //        
@@ -500,14 +500,12 @@ public class FacturaUtils {
 //            return null;
 //        }
 //    }
-    
-    
     public static String generaFacturaCUF(CabeceraDTO cabeceraDTO) {
-        try {            
+        try {
             String[] dato = new String[9];
-            dato[0] = cabeceraDTO.getNitEmisor().toString();//NIT emisor
-            LocalDateTime fechaEmision = cabeceraDTO.getFechaEmision();
-            String milli = FechaUtils.convertLocalDateTimeToFormatNumberMillesecond(fechaEmision);
+            dato[0] = cabeceraDTO.getNitEmisor().toString();//NIT emisor            
+            //LocalDateTime fechaEmision = FechaUtils.convertStringToLocalDateTime(cabeceraDTO.getUtfFechaEmision());
+            String milli = FechaUtils.convertLocalDateTimeToFormatNumberMillesecond(cabeceraDTO.getUtfFechaEmision());
             dato[1] = milli.trim();//FECHA HORA            
             dato[2] = cabeceraDTO.getCodigoSucursal().toString();//SUCURSAL
             dato[3] = cabeceraDTO.getCodigoTipoModalidad().toString();//MODALIDAD

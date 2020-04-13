@@ -5,32 +5,32 @@
  */
 package com.bap.api.services.impl.par;
 
-import com.bap.api.model.par.ParEstado;
+import com.bap.api.model.par.ParTipoEventoSignificativo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bap.api.repo.par.ParEstadoRepo;
-import com.bap.api.services.par.ParEstadoService;
+import com.bap.api.services.par.ParTipoEventoSignificativoService;
+import com.bap.api.repo.par.ParTipoEventoSignificativoRepo;
 
 /**
  *
  * @author ruth
  */
 @Service
-public class ParEstadoServiceImpl implements ParEstadoService {
+public class ParTipoEventoSignificativoServiceImpl implements ParTipoEventoSignificativoService {
 
     @Autowired
-    private ParEstadoRepo repo;
-    
+    private ParTipoEventoSignificativoRepo repo;
+
     @Override
-    public List<ParEstado> listar() {
+    public List<ParTipoEventoSignificativo> listar() {
         return repo.findAll();
     }
 
     @Override
-    public ParEstado leerPorCodigo(String codigo) {
+    public ParTipoEventoSignificativo leerPorCodigo(String codigo) {
         return repo.findByCodigo(codigo);
-        
+
     }
-    
+
 }

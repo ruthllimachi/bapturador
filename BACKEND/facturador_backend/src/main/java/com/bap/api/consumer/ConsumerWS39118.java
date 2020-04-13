@@ -93,19 +93,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaEventoSignificativo(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
         SincronizarParametricaEventosSignificativos request = objectFactory
@@ -127,18 +127,18 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaMotivoAnulacion(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
         SincronizarParametricaMotivoAnulacion request = objectFactory.createSincronizarParametricaMotivoAnulacion();
@@ -159,19 +159,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoAmbiente(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
         SincronizarParametricaTipoAmbiente request = objectFactory.createSincronizarParametricaTipoAmbiente();
@@ -190,18 +190,18 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarLeyendaFactura(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -221,19 +221,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoDocumentoIdentidad(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -257,19 +257,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoDocumentoSector(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
         SincronizarParametricaTipoDocumentoSector request = objectFactory
@@ -290,19 +290,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoDepartamento(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
         SincronizarParametricaTipoDepartamento request = objectFactory.createSincronizarParametricaTipoDepartamento();
@@ -322,18 +322,18 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoModalidad(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -353,19 +353,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoDocumentoFiscal(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
         SincronizarParametricaTipoDocumentoFiscal request = objectFactory
@@ -387,19 +387,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarMensajeServicio(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -419,19 +419,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoMetodoPago(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -452,19 +452,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoComponente(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -485,18 +485,18 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoEmision(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -517,19 +517,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaPaisOrigen(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -550,19 +550,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarParametricaTipoMoneda(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -586,23 +586,23 @@ public class ConsumerWS39118 {
      *
      * La respuesta esta transaccion y listaParametricasDto
      *
-     * @param solicitudCliente
+     * @param solicitud
      * @return
      */
     public Respuesta39118 sincronizarParametricaUnidadMedida(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -627,23 +627,23 @@ public class ConsumerWS39118 {
      *
      * La respuesta esta transaccion y listaParametricasDto
      *
-     * @param solicitudCliente
+     * @param solicitud
      * @return
      */
     public Respuesta39118 sincronizarParametricaTipoPuntoVenta(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());        
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());        
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -665,19 +665,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarActividades(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -697,19 +697,19 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 sincronizarListaProductoServicio(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        if (solicitudCliente.getCodigoAutorizacion() > 0) {
-            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitudCliente.getCodigoAutorizacion());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        if (solicitud.getCodigoAutorizacion() > 0) {
+            JAXBElement<Integer> codigoAutorizacion = objectFactory.createSolicitudSincronizacionCodigoAutorizacion(solicitud.getCodigoAutorizacion());
             solicitudSincronizacion.setCodigoAutorizacion(codigoAutorizacion);
         }
 
@@ -730,16 +730,16 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 recepcionSolicitudNuevoValorProducto(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudValorNuevo solicitudValorNuevo = objectFactory.createSolicitudValorNuevo();
-        solicitudValorNuevo.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudValorNuevo.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudValorNuevo.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        solicitudValorNuevo.setCuis(solicitudCliente.getCuis());
-        solicitudValorNuevo.setNit(solicitudCliente.getNitEmpresa());
-        solicitudValorNuevo.setDescripcion(solicitudCliente.getDescripcion());
+        solicitudValorNuevo.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudValorNuevo.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudValorNuevo.setCodigoSucursal(solicitud.getCodigoSucursal());
+        solicitudValorNuevo.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudValorNuevo.setNit(solicitud.getNitEmpresa());        
+        solicitudValorNuevo.setDescripcion(solicitud.getDescripcion());
 
         RecepcionSolicitudNuevoValorProducto request = objectFactory.createRecepcionSolicitudNuevoValorProducto();
         request.setSolicitudValorNuevo(solicitudValorNuevo);
@@ -758,16 +758,16 @@ public class ConsumerWS39118 {
     }
 
     public Respuesta39118 validacionSolicitudNuevoValorProducto(
-            SolicitudCliente solicitudCliente) {
+            SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
 
         SolicitudValidacionValor solicitudValidacionValor = objectFactory.createSolicitudValidacionValor();
-        solicitudValidacionValor.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudValidacionValor.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudValidacionValor.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        solicitudValidacionValor.setCuis(solicitudCliente.getCuis());
-        solicitudValidacionValor.setNit(solicitudCliente.getNitEmpresa());
-        solicitudValidacionValor.setCodigoSolicitud(solicitudCliente.getCodigoSolicitud());
+        solicitudValidacionValor.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudValidacionValor.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudValidacionValor.setCodigoSucursal(solicitud.getCodigoSucursal());
+        solicitudValidacionValor.setCuis(solicitud.getApiDosificacion().getCuis());
+        solicitudValidacionValor.setNit(solicitud.getNitEmpresa());
+        solicitudValidacionValor.setCodigoSolicitud(solicitud.getCodigoSolicitud());
 
         ValidacionSolicitudNuevoValorProducto request = objectFactory.createValidacionSolicitudNuevoValorProducto();
         request.setSolicitudValidacionValor(solicitudValidacionValor);

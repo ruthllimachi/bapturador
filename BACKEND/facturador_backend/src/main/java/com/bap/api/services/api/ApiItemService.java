@@ -14,9 +14,11 @@ import java.util.List;
  * @author ruth
  */
 public interface ApiItemService extends AbstractEntity<ApiItem> {
-    
+
     List<ApiItem> listarPorIdEmpresa(Long idEmpresa);
-    
+
+    ApiItem leerPorCodigoSolicitud(Long idEmpresa, Long codigoSolicitud);
+
     List<Object[]> listarDatos(Long idEmpresa);
 
 }

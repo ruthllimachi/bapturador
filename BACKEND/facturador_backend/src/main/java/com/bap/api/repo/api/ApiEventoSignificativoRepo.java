@@ -1,16 +1,19 @@
 package com.bap.api.repo.api;
 
-import com.bap.api.model.api.ApiActividad;
-import java.util.List;
+import com.bap.api.model.api.ApiEventoSignificativo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface ApiActividadRepo extends JpaRepository<ApiActividad, Long> {
+public interface ApiEventoSignificativoRepo extends JpaRepository<ApiEventoSignificativo, Long> {
 
-    @Query("select o from ApiActividad o where o.idEmpresa = :idEmpresa and o.fechaBaja IS NULL")
-    List<ApiActividad> listaByIdEmpresa(@Param("idEmpresa") Long idEmpresa);
+//    @Query("select o from ApiEventoSignificativo o where o.idEmpresa = :idEmpresa and o.fechaBaja IS NULL and o.codigoRecepcion = :codigoRecepcion")
+//    ApiEventoSignificativo leerPorCodigoRecepcion(@Param("idEmpresa") Long idEmpresa, @Param("codigoRecepcion") Long codigoRecepcion);
 
-    @Query("select o from ApiActividad o where o.idEmpresa = :idEmpresa and o.codigoActividad = :codigoActividad")
-    ApiActividad findByIdEmpresaAndActividad(@Param("idEmpresa") Long idEmpresa, @Param("codigoActividad") Long codigoActividad);
+
+//    @Query("select o from ApiEventoSignificativo o where o.idEmpresa = :idEmpresa and o.fechaBaja IS NULL and o.codigoRecepcion = :codigoRecepcion")
+//    ApiEventoSignificativo leerPorCodigoRecepcion(@Param("idEmpresa") Long idEmpresa, @Param("codigoRecepcion") Long codigoRecepcion);
+
+    @Query("select o from ApiEventoSignificativo o where o.fechaBaja IS NULL and o.codigoRecepcion = :codigoRecepcion")
+    ApiEventoSignificativo leerPorCodigoRecepcion(@Param("codigoRecepcion") Long codigoRecepcion);
 }

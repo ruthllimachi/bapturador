@@ -5,7 +5,7 @@
  */
 package com.bap.api.controller.api;
 
-import com.bap.api.dto.Respuesta39117;
+import com.bap.api.dto.Respuesta;
 import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.exception.ModelNotFoundException;
 import com.bap.api.model.api.ApiDosificacion;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-/** 
+/**
  *
  * @author ruth
  */
@@ -62,13 +62,23 @@ public class ApiDosificacionController {
     }
 
     @PostMapping("/solicitudCuis")
-    public ResponseEntity<Respuesta39117> solicitudCuisSucursal(@Valid @RequestBody SolicitudCliente t) {
-        Respuesta39117 obj = servicio.solicitudCuis(t);
+    public ResponseEntity<Respuesta> solicitudCuis(@Valid @RequestBody SolicitudCliente t) {
+        Respuesta obj = servicio.solicitudCuis(t);
         if (obj == null) {
             throw new ModelNotFoundException("Error en la red u otro");
         }
-        return new ResponseEntity<Respuesta39117>(obj, HttpStatus.OK);
+        return new ResponseEntity<Respuesta>(obj, HttpStatus.OK);
     }
+    
+    @PostMapping("/cierreOperacion")
+    public ResponseEntity<Respuesta> cierreOperacion(@Valid @RequestBody SolicitudCliente t) {
+        Respuesta obj = servicio.cierreOperaciones(t);
+        if (obj == null) {
+            throw new ModelNotFoundException("Error en la red u otro");
+        }
+        return new ResponseEntity<Respuesta>(obj, HttpStatus.OK);
+    }
+    
 
     @GetMapping("/getDosificacionVigenteBySucursal/{idSucursal}")
     public ResponseEntity<ApiDosificacion> getDosificacionVigenteBySucursal(@PathVariable("idSucursal") Long idSucursal) {

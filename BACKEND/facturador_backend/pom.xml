@@ -8,15 +8,15 @@
     <name>facturador_backend</name>
     <url>http://maven.apache.org</url>
     <properties>        
-        <spring.version>5.1.6.RELEASE</spring.version>
-        <jackson.version>2.9.8</jackson.version>                
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>5.1.6.RELEASE</spring.version>
+        <jackson.version>2.9.8</jackson.version>                                
+        <hibernate.version>5.4.2.Final</hibernate.version>        
+        <jasperreports.version>6.5.1</jasperreports.version>
+        <hibernate.validator>6.1.2.Final</hibernate.validator>
+        <maven.jaxws.plugin>2.2</maven.jaxws.plugin>        
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <hibernate.version>5.4.2.Final</hibernate.version>
-        <hibernate.validator>6.0.16.Final</hibernate.validator>
-        <jasperreports.version>6.5.1</jasperreports.version>
-        <maven.jaxws.plugin>2.2</maven.jaxws.plugin>
         <jdk.version>1.8</jdk.version>        
     </properties>
 
@@ -76,7 +76,7 @@
             <version>${hibernate.version}</version>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-core -->
+     
         <dependency>
             <groupId>org.springframework.ws</groupId>
             <artifactId>spring-ws-core</artifactId>
@@ -88,8 +88,9 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+        </dependency>        
+  
+     
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
@@ -100,7 +101,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
+            <version>8.0.15</version>
         </dependency>
         
         <!-- logging -->
@@ -132,6 +133,12 @@
             <version>2.0.5</version>
             <type>jar</type>
         </dependency>
+        
+        <!--        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.2.11</version>
+        </dependency>-->
 
         <!--Datos para la firma digital-->
         <dependency>
@@ -176,9 +183,7 @@
             <groupId>net.glxn</groupId>
             <artifactId>qrgen</artifactId>
             <version>1.4</version>
-        </dependency>
-
-                                                                         
+        </dependency>                                
     </dependencies>
     <build>
         <finalName>facturador_backend</finalName>
@@ -353,6 +358,7 @@
                             </schemas>
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>            
             <plugin>

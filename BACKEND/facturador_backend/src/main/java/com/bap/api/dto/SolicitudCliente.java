@@ -1,7 +1,12 @@
 package com.bap.api.dto;
 
+import com.bap.api.model.api.ApiConfiguracion;
+import com.bap.api.model.api.ApiDosificacion;
 import com.bap.api.model.api.ApiPuntoVenta;
 import com.bap.api.model.api.ApiSucursal;
+import com.bap.api.model.par.ParEstado;
+import com.bap.api.model.par.ParEventoSignificativo;
+import com.bap.api.model.par.ParTipoEventoSignificativo;
 import com.bap.api.model.par.ParTipoModalidad;
 import com.bap.api.model.par.ParTipoPuntoVenta;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -10,48 +15,46 @@ import java.time.LocalDateTime;
 
 public class SolicitudCliente {
 
+    private Long idEmpresa;
     private int codigoAmbiente;
     private int codigoAutorizacion;
     private int codigoPuntoVenta;
     private String codigoSistema;
     private int codigoSucursal;
-    private String cuis;
     private long nitEmpresa;
     private String descripcion;
     private int codigoSolicitud;
-    private int codigoModalidad;
     private String nombrePuntoVenta;
     private int codigoTipoPuntoVenta;
-    private String cufd;
+    private String cufd;    
     @JsonSerialize(using = ToStringSerializer.class)
-    private LocalDateTime fechaEvento;
+    private LocalDateTime fechaEnvio;
     private String utcFechaEnvio;
-    private String usuario;
-    private Long idEmpresa;
-    private ApiSucursal apiSucursal;
-    private ApiPuntoVenta apiPuntoVenta;
-    private ParTipoPuntoVenta parTipoPuntoVenta;
-    private ParTipoModalidad parTipoModalidad;
-    private Long idConfiguracion;
-    private Long idDosificacion;
     private String grupo;
     private int codigoDocumentoFiscal;
     private int codigoDocumentoSector;
     private int codigoEmision;
-    @JsonSerialize(using = ToStringSerializer.class)
-    private LocalDateTime fechaEnvio;
     private String archivo;
     private String hashArchivo;
     private Long codigoRecepcion;
-    private LocalDateTime fechaVigencia;
     private long numeroDocumentoFiscal;
     private String cuf;
     private int codigoMotivo;
-    
+    private int codigoEvento;
+    private int codigoModalidad;
+    private String cuis;
+    private String login;
+    private String password;
+    private ApiSucursal apiSucursal;
+    private ApiPuntoVenta apiPuntoVenta;
+    private ParTipoPuntoVenta parTipoPuntoVenta;
+    private ParTipoModalidad parTipoModalidad;
+    private ApiDosificacion apiDosificacion;
+    private ApiConfiguracion apiConfiguracion;
+    private ParEstado parEstado;
+    private ParEventoSignificativo parEventoSignificativo;
+    private ParTipoEventoSignificativo parTipoEventoSignificativo;
 
-//	a) El primero que permite la sincronizaci??n diaria a trav??s del consumo del servicio
-//	b) El segundo de sincronizaci??n por solicitud que permite realizar una nueva sincronizaci??n en el d??a, previa obtenci??n de un
-//	c??digo de autorizaci??n v??a soporte.
     public int getCodigoAmbiente() {
         return codigoAmbiente;
     }
@@ -92,14 +95,6 @@ public class SolicitudCliente {
         this.codigoSucursal = codigoSucursal;
     }
 
-    public String getCuis() {
-        return cuis;
-    }
-
-    public void setCuis(String cuis) {
-        this.cuis = cuis;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -114,14 +109,6 @@ public class SolicitudCliente {
 
     public void setCodigoSolicitud(int codigoSolicitud) {
         this.codigoSolicitud = codigoSolicitud;
-    }
-
-    public int getCodigoModalidad() {
-        return codigoModalidad;
-    }
-
-    public void setCodigoModalidad(int codigoModalidad) {
-        this.codigoModalidad = codigoModalidad;
     }
 
     public String getNombrePuntoVenta() {
@@ -146,22 +133,6 @@ public class SolicitudCliente {
 
     public void setCufd(String cufd) {
         this.cufd = cufd;
-    }
-
-    public LocalDateTime getFechaEvento() {
-        return fechaEvento;
-    }
-
-    public void setFechaEvento(LocalDateTime fechaEvento) {
-        this.fechaEvento = fechaEvento;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     /**
@@ -235,20 +206,6 @@ public class SolicitudCliente {
     }
 
     /**
-     * @return the idConfiguracion
-     */
-    public Long getIdConfiguracion() {
-        return idConfiguracion;
-    }
-
-    /**
-     * @param idConfiguracion the idConfiguracion to set
-     */
-    public void setIdConfiguracion(Long idConfiguracion) {
-        this.idConfiguracion = idConfiguracion;
-    }
-
-    /**
      * @return the grupo
      */
     public String getGrupo() {
@@ -319,20 +276,6 @@ public class SolicitudCliente {
     }
 
     /**
-     * @return the fechaEnvio
-     */
-    public LocalDateTime getFechaEnvio() {
-        return fechaEnvio;
-    }
-
-    /**
-     * @param fechaEnvio the fechaEnvio to set
-     */
-    public void setFechaEnvio(LocalDateTime fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
-    }
-
-    /**
      * @return the archivo
      */
     public String getArchivo() {
@@ -372,68 +315,6 @@ public class SolicitudCliente {
      */
     public void setCodigoRecepcion(Long codigoRecepcion) {
         this.codigoRecepcion = codigoRecepcion;
-    }
-
-    /**
-     * @return the fechaVigencia
-     */
-    public LocalDateTime getFechaVigencia() {
-        return fechaVigencia;
-    }
-
-    /**
-     * @param fechaVigencia the fechaVigencia to set
-     */
-    public void setFechaVigencia(LocalDateTime fechaVigencia) {
-        this.fechaVigencia = fechaVigencia;
-    }
-
-    @Override
-    public String toString() {
-        String mensaje = "codigo ambiente  " + codigoAmbiente  
-                + " CodigoDocumentoFiscal  "+  codigoDocumentoFiscal
-                + " CodigoDocumentoSector  "+  codigoDocumentoSector
-                + " CodigoEmision "+  codigoEmision 
-                + " CodigoModalidad  "+  codigoModalidad
-                + " CodigoPuntoVenta  "+  codigoPuntoVenta 
-                + " CodigoSistema  "+  codigoSistema 
-                + " CodigoSucursal  "+  codigoSucursal 
-                + " Cufd  "+  cufd 
-                + " Cuis   "+  cuis 
-                + " FechaEnvio  "+  fechaEnvio 
-                + " Nit  "+  nitEmpresa
-                + " Archivo  "+  archivo
-                + " HashArchivo  "+  hashArchivo;                
-        return mensaje;
-
-    }
-
-    /**
-     * @return the utcFechaEnvio
-     */
-    public String getUtcFechaEnvio() {
-        return utcFechaEnvio;
-    }
-
-    /**
-     * @param utcFechaEnvio the utcFechaEnvio to set
-     */
-    public void setUtcFechaEnvio(String utcFechaEnvio) {
-        this.utcFechaEnvio = utcFechaEnvio;
-    }
-
-    /**
-     * @return the idDosificacion
-     */
-    public Long getIdDosificacion() {
-        return idDosificacion;
-    }
-
-    /**
-     * @param idDosificacion the idDosificacion to set
-     */
-    public void setIdDosificacion(Long idDosificacion) {
-        this.idDosificacion = idDosificacion;
     }
 
     /**
@@ -478,5 +359,173 @@ public class SolicitudCliente {
         this.codigoMotivo = codigoMotivo;
     }
 
+    /**
+     * @return the apiDosificacion
+     */
+    public ApiDosificacion getApiDosificacion() {
+        return apiDosificacion;
+    }
+
+    /**
+     * @param apiDosificacion the apiDosificacion to set
+     */
+    public void setApiDosificacion(ApiDosificacion apiDosificacion) {
+        this.apiDosificacion = apiDosificacion;
+    }
+
+    /**
+     * @return the apiConfiguracion
+     */
+    public ApiConfiguracion getApiConfiguracion() {
+        return apiConfiguracion;
+    }
+
+    /**
+     * @param apiConfiguracion the apiConfiguracion to set
+     */
+    public void setApiConfiguracion(ApiConfiguracion apiConfiguracion) {
+        this.apiConfiguracion = apiConfiguracion;
+    }   
+   
+
+    /**
+     * @return the codigoEvento
+     */
+    public int getCodigoEvento() {
+        return codigoEvento;
+    }
+
+    /**
+     * @param codigoEvento the codigoEvento to set
+     */
+    public void setCodigoEvento(int codigoEvento) {
+        this.codigoEvento = codigoEvento;
+    }
   
+    /**
+     * @return the utcFechaEnvio
+     */
+    public String getUtcFechaEnvio() {
+        return utcFechaEnvio;
+    }
+
+    /**
+     * @param utcFechaEnvio the utcFechaEnvio to set
+     */
+    public void setUtcFechaEnvio(String utcFechaEnvio) {
+        this.utcFechaEnvio = utcFechaEnvio;
+    }
+
+    /**
+     * @param fechaEnvio the fechaEnvio to set
+     */
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    /**
+     * @return the fechaEnvio
+     */
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    /**
+     * @return the parEstado
+     */
+    public ParEstado getParEstado() {
+        return parEstado;
+    }
+
+    /**
+     * @param parEstado the parEstado to set
+     */
+    public void setParEstado(ParEstado parEstado) {
+        this.parEstado = parEstado;
+    }
+
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the codigoModalidad
+     */
+    public int getCodigoModalidad() {
+        return codigoModalidad;
+    }
+
+    /**
+     * @param codigoModalidad the codigoModalidad to set
+     */
+    public void setCodigoModalidad(int codigoModalidad) {
+        this.codigoModalidad = codigoModalidad;
+    }
+
+    /**
+     * @return the cuis
+     */
+    public String getCuis() {
+        return cuis;
+    }
+
+    /**
+     * @param cuis the cuis to set
+     */
+    public void setCuis(String cuis) {
+        this.cuis = cuis;
+    }
+
+    /**
+     * @return the parEventoSignificativo
+     */
+    public ParEventoSignificativo getParEventoSignificativo() {
+        return parEventoSignificativo;
+    }
+
+    /**
+     * @param parEventoSignificativo the parEventoSignificativo to set
+     */
+    public void setParEventoSignificativo(ParEventoSignificativo parEventoSignificativo) {
+        this.parEventoSignificativo = parEventoSignificativo;
+    }
+
+    /**
+     * @return the parTipoEventoSignificativo
+     */
+    public ParTipoEventoSignificativo getParTipoEventoSignificativo() {
+        return parTipoEventoSignificativo;
+    }
+
+    /**
+     * @param parTipoEventoSignificativo the parTipoEventoSignificativo to set
+     */
+    public void setParTipoEventoSignificativo(ParTipoEventoSignificativo parTipoEventoSignificativo) {
+        this.parTipoEventoSignificativo = parTipoEventoSignificativo;
+    }
+
 }

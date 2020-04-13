@@ -5,8 +5,7 @@
  */
 package com.bap.api.controller.api;
 
-import com.bap.api.dto.Respuesta39266;
-import com.bap.api.dto.Respuesta39268;
+import com.bap.api.dto.Respuesta;
 import com.bap.api.exception.ModelNotFoundException;
 import com.bap.api.model.api.ApiConfiguracion;
 import com.bap.api.services.api.ApiConfiguracionService;
@@ -33,21 +32,21 @@ public class ApiConfiguracionController {
     private ApiConfiguracionService servicio;
 
     @GetMapping("/solicitudCufd/{login}")
-    public ResponseEntity<Respuesta39268> solicitudCufd(@PathVariable("login") String login) {
-        Respuesta39268 obj = servicio.solicitudCUFD(login);
+    public ResponseEntity<Respuesta> solicitudCufd(@PathVariable("login") String login) {
+        Respuesta obj = servicio.solicitudCUFD(login);
         if (obj == null) {
             throw new ModelNotFoundException("Error en la red u otro");
         }
-        return new ResponseEntity<Respuesta39268>(obj, HttpStatus.OK);
+        return new ResponseEntity<Respuesta>(obj, HttpStatus.OK);
     }
 
     @GetMapping("/sincronizarFechaHora/{login}")
-    public ResponseEntity<Respuesta39266> sincronizarFechaHora(@PathVariable("login") String login) {
-        Respuesta39266 obj = servicio.sincronizarFechaHora(login);
+    public ResponseEntity<Respuesta> sincronizarFechaHora(@PathVariable("login") String login) {
+        Respuesta obj = servicio.sincronizarFechaHora(login);
         if (obj == null) {
             throw new ModelNotFoundException("Error en la red u otro");
         }
-        return new ResponseEntity<Respuesta39266>(obj, HttpStatus.OK);
+        return new ResponseEntity<Respuesta>(obj, HttpStatus.OK);
     }
 
     @GetMapping("/getConfiguracionVigenteBySucursal/{idSucursal}")

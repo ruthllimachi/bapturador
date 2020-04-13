@@ -5,18 +5,22 @@
  */
 package com.bap.api.services.api;
 
-import com.bap.api.model.api.ApiActividad;
+import com.bap.api.model.api.ApiEventoSignificativo;
 import com.bap.api.configurate.AbstractEntity;
-import java.util.List;
+import com.bap.api.dto.Respuesta;
+import com.bap.api.dto.SolicitudCliente;
 
 /**
  *
  * @author ruth
  */
-public interface ApiActividadService extends AbstractEntity<ApiActividad> {
-    
-    List<ApiActividad> listarPorIdEmpresa(Long idEmpresa);
-    
-    ApiActividad leerPorIdEmpresaAndCodigoActividad(Long id, Long codigoActividad);
+public interface ApiEventoSignificativoService extends AbstractEntity<ApiEventoSignificativo> {
 
+    ApiEventoSignificativo leerPorCodigoRecepcion(Long codigoRecepcion);
+
+    Respuesta registroInicioEventoSignificativo(SolicitudCliente t);
+    
+    Respuesta registroFinEventoSignificativo(SolicitudCliente t);
+    
+    Respuesta consultaEventoSignificativo(String login);
 }

@@ -17,6 +17,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ApiConfiguracionSucursalRepo extends JpaRepository<ApiConfiguracionSucursal, Long> {
 
-    @Query(value = "SELECT distinct b.id_configuracion, b.cufd, CAST(b.fecha_vigencia AS char) t_fecha_vigencia, CAST(b.fecha_hora AS char) t_fecha_hora FROM api_configuracion_sucursal a inner join api_configuracion b on a.id_configuracion = b.id_configuracion where b.estado_configuracion = 'VGTE' and a.id_sucursal = :idSucursal", nativeQuery = true)
+//    @Query(value = "SELECT distinct b.id_configuracion, b.cufd, CAST(b.fecha_vigencia AS char) t_fecha_vigencia, CAST(b.fecha_hora AS char) t_fecha_hora FROM api_configuracion_sucursal a inner join api_configuracion b on a.id_configuracion = b.id_configuracion where b.estado_configuracion = 'VGTE' and a.id_sucursal = :idSucursal", nativeQuery = true)
+    @Query(value = "SELECT distinct b.id_configuracion FROM api_configuracion_sucursal a inner join api_configuracion b on a.id_configuracion = b.id_configuracion where b.estado_configuracion = 'VGTE' and a.id_sucursal = :idSucursal", nativeQuery = true)
     List<Object[]> findConfiguracionVigente(@Param("idSucursal") Long idSucursal);
 }

@@ -9,27 +9,27 @@ package com.bap.api.enums;
  *
  * @author ruth
  */
-public enum EnumParTipoDocumentoFiscal {
-    FACTURA(1),
-    NOTA_FISCAL(3);
+public enum EnumParTipoEventoSignificativo {
+    EVENTO_SIGNIFICATIVO_INFORMATIVO("1"),
+    EVENTO_SIGNIFICATIVO_CONTINGENCIA("2");
 
-    private int codigo;
+    private String codigo;
 
-    private EnumParTipoDocumentoFiscal(int codigo) {
+    private EnumParTipoEventoSignificativo(String codigo) {
         this.codigo = codigo;
     }
 
     /**
      * @return the codigo
      */
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
     /**
      * @param codigo the codigo to set
      */
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

@@ -6,6 +6,7 @@
 package com.bap.api.controller.api;
 
 import com.bap.api.dto.RespuestaSincronizacion;
+import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.exception.ModelNotFoundException;
 import com.bap.api.model.api.ApiSincronizacion;
 import com.bap.api.services.api.ApiSincronizacionService;
@@ -84,9 +85,18 @@ public class ApiSincronizacionController {
         return new ResponseEntity<RespuestaSincronizacion>(obj, HttpStatus.OK);
     }
 
-    @GetMapping("/solicitaNuevoProducto/{login}/{descripcion}")
-    public ResponseEntity<RespuestaSincronizacion> solicitaNuevoProducto(@PathVariable("login") String login, @PathVariable("descripcion") String descripcion) {
-        RespuestaSincronizacion obj = servicio.solicitudNuevoProducto(login, descripcion);
+    @PostMapping("/solicitaNuevoProducto")
+    public ResponseEntity<RespuestaSincronizacion> solicitaNuevoProducto(@Valid @RequestBody SolicitudCliente t) {
+        RespuestaSincronizacion obj = servicio.solicitudNuevoProducto(t);
+        if (obj == null) {
+            throw new ModelNotFoundException("Error en la red u otro");
+        }
+        return new ResponseEntity<RespuestaSincronizacion>(obj, HttpStatus.OK);
+    }
+
+    @PostMapping("/validacionSolicitudNuevoProducto")
+    public ResponseEntity<RespuestaSincronizacion> validacionSolicitudNuevoProducto(@Valid @RequestBody SolicitudCliente t) {
+        RespuestaSincronizacion obj = servicio.validacionSolicitudNuevoProducto(t);
         if (obj == null) {
             throw new ModelNotFoundException("Error en la red u otro");
         }

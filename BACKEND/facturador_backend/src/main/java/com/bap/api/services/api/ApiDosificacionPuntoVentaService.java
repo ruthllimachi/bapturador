@@ -5,7 +5,7 @@
  */
 package com.bap.api.services.api;
 
-import com.bap.api.dto.Entidad;
+import com.bap.api.model.api.ApiDosificacion;
 import com.bap.api.model.api.ApiDosificacionPuntoVenta;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface ApiDosificacionPuntoVentaService {
 
     List<ApiDosificacionPuntoVenta> listar();
 
-    Entidad getDosificacionPuntoVentaVigte(Long idPuntoVenta);
+    ApiDosificacion getDosificacionPuntoVentaVigte(Long idPuntoVenta);
 
     List<ApiDosificacionPuntoVenta> getDosificacionPuntoVentaPorIdEmpresa(Long idEmpresa);
 

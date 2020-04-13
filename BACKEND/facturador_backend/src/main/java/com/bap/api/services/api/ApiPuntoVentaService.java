@@ -6,7 +6,7 @@
 package com.bap.api.services.api;
 
 import com.bap.api.configurate.AbstractEntity;
-import com.bap.api.dto.Respuesta39117;
+import com.bap.api.dto.Respuesta;
 import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.model.api.ApiPuntoVenta;
 import java.util.List;
@@ -21,7 +21,11 @@ public interface ApiPuntoVentaService extends AbstractEntity<ApiPuntoVenta> {
 
     List<ApiPuntoVenta> listarPorIdSucursal(Long IdSucursal);
 
-    Respuesta39117 registroPuntoVenta(SolicitudCliente t);
+    Respuesta registroPuntoVenta(SolicitudCliente t);
+    
+    Respuesta consultaPuntoVenta(SolicitudCliente t);
+    
+    Respuesta cierrePuntoVenta(SolicitudCliente t);
 
     ApiPuntoVenta leerPorIdSucursalAndCodigoPuntoVenta(Long idSucursal, Long codigoPuntoVenta);
 }

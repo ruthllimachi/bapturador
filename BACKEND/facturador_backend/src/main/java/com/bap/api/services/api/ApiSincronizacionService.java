@@ -9,6 +9,7 @@ import com.bap.api.model.api.ApiSincronizacion;
 import com.bap.api.dto.RespuestaSincronizacion;
 import java.util.List;
 import com.bap.api.configurate.AbstractEntity;
+import com.bap.api.dto.SolicitudCliente;
 
 /**
  *
@@ -22,11 +23,9 @@ public interface ApiSincronizacionService extends AbstractEntity<ApiSincronizaci
     List<RespuestaSincronizacion> codigosCatalogos(String grupo);
 
     RespuestaSincronizacion sincronizacionCodigoAutorizacion(String grupo, String login, int codigoAutorizacion);
-    
-    RespuestaSincronizacion solicitudNuevoProducto(String login, String descripcion);
 
-//    Respuesta39118 solicitudNuevoProducto(String login, String descripcion);
-//    
-//    Respuesta39118 validacionSolicitudNuevoProducto(String login, int codigoSolicitud);
+    RespuestaSincronizacion solicitudNuevoProducto(SolicitudCliente t);
+
+    RespuestaSincronizacion validacionSolicitudNuevoProducto(SolicitudCliente t);
 
 }

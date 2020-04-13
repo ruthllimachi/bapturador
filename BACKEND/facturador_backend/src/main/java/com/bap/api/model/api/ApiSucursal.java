@@ -69,6 +69,9 @@ public class ApiSucursal extends AbstractAudit {
 
     @Transient
     private int codigoModalidad;
+    
+    @Transient
+    private String usuario;
 
     /**
      * @return the idSucursal
@@ -236,6 +239,20 @@ public class ApiSucursal extends AbstractAudit {
      */
     public void setTelefonos(String telefonos) {
         this.telefonos = telefonos;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
 }

@@ -11,12 +11,12 @@ import javax.persistence.Table;
  * @author ruth
  */
 @Entity
-@Table(name = "par_tipo_emision")
-public class ParTipoEmision  {
+@Table(name = "par_tipo_evento_significativo")
+public class ParTipoEventoSignificativo  {
 
     @Id
     @Column(name = "codigo")
-    private Long codigo;
+    private String codigo;
 
     @Column(name = "descripcion")
     private String descripcion;
@@ -33,17 +33,15 @@ public class ParTipoEmision  {
     /**
      * @return the codigo
      */
-    public Long getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
     /**
      * @param codigo the codigo to set
      */
-    public void setCodigo(Long codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-
-    
 
 }

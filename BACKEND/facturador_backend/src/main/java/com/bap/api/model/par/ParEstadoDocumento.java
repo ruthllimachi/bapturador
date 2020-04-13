@@ -10,8 +10,8 @@ import javax.persistence.Table;
  * @author ruth
  */
 @Entity
-@Table(name = "par_condicion")
-public class ParCondicion {
+@Table(name = "par_estado_documento")
+public class ParEstadoDocumento {
 
     @Id
     @Column(name = "codigo")

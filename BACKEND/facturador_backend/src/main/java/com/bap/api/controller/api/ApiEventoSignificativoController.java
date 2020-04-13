@@ -5,10 +5,10 @@
  */
 package com.bap.api.controller.api;
 
-import com.bap.api.exception.ModelNotFoundException;
-import com.bap.api.model.api.ApiSucursal;
-import com.bap.api.services.api.ApiSucursalService;
-import java.net.URI;
+import com.bap.api.dto.Respuesta;
+import com.bap.api.dto.SolicitudCliente;
+import com.bap.api.model.api.ApiEventoSignificativo;
+import com.bap.api.services.api.ApiEventoSignificativoService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,85 +16,44 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  *
  * @author ruth
  */
 @RestController
-@RequestMapping(value = "/apiSucursal", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/apiEventoSignificativo", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
-public class ApiSucursalController {
+public class ApiEventoSignificativoController {
 
     @Autowired
-    private ApiSucursalService servicio;
+    private ApiEventoSignificativoService servicio;
 
     @GetMapping
-    public ResponseEntity<List<ApiSucursal>> listar() {
-        List<ApiSucursal> lista = servicio.listar();
-        return new ResponseEntity<List<ApiSucursal>>(lista, HttpStatus.OK);
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiSucursal> leerPorId(@PathVariable("id") Long id) {
-        ApiSucursal obj = servicio.leerPorId(id);
-        if (obj == null) {
-            throw new ModelNotFoundException("ID NO ENCONTRADO: " + id);
-        }
-        return new ResponseEntity<ApiSucursal>(obj, HttpStatus.OK);
+    public ResponseEntity<List<ApiEventoSignificativo>> listar() {
+        List<ApiEventoSignificativo> lista = servicio.listar();
+        return new ResponseEntity<List<ApiEventoSignificativo>>(lista, HttpStatus.OK);
     }
 
-    @GetMapping("/listarPorIdEmpresa/{idEmpresa}")
-    public List<ApiSucursal> listarPorIdEmpresa(@PathVariable("idEmpresa") Long idEmpresa) {
-        return servicio.listarPorIdEmpresa(idEmpresa);
-    }
-    
-    @GetMapping("/listaBySucursalNoTieneCuis/{idEmpresa}")
-    public List<ApiSucursal> listaBySucursalNoTieneCuis(@PathVariable("idEmpresa") Long idEmpresa) {
-        return servicio.listarByNoTieneCuis(idEmpresa);
-    }
-    
-    @GetMapping("/listaByPuntoVentaNoTieneCuis/{idEmpresa}")
-    public List<ApiSucursal> listaByPuntoVentaNoTieneCuis(@PathVariable("idEmpresa") Long idEmpresa) {
-        return servicio.listaByPuntoVentaNoTieneCuis(idEmpresa);
-    }
-    
-    @GetMapping("/listaByEmpresaTieneCuisVigente/{idEmpresa}")
-    public List<ApiSucursal> listaByEmpresaTieneCuisVigente(@PathVariable("idEmpresa") Long idEmpresa) {
-        return servicio.listaByEmpresaTieneCuisVigente(idEmpresa);
+    @PostMapping("/inicioEventoSignificativo")
+    public Respuesta registroInicioEventoSignificativo(@Valid @RequestBody SolicitudCliente t) {
+        return servicio.registroInicioEventoSignificativo(t);
     }
 
-    @PostMapping
-    public ResponseEntity<Object> registrar(@Valid @RequestBody ApiSucursal obj) {
-        ApiSucursal apiSucursal = servicio.registrar(obj);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(apiSucursal.getIdSucursal()).toUri();
-        return ResponseEntity.created(location).build();
+    @PostMapping("/finEventoSignificativo")
+    public Respuesta registroFinEventoSignificativo(@Valid @RequestBody SolicitudCliente t) {
+        return servicio.registroFinEventoSignificativo(t);
     }
-
-    @PutMapping
-    public ResponseEntity<Object> modificar(@Valid @RequestBody ApiSucursal obj) {
-        servicio.modificar(obj);
-        return new ResponseEntity<Object>(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> eliminar(@PathVariable("id") Long id) {
-        ApiSucursal obj = servicio.leerPorId(id);
-        if (obj == null) {
-            throw new ModelNotFoundException("CODIGO NO ENCONTRADO: " + id);
-        } else {
-            servicio.eliminar(obj);
-        }
-        return new ResponseEntity<Object>(obj, HttpStatus.OK);
+    
+    @GetMapping("/consultaEventoSignificativo/{login}")
+    public Respuesta consultaFinEventoSignificativo(@PathVariable("login") String login) {
+        return servicio.consultaEventoSignificativo(login);
     }
 
 }

@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
 import com.bap.api.services.api.ApiActividadService;
 import com.bap.api.services.api.ApiItemService;
 import com.bap.api.services.par.ParActividadService;
+import com.bap.api.services.par.ParMensajeFacturadorService;
 
 /**
  *
@@ -149,6 +150,9 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
 
     @Autowired
     AdmConsultasService admConsultasService;
+
+    @Autowired
+    ParMensajeFacturadorService parMensajeFacturadorService;
 
     @Override
     public ApiSincronizacion registrar(ApiSincronizacion t) {
@@ -349,7 +353,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
 
     @Override
     public List<RespuestaSincronizacion> sincronizacionDiaria(String login) {
-        SolicitudCliente solicitudCliente = admConsultasService.wsSin(login, null);
+        SolicitudCliente solicitudCliente = admConsultasService.wsSin(login);
         List<RespuestaSincronizacion> listaRespuestaSincronizacion = new ArrayList<RespuestaSincronizacion>();
         long codigo = consumerWS39118.verificarComunicacion();
         if (codigo == 66l) {
@@ -357,7 +361,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
             for (ParSincronizacion parSincronizacion : listaParSincronizacion) {
                 solicitudCliente.setGrupo(parSincronizacion.getGrupo());
                 solicitudCliente.setCodigoAutorizacion(0);
-                solicitudCliente.setUsuario(login);
+                solicitudCliente.setLogin(login);
                 switch (parSincronizacion.getGrupo().trim()) {
                     case "EVENTO_SIGNIFICATIVO":
                         LOGGER.info("ingreso a sincronizar " + parSincronizacion.getGrupo());
@@ -472,7 +476,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
 
     @Override
     public RespuestaSincronizacion sincronizacionCodigoAutorizacion(String grupo, String login, int codigoAutorizacion) {
-        SolicitudCliente solicitud = admConsultasService.wsSin(login, null);
+        SolicitudCliente solicitud = admConsultasService.wsSin(login);
         solicitud.setGrupo(grupo);
         solicitud.setCodigoAutorizacion(codigoAutorizacion);
 
@@ -612,7 +616,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -653,7 +657,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -691,7 +695,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -731,7 +735,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -774,7 +778,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -815,7 +819,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -856,7 +860,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -896,7 +900,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -936,7 +940,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -980,7 +984,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1019,7 +1023,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1059,7 +1063,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1098,7 +1102,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1137,7 +1141,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1176,7 +1180,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1217,7 +1221,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1258,7 +1262,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     apiSincronizacion.setCodigo(parametricasDto.getCodigoClasificador().longValue());
                     apiSincronizacion.setDescripcion(parametricasDto.getDescripcion());
                     apiSincronizacion.setGrupo(solicitud.getGrupo());
-                    apiSincronizacion.setUsuarioAlta(solicitud.getUsuario());
+                    apiSincronizacion.setUsuarioAlta(solicitud.getLogin());
                     apiSincronizacion.setFechaAlta(new Date());
                     registrar(apiSincronizacion);
                 }
@@ -1299,7 +1303,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     ApiActividad actividad = new ApiActividad();
                     actividad.setCodigoActividad(codigoCaeb);
                     actividad.setDescripcion(actividadesDto.getDescripcion());
-                    actividad.setUsuarioAlta(solicitud.getUsuario());
+                    actividad.setUsuarioAlta(solicitud.getLogin());
                     actividad.setIdEmpresa(solicitud.getIdEmpresa());
                     actividad.setFechaAlta(new Date());
                     apiActividadService.registrar(actividad);
@@ -1342,7 +1346,7 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
                     item.setCodigoProductoSin(codigoCaeb);
                     item.setDescripcion(productosDto.getDescripcionProducto());
                     item.setParActividad(parActividadService.leerPorCodigo(Long.valueOf(productosDto.getCodigoActividad())));
-                    item.setUsuarioAlta(solicitud.getUsuario());
+                    item.setUsuarioAlta(solicitud.getLogin());
                     item.setIdEmpresa(solicitud.getIdEmpresa());
                     item.setFechaAlta(new Date());
                     apiItemService.registrar(item);
@@ -1361,90 +1365,85 @@ public class ApiSincronizacionServiceImpl implements ApiSincronizacionService {
     }
 
     @Override
-    public RespuestaSincronizacion solicitudNuevoProducto(String login, String descripcion) {
-        SolicitudCliente solicitud = admConsultasService.wsSin(login, null);
-        RespuestaSincronizacion respuesta = null;
+    public RespuestaSincronizacion solicitudNuevoProducto(SolicitudCliente t) {
+        RespuestaSincronizacion respuesta = new RespuestaSincronizacion();
+        List<ParMensajeServicio> lista = new ArrayList<>();
+        SolicitudCliente solicitud = admConsultasService.wsSin(t.getLogin());
         if (solicitud != null) {
             long codigo = consumerWS39118.verificarComunicacion();
             if (codigo == 66) {
-                solicitud.setDescripcion(descripcion);
-                respuesta = recepcionSolicitudNuevoValorProducto(solicitud);
+                solicitud.setDescripcion(t.getDescripcion());
+                Respuesta39118 respuesta39118 = consumerWS39118.recepcionSolicitudNuevoValorProducto(solicitud);
+                if (respuesta39118.isTransaccion()) {
+                    ApiItem item = new ApiItem();
+                    item.setUsuarioAlta(t.getLogin());
+                    item.setIdEmpresa(solicitud.getIdEmpresa());
+                    item.setFechaAlta(new Date());
+                    item.setCodigoSolicitud(respuesta39118.getCodigoSolicitud());
+                    item.setDescripcion(t.getDescripcion());
+                    apiItemService.registrar(item);                    
+                    respuesta.setTransaccion(true);
+                    respuesta.setCodigoSolicitud(respuesta39118.getCodigoSolicitud());
+                } else {
+                    respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                        long r = res.getCodigoMensaje();
+                        ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                        lista.add(parMensajeServicio);
+                        respuesta.setListaParMensajeServicio(lista);
+                    });
+                }
+
             } else {
-                List<ParMensajeServicio> lista = new ArrayList<>();
                 ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(codigo);
                 lista.add(parMensajeServicio);
-                respuesta = new RespuestaSincronizacion();
                 respuesta.setListaParMensajeServicio(lista);
             }
         }
         return respuesta;
     }
 
-    private RespuestaSincronizacion recepcionSolicitudNuevoValorProducto(SolicitudCliente solicitud) {
-        RespuestaSincronizacion respuesta = null;
-        try {
-            Respuesta39118 respuesta39118 = consumerWS39118.recepcionSolicitudNuevoValorProducto(solicitud);
-            if (respuesta39118.isTransaccion()) {
-                solicitud.setCodigoSolicitud(respuesta39118.getCodigoSolicitud().intValue());
-                Thread.sleep(1000000);
-                respuesta = validacionSolicitudNuevoValorProducto(solicitud);
-            } else {
-                List<ParMensajeServicio> lista = new ArrayList<>();
-                System.out.println("Tamaño es " + respuesta39118.getListaRespuestaCodigosMensajesSoapDto().size());
-                respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
-                    long r = res.getCodigoMensaje();
-                    ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
-                    lista.add(parMensajeServicio);
-                });
-            }
-        } catch (Exception e) {
-            System.out.println("###### Error " + e.getMessage());
-        }
-        return respuesta;
-    }
-
-    private RespuestaSincronizacion validacionSolicitudNuevoValorProducto(SolicitudCliente solicitud) {
-        RespuestaSincronizacion respuesta = null;
-        Respuesta39118 respuesta39118 = consumerWS39118.validacionSolicitudNuevoValorProducto(solicitud);
-        if (respuesta39118.isTransaccion()) {
-            if (respuesta39118.getCodigoProducto() != null) {
-                List<ApiItem> listaDB = apiItemService.listarPorIdEmpresa(solicitud.getIdEmpresa());
-                boolean swExiste = true;
-                for (ApiItem item : listaDB) {
-                    if (respuesta39118.getCodigoProducto().longValue() == item.getCodigoProductoSin().longValue()) {
-                        swExiste = false;
-                        break;
+    @Override
+    public RespuestaSincronizacion validacionSolicitudNuevoProducto(SolicitudCliente t) {
+        RespuestaSincronizacion respuesta = new RespuestaSincronizacion();
+        List<ParMensajeServicio> lista = new ArrayList<>();
+        ApiItem item = apiItemService.leerPorCodigoSolicitud(t.getIdEmpresa(), Long.valueOf(t.getCodigoSolicitud()));
+        if (item != null) {
+            SolicitudCliente solicitud = admConsultasService.wsSin(t.getLogin());
+            if (solicitud != null) {
+                long codigo = consumerWS39118.verificarComunicacion();
+                if (codigo == 66) {
+                    solicitud.setCodigoSolicitud(t.getCodigoSolicitud());
+                    Respuesta39118 respuesta39118 = consumerWS39118.validacionSolicitudNuevoValorProducto(solicitud);
+                    if (respuesta39118.isTransaccion() && respuesta39118.getCodigoProducto() != null) {
+                        item.setCodigoProductoSin(respuesta39118.getCodigoProducto());
+                        item.setDescripcion(respuesta39118.getDescripcionProducto());
+                        item.setParActividad(parActividadService.leerPorCodigo(Long.valueOf(respuesta39118.getCodigoActividad())));
+                        item.setFechaModificacion(new Date());
+                        item.setUsuarioModificacion(t.getLogin());
+                        apiItemService.modificar(item);
+                        respuesta.setTransaccion(true);
+                    } else {
+                        respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
+                            long r = res.getCodigoMensaje();
+                            ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                            lista.add(parMensajeServicio);                            
+                        });
+                        respuesta.setListaParMensajeServicio(lista);
                     }
-                }
-                if (swExiste) {
-                    ApiItem item = new ApiItem();
-                    item.setCodigoProductoSin(respuesta39118.getCodigoProducto());
-                    item.setDescripcion(respuesta39118.getDescripcionProducto());
-                    item.setParActividad(parActividadService.leerPorCodigo(Long.valueOf(respuesta39118.getCodigoActividad())));
-                    item.setUsuarioAlta(solicitud.getUsuario());
-                    item.setIdEmpresa(solicitud.getIdEmpresa());
-                    item.setFechaAlta(new Date());
-                    apiItemService.registrar(item);
-                }
-                respuesta.setTransaccion(true);
-            } else {
-                List<ParMensajeServicio> lista = new ArrayList<>();
-                respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
-                    long r = res.getCodigoMensaje();
-                    ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
+                } else {
+                    ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(codigo);
                     lista.add(parMensajeServicio);
-                });
-                respuesta = new RespuestaSincronizacion();
+                    respuesta.setListaParMensajeServicio(lista);
+                }
+                
+            } else {
+                ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(54L);
+                lista.add(parMensajeServicio);
                 respuesta.setListaParMensajeServicio(lista);
             }
         } else {
-            List<ParMensajeServicio> lista = new ArrayList<>();
-            respuesta39118.getListaRespuestaCodigosMensajesSoapDto().forEach(res -> {
-                long r = res.getCodigoMensaje();
-                ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(r);
-                lista.add(parMensajeServicio);
-            });
-            respuesta = new RespuestaSincronizacion();
+            ParMensajeServicio parMensajeServicio = parMensajeServicioService.leerPorCodigo(53L);
+            lista.add(parMensajeServicio);
             respuesta.setListaParMensajeServicio(lista);
         }
         return respuesta;

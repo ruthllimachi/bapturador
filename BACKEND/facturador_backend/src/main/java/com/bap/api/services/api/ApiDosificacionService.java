@@ -6,7 +6,7 @@
 package com.bap.api.services.api;
 
 import com.bap.api.configurate.AbstractEntity;
-import com.bap.api.dto.Respuesta39117;
+import com.bap.api.dto.Respuesta;
 import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.model.api.ApiDosificacion;
 
@@ -16,7 +16,9 @@ import com.bap.api.model.api.ApiDosificacion;
  */
 public interface ApiDosificacionService extends AbstractEntity<ApiDosificacion> {
 
-    Respuesta39117 solicitudCuis(SolicitudCliente t);
+    Respuesta solicitudCuis(SolicitudCliente t);
+    
+    Respuesta cierreOperaciones(SolicitudCliente t);
 
     ApiDosificacion getDosificacionVigenteBySucursal(Long idSucursal);
 

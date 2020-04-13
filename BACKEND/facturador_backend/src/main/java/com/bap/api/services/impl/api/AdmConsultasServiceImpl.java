@@ -6,11 +6,10 @@
 package com.bap.api.services.impl.api;
 
 import com.bap.api.dto.ConsultaParametros;
-import com.bap.api.dto.Entidad;
 import com.bap.api.dto.SolicitudCliente;
 import com.bap.api.enums.EnumParEstado;
-import com.bap.api.enums.EnumWS;
 import com.bap.api.model.api.ApiConfiguracion;
+import com.bap.api.model.api.ApiDosificacion;
 import com.bap.api.model.api.ApiPuntoVenta;
 import com.bap.api.model.api.ApiSucursal;
 import com.bap.api.model.par.ParEstado;
@@ -24,6 +23,8 @@ import com.bap.api.services.api.ApiPuntoVentaService;
 import com.bap.api.services.api.ApiSucursalService;
 import com.bap.api.services.par.ParEstadoService;
 import com.bap.api.utils.FacturaUtils;
+import com.bap.api.utils.FechaUtils;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -52,13 +53,13 @@ public class AdmConsultasServiceImpl implements AdmConsultasService {
     private ApiConfiguracionPuntoVentaService apiConfiguracionPuntoVentaService;
 
     @Autowired
-    private ApiConfiguracionService apiConfiguracionService;
-
-    @Autowired
     private ApiSucursalService apiSucursalService;
 
     @Autowired
     private ApiPuntoVentaService apiPuntoVentaService;
+
+    @Autowired
+    private ApiConfiguracionService apiConfiguracionService;
 
     @Autowired
     ParEstadoService parEstadoService;
@@ -88,63 +89,73 @@ public class AdmConsultasServiceImpl implements AdmConsultasService {
         }
         return null;
     }
+    
+    @Override
+    public boolean cudfVigente(String login) {
+        ConsultaParametros consultaParametros = consultarDatosUsuario(login);
+        ApiConfiguracion apiConfiguracion = null;
+        if (consultaParametros.getIdPuntoVenta() == null) {
+            apiConfiguracion = apiConfiguracionSucursalService.getConfiguracionSucursalVigte(consultaParametros.getIdSucursal());
+        } else {
+            apiConfiguracion = apiConfiguracionPuntoVentaService.getConfiguracionPuntoVentaVigte(consultaParametros.getIdPuntoVenta());
+        }
+
+        if (apiConfiguracion != null) {
+            LocalDateTime fechaVigente = FechaUtils.convertStringToLocalDateTimeWithoutMillisecond(apiConfiguracion.getUtcFechaVigencia());
+            boolean sw = FacturaUtils.cufdVigente(fechaVigente);
+            //no es vigente 
+            if (!sw){
+                ParEstado parEstado = parEstadoService.leerPorCodigo(EnumParEstado.ESTADO_NO_VIGENTE.getCodigo());
+                apiConfiguracion.setEstadoConfiguracion(parEstado);
+                apiConfiguracion.setUsuarioModificacion(login);
+                apiConfiguracionService.modificar(apiConfiguracion);
+            }
+            
+            return sw;
+        }
+        return false;
+    }
 
     @Override
-    public SolicitudCliente wsSin(String login, String ws) {
-        //Obtenemos Datos de Sistema y Empresa de administrador_backend                
+    public SolicitudCliente wsSin(String login) {
         ConsultaParametros consultaParametros = consultarDatosUsuario(login);
-        Entidad entidadConfiguracion = null;
-        Entidad entidadDosificacion = null;
-        //traemos configuracion vigente sucursal o punto de venta del USUARIO OPERADOR
-        if (consultaParametros.getIdPuntoVenta() == null) {
-            entidadConfiguracion = apiConfiguracionSucursalService.getConfiguracionSucursalVigte(consultaParametros.getIdSucursal());
-            entidadDosificacion = apiDosificacionSucursalService.getDosificacionSucursalVigte(consultaParametros.getIdSucursal());
+        if (consultaParametros != null) {
+            ApiConfiguracion apiConfiguracion = null;
+            ApiDosificacion apiDosificacion = null;
+            if (consultaParametros.getIdPuntoVenta() == null) {
+                apiConfiguracion = apiConfiguracionSucursalService.getConfiguracionSucursalVigte(consultaParametros.getIdSucursal());
+                apiDosificacion = apiDosificacionSucursalService.getDosificacionSucursalVigte(consultaParametros.getIdSucursal());
 
-        } else {
-            entidadConfiguracion = apiConfiguracionPuntoVentaService.getConfiguracionPuntoVentaVigte(consultaParametros.getIdPuntoVenta());
-            entidadDosificacion = apiDosificacionPuntoVentaService.getDosificacionPuntoVentaVigte(consultaParametros.getIdPuntoVenta());
-        }
-        if (ws != null) {
-            if (entidadConfiguracion != null) {
-                if (ws.compareTo(EnumWS.SOLICITUD_CUFD.getCodigo()) == 0) {
-                    boolean sw = FacturaUtils.cufdVigente(entidadConfiguracion.getFechaVigencia());
-                    if (!sw) {
-                        ParEstado parEstado = parEstadoService.leerPorCodigo(EnumParEstado.ESTADO_NO_VIGENTE.getCodigo());
-                        ApiConfiguracion apiConfiguracion = apiConfiguracionService.leerPorId(entidadConfiguracion.getIdConfiguracion());
-                        apiConfiguracion.setEstadoConfiguracion(parEstado);
-                        apiConfiguracionService.modificar(apiConfiguracion);
-                    } else {
-                        return null;
-                    }
+            } else {
+                apiConfiguracion = apiConfiguracionPuntoVentaService.getConfiguracionPuntoVentaVigte(consultaParametros.getIdPuntoVenta());
+                apiDosificacion = apiDosificacionPuntoVentaService.getDosificacionPuntoVentaVigte(consultaParametros.getIdPuntoVenta());
+            }
+
+            if (apiDosificacion != null) {
+                ApiSucursal apiSucursal = apiSucursalService.leerPorId(consultaParametros.getIdSucursal());
+                Long codigoPuntoVenta = 0l;
+                ApiPuntoVenta apiPuntoVenta = null;
+                if (consultaParametros.getIdPuntoVenta() != null) {
+                    apiPuntoVenta = apiPuntoVentaService.leerPorId(consultaParametros.getIdPuntoVenta());
+                    codigoPuntoVenta = apiPuntoVenta.getCodigoPuntoVenta();
                 }
+
+                SolicitudCliente solicitudCliente = new SolicitudCliente();
+                solicitudCliente.setCodigoAmbiente(consultaParametros.getCodigoAmbiente());
+                solicitudCliente.setCodigoSistema(consultaParametros.getCodigoSistema());
+                solicitudCliente.setCodigoSucursal(apiSucursal.getCodigoSucursal().intValue());
+                solicitudCliente.setCodigoPuntoVenta(codigoPuntoVenta.intValue());//            
+                solicitudCliente.setNitEmpresa(consultaParametros.getNitEmpresa());
+                solicitudCliente.setIdEmpresa(consultaParametros.getIdEmpresa());
+                solicitudCliente.setApiSucursal(apiSucursal);
+                solicitudCliente.setApiPuntoVenta(apiPuntoVenta);
+                solicitudCliente.setApiDosificacion(apiDosificacion);
+                solicitudCliente.setApiConfiguracion(apiConfiguracion);
+                solicitudCliente.setLogin(login);
+                ParEstado parEstado = parEstadoService.leerPorCodigo(EnumParEstado.ESTADO_NO_VIGENTE.getCodigo());
+                solicitudCliente.setParEstado(parEstado);
+                return solicitudCliente;
             }
-        }
-        if (entidadDosificacion != null) {
-            ApiSucursal apiSucursal = apiSucursalService.leerPorId(consultaParametros.getIdSucursal());
-            Long codigoPuntoVenta = 0l;
-            ApiPuntoVenta apiPuntoVenta = null;
-            if (consultaParametros.getIdPuntoVenta() != null) {
-                apiPuntoVenta = apiPuntoVentaService.leerPorId(consultaParametros.getIdPuntoVenta());
-                codigoPuntoVenta = apiPuntoVenta.getCodigoPuntoVenta();
-            }
-            SolicitudCliente solicitudCliente = new SolicitudCliente();
-            solicitudCliente.setCodigoAmbiente(consultaParametros.getCodigoAmbiente());
-            solicitudCliente.setCodigoModalidad(entidadDosificacion.getCodigoModalidad());
-            solicitudCliente.setCodigoSistema(consultaParametros.getCodigoSistema());
-            solicitudCliente.setCodigoSucursal(apiSucursal.getCodigoSucursal().intValue());
-            solicitudCliente.setCodigoPuntoVenta(codigoPuntoVenta.intValue());
-            solicitudCliente.setCuis(entidadDosificacion.getCuis());
-            solicitudCliente.setNitEmpresa(consultaParametros.getNitEmpresa());
-            solicitudCliente.setIdEmpresa(consultaParametros.getIdEmpresa());
-            solicitudCliente.setApiSucursal(apiSucursal);
-            solicitudCliente.setApiPuntoVenta(apiPuntoVenta);
-            solicitudCliente.setIdDosificacion(entidadDosificacion.getIdDosificacion());
-            if (entidadConfiguracion != null) {
-                solicitudCliente.setIdConfiguracion(entidadConfiguracion.getIdConfiguracion());
-                solicitudCliente.setFechaVigencia(entidadConfiguracion.getFechaVigencia());
-            }
-            solicitudCliente.setUsuario(login);
-            return solicitudCliente;
         }
         return null;
     }

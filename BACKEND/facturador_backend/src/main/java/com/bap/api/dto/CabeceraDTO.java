@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -22,7 +23,8 @@ public class CabeceraDTO implements Serializable {
     private Long codigoSucursal;
     private Long codigoPuntoVenta;
     @JsonSerialize(using = ToStringSerializer.class)
-    private LocalDateTime fechaEmision;
+    private LocalDate fechaEmision;
+    private LocalDateTime utfFechaEmision;    
     private String codigoCliente;
     private Long codigoMetodoPago;
     private Long numeroTarjeta;
@@ -104,19 +106,7 @@ public class CabeceraDTO implements Serializable {
         this.codigoPuntoVenta = codigoPuntoVenta;
     }
 
-    /**
-     * @return the fechaEmision
-     */
-    public LocalDateTime getFechaEmision() {
-        return fechaEmision;
-    }
-
-    /**
-     * @param fechaEmision the fechaEmision to set
-     */
-    public void setFechaEmision(LocalDateTime fechaEmision) {
-        this.fechaEmision = fechaEmision;
-    }
+    
 
     /**
      * @return the codigoCliente
@@ -663,4 +653,33 @@ public class CabeceraDTO implements Serializable {
     public void setCodigoMotivo(int codigoMotivo) {
         this.codigoMotivo = codigoMotivo;
     }
+
+    /**
+     * @return the fechaEmision
+     */
+    public LocalDate getFechaEmision() {
+        return fechaEmision;
+    }
+
+    /**
+     * @param fechaEmision the fechaEmision to set
+     */
+    public void setFechaEmision(LocalDate fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    /**
+     * @return the utfFechaEmision
+     */
+    public LocalDateTime getUtfFechaEmision() {
+        return utfFechaEmision;
+    }
+
+    /**
+     * @param utfFechaEmision the utfFechaEmision to set
+     */
+    public void setUtfFechaEmision(LocalDateTime utfFechaEmision) {
+        this.utfFechaEmision = utfFechaEmision;
+    }
+
 }

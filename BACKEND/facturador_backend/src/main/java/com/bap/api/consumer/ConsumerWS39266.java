@@ -41,16 +41,16 @@ public class ConsumerWS39266 {
         }
     }
 
-    public Respuesta39266 sincronizarFechaHora(SolicitudCliente solicitudCliente) {
+    public Respuesta39266 sincronizarFechaHora(SolicitudCliente solicitud) {
         ObjectFactory objectFactory = new ObjectFactory();
         SolicitudSincronizacion solicitudSincronizacion = objectFactory.createSolicitudSincronizacion();
-        solicitudSincronizacion.setCodigoAmbiente(solicitudCliente.getCodigoAmbiente());
-        solicitudSincronizacion.setCodigoSistema(solicitudCliente.getCodigoSistema());
-        solicitudSincronizacion.setCodigoSucursal(solicitudCliente.getCodigoSucursal());
-        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitudCliente.getCodigoPuntoVenta());
+        solicitudSincronizacion.setCodigoAmbiente(solicitud.getCodigoAmbiente());
+        solicitudSincronizacion.setCodigoSistema(solicitud.getCodigoSistema());
+        solicitudSincronizacion.setCodigoSucursal(solicitud.getCodigoSucursal());
+        JAXBElement<Integer> codigoPuntoVenta = objectFactory.createSolicitudSincronizacionCodigoPuntoVenta(solicitud.getCodigoPuntoVenta());
         solicitudSincronizacion.setCodigoPuntoVenta(codigoPuntoVenta);
-        solicitudSincronizacion.setNit(solicitudCliente.getNitEmpresa());
-        solicitudSincronizacion.setCuis(solicitudCliente.getCuis());
+        solicitudSincronizacion.setNit(solicitud.getNitEmpresa());
+        solicitudSincronizacion.setCuis(solicitud.getApiDosificacion().getCuis());
 
         SincronizarFechaHora request = objectFactory.createSincronizarFechaHora();
         request.setSolicitudSincronizacion(solicitudSincronizacion);
